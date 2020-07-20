@@ -1,0 +1,206 @@
+{
+    "name": "VBA Project(Book1)",
+    "userForms": [
+      {
+        "name": "Forms",
+        "userForms": [
+          {
+            "id": 1,
+            "controlZIndex": "2",
+            "name": "UserForm1",
+            "type": "UserForm",
+            "visible": true,
+            "autoSize": false,
+            "caption": "UserForm1",
+            "cycle": "0 - fmCycleAllForms",
+            "drawBuffer": 32000,
+            "enabled": true,
+            "helpContextId": 0,
+            "keepScrollsBarsVisible": "fmScrollBarsNone",
+            "mouseIcon": "(None)",
+            "picture": "(None)",
+            "pictureAlignment": "0 - fmPictureAlignmentTopLeft",
+            "pictureSizeMode": "0 - fmPictureSizeModeClip",
+            "pictureTiling": false,
+            "rightToLeft": false,
+            "scrollBars": "0 - fmScrollBarsNone",
+            "scrollHeight": 0,
+            "scrollLeft": 0,
+            "scrollTop": 0,
+            "scrollWidth": 0,
+            "showModal": true,
+            "startUpPosition": "0 - Manual",
+            "tag": "",
+            "whatsThisButton": false,
+            "whatsThisHelp": false,
+            "controls": [
+              {
+                "id": 1,
+                "name": "Label1",
+                "type": "Label",
+                "accelerator": "",
+                "autoSize": false,
+                "caption": "Label1",
+                "title": "Label1",
+                "enabled": true,
+                "helpContextId": 0,
+                "mouseIcon": "(None)",
+                "picture": "(None)",
+                "picturePosition": "0 - fmPicturePositionLeftTop",
+                "tabIndex": 0,
+                "tabStop": false,
+                "tag": "",
+                "visible": true,
+                "wordWrap": true,
+                "style": {
+                  "left": "70px",
+                  "top": "0px",
+                  "width": "100px",
+                  "height": "40px",
+                  "zIndex": "1",
+                  "border": "none",
+                  "backgroundColor": "white",
+                  "borderColor": "ghostwhite",
+                  "fontFamily": "Tahoma",
+                  "color": "black",
+                  "textAlign": "left",
+                  "cursor": "default",
+                  "boxShadow": "none",
+                  "wordWrap": "break-word",
+                  "overflow": "hidden",
+                  "whiteSpace": "normal"
+                }
+              },
+              {
+                "id": 2,
+                "name": "CommandButton1",
+                "type": "CommandButton",
+                "accelerator": "",
+                "autoSize": false,
+                "caption": "CommandButton1",
+                "title": "",
+                "enabled": true,
+                "helpContextId": 0,
+                "mouseIcon": "(None)",
+                "picture": "(None)",
+                "picturePosition": "0 - fmPicturePositionLeftTop",
+                "tabIndex": 0,
+                "tabStop": false,
+                "tag": "",
+                "visible": true,
+                "wordWrap": true,
+                "takeFocusOnClick": true,
+                "locked": false,
+                "default": false,
+                "style": {
+                  "left": "20px",
+                  "top": "100px",
+                  "width": "100px",
+                  "height": "40px",
+                  "zIndex": "1",
+                  "backgroundColor": "white",
+                  "borderColor": "#eeeeee",
+                  "border": "1px solid",
+                  "borderStyle": "solid",
+                  "fontFamily": "Arial, Helvetica, sans-serif",
+                  "color": "black",
+                  "textAlign": "left",
+                  "cursor": "default",
+                  "boxShadow": "none",
+                  "wordWrap": "break-word",
+                  "overflow": "hidden",
+                  "whiteSpace": "normal"
+                }
+              }
+            ],
+            "outerWindowStyle": {
+              "container": {
+                "position": "absolute",
+                "textAlign": "left",
+                "border": "3px solid rgb(159, 196, 224)",
+                "width": "700px",
+                "height": "400px",
+                "borderTopLeftRadius": "4px",
+                "borderTopRightRadius": "4px",
+                "backgroundColor": "white",
+                "display": "block",
+                "zIndex": "2",
+                "top": "50px",
+                "left": "50px",
+                "resize": "both",
+                "overflow": "hidden",
+                "minHeight": "300px",
+                "minWidth": "500px"
+              },
+              "top": {
+                "padding": "8px",
+                "background": "linear-gradient(30deg, rgb(195, 220, 236) 0%, rgb(152, 192, 215) 50%, rgb(137, 193, 226) 51%, rgba(161, 189, 210, 0.56) 100%)",
+                "height": "21px"
+              },
+              "closeButton": {
+                "right": "10px",
+                "position": "absolute",
+                "backgroundColor": "red"
+              },
+              "closeButton:hover": {
+                "backgroundColor": "green"
+              }
+            },
+            "innerWindowStyle": {
+              "container": {
+                "position": "relative",
+                "textAlign": "left",
+                "border": "none",
+                "width": "400px",
+                "height": "250px",
+                "resize": "both",
+                "overflow": "hidden",
+                "borderTopLeftRadius": "4px",
+                "borderTopRightRadius": "4px",
+                "maxWidth": "98%",
+                "maxHeight": "88%",
+                "margin": "4px",
+                "backgroundColor": "white",
+                "borderColor": "ghostwhite",
+                "fontFamily": "Tahoma",
+                "color": "black",
+                "left": "0",
+                "top": "0",
+                "zoom": "100%",
+                "cursor": "default",
+                "boxShadow": "none"
+              },
+              "top": {
+                "padding": "8px",
+                "background": "linear-gradient(30deg, rgb(195, 220, 236) 0%, rgb(152, 192, 215) 50%, rgb(137, 193, 226) 51%, rgba(161, 189, 210, 0.56) 100%)",
+                "height": "21px"
+              },
+              "innerContainer": {
+                "width": "100%",
+                "height": "calc(100% - 37px)",
+                "backgroundColor": "#e3e3e357",
+                "position": "absolute",
+                "left": "0px",
+                "top": "37px",
+                "backgroundSize": " 9px 10px",
+                "backgroundImage": "radial-gradient(circle, rgb(0, 0, 0) 0.5px, rgba(0, 0, 0, 0) 0.2px)"
+              },
+              "closeButton": {
+                "right": "10px",
+                "position": "absolute"
+              },
+              "whatsThisButton": {
+                "right": "35px",
+                "top": "11px",
+                "position": "absolute",
+                "border-style": "none",
+                "color": "white",
+                "background-color": "#9ec9e3"
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+  

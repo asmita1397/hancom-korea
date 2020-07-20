@@ -1,0 +1,7 @@
+{
+  "0 - fmSpecialEffectFlat": "none",
+  "1 - fmSpecialEffectRaised": "2px 3px;",
+  "2 - fmSpecialEffectSunken": "-2px -2px;",
+  "3 - fmSpecialEffectEtched": "1px 1px",
+  "6 - fmSpecialEffectBump": "-1px -1px"
+}

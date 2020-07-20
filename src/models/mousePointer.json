@@ -1,0 +1,10 @@
+{
+  "0 - fmMousePointerDefault": "default",
+  "1 - fmMousePointerArrow": "default",
+  "2 - fmMousePointerCross": "crosshair",
+  "3 - fmMousePointerIBeam": "text",
+  "6 - fmMousePointerSizeNESW": "nesw-resize",
+  "7 - fmMousePointerSizeNS": "ns-resize",
+  "8 - fmMousePointerSizeNWS": "nwse-resize",
+  "9 - fmMousePointerSizeWE": "we-resize"
+}
