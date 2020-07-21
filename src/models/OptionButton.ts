@@ -33,7 +33,7 @@ export const OptionButton = {
   foreColor: "black",
   textAlign: "left",
   cursor: "default",
-  specialEffect: "none",
+  boxShadow: "none",
   wordWrap: "break-word",
   overflow: "hidden",
   whiteSpace: "normal",

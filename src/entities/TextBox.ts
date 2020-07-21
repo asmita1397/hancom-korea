@@ -7,7 +7,7 @@ import { MouseProperty } from './attributes/Picture';
 import { Scroll} from './attributes/Scroll'
 import { BasicBoxProperty } from './attributes/BasicProperty';
 
-export interface TextBox extends BasicBoxProperty,MouseProperty,Scroll {
+export interface TextBox extends BasicBoxProperty,MouseProperty,Scroll, TextBoxStyle {
 
     autoSize: boolean,
 
@@ -23,11 +23,11 @@ export interface TextBox extends BasicBoxProperty,MouseProperty,Scroll {
     passwordChar:string,
     tabKeyBehaviour:boolean,
   
-    style:TextBoxStyle
+   
 
 }
 
 
 export interface TextBoxStyle extends Position,Size,ZIndex,TextWrap,Visibility  {
-
+    borderStyle: string
 }

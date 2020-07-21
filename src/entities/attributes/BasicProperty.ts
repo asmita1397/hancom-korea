@@ -1,5 +1,5 @@
 export interface Common {
-  id: number;
+/*   id: number; */
   name: string;
   type: string;
   visible: boolean;

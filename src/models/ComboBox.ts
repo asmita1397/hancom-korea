@@ -24,7 +24,7 @@ export const ComboBox = {
   matchEntry: "1 - fmMatchEntryComplete",
   matchRequired: false,
   maxLength: 0,
-  MouseProperty: "(None)",
+  mouseIcon: "(None)",
   rowSource: "",
   selectionMargin: true,
   showDropButtonWhen: "2 - fmShowDropButtonWhenAlways",

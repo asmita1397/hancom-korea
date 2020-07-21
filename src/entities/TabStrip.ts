@@ -5,15 +5,15 @@ import { MouseProperty } from './attributes/Picture';
 import { BasicTabProperty } from './attributes/BasicProperty';
 
 
-export interface TabStrip extends BasicTabProperty,TabStripStyle,MouseProperty {
+export interface TabStrip extends BasicTabProperty,TabStripStyle {
     controlTipText:string,
-    style:TabStripStyle
+    
 }
 
-export interface TabStripStyle extends Size,Position,ZIndex {
+export interface TabStripStyle extends Size,Position,ZIndex, MouseProperty {
     backColor: string,
     foreColor: string,
-    borderStyle: string,
-    cursor: string,
+    style: string,
+   
 
 }

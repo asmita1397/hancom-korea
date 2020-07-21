@@ -7,7 +7,7 @@ export const CommandButton = {
   title: "",
   enabled: true,
   helpContextId: 0,
-  MouseProperty: "(None)",
+  mouseIcon: "(None)",
   picture: "(None)",
   picturePosition: "0 - fmPicturePositionLeftTop",
   tabindex: 1,

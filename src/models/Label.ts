@@ -7,7 +7,7 @@ export const Label = {
   title: "Label1",
   enabled: true,
   helpContextId: 0,
-  MouseProperty: "(None)",
+  mouseIcon: "(None)",
   picture: "(None)",
   picturePosition: "0 - fmPicturePositionLeftTop",
   tabindex: 0,

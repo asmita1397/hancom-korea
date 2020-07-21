@@ -2,13 +2,13 @@ import Size from './styles/Size';
 import { Position } from './styles/Position';
 import ZIndex from './styles/ZIndex';
 import { BasicAttribute, BasicRefProperty } from './attributes/BasicProperty';
+import { MouseProperty } from './attributes/Picture';
 
 export interface RefEdit extends RefEditProperty,RefEditStyle {
 
-    style:RefEditStyle
 }
 
-export interface RefEditProperty extends BasicRefProperty {
+export interface RefEditProperty extends BasicRefProperty,RefEditStyle {
    
     autoSize: boolean,
     autoWordSelect:boolean,
@@ -25,9 +25,9 @@ export interface RefEditProperty extends BasicRefProperty {
     selStart:number,
     selText:string,
     tabKeyBehavior:boolean,
-    style:RefEditStyle
+    
 }
 
-export interface RefEditStyle extends Size,Position,ZIndex {
+export interface RefEditStyle extends Size,Position,ZIndex, MouseProperty {
 
 }

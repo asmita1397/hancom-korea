@@ -3,7 +3,7 @@ export const Image = {
   type: "Image",
   controlTipText: "",
   enabled: true,
-  MouseProperty: "(None)",
+  mouseIcon: "(None)",
   picture: "(None)",
   pictureAlignment: "2 - fmPictureAlignmentCenter",
   pictureSizeMode: "0 - fmPictureSizeModeClip",

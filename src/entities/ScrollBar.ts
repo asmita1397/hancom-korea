@@ -13,7 +13,7 @@ export interface ScrollBar extends MouseProperty,BasicAttribute,ScrollBarStyle {
     proportionalThumb:boolean,
     smallChange:number,
     value:number,
-    style:ScrollBarStyle
+   
 
 
 }
@@ -21,7 +21,6 @@ export interface ScrollBar extends MouseProperty,BasicAttribute,ScrollBarStyle {
 export interface ScrollBarStyle extends ZIndex,Position,Size {
     backColor: string,
     foreColor: string,
-    cursor: string,
     min:string,
     max:string
 }

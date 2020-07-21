@@ -3,7 +3,7 @@ export interface Picture {
     
 }
 
-export interface PictureProperty {
+export interface PictureProperty extends Picture {
     pictureSizeMode: string,
     pictureTiling: boolean,
 }

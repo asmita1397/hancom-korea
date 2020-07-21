@@ -14,7 +14,7 @@ export const ListBox = {
   listStyle: "0 - fmListStylePlain",
   locked: false,
   matchEntry: "0 - fmMatchEntryFirstLetter",
-  MouseProperty: "(None)",
+  mouseIcon: "(None)",
   multiSelect: "0 - fm-MousePointerDefault",
   rowSource: "",
   tabindex: 6,

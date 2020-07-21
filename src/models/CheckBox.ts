@@ -8,7 +8,7 @@ export const CheckBox = {
   groupName: "",
   helpContextId: 0,
   locked: false,
-  MouseProperty: "(None)",
+  mouseIcon: "(None)",
   picture: "(None)",
   picturePosition: "7 - fmPicturePositionAboveCenter",
   tabindex: 9,

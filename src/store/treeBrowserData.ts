@@ -1,12 +1,13 @@
 import { GetterTree, MutationTree, ActionTree } from 'vuex'
 import { treeData } from '../models/TreeData'
+import { TreeUserFormData } from "../entities/TreeUserFormData";
 
-
-export const state: any = {
-  treeBrowserData: treeData,
-  useFormIdIndex: -1,
-  controlIdIndex: -1
-}
+export const state: TreeUserFormData = treeData
+// ={
+  // treeBrowserData: treeData,
+  /* useFormIdIndex: -1,
+  controlIdIndex: -1 */
+// }
 
 
 export const getters: GetterTree<any, any> = {

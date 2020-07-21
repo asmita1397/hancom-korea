@@ -7,7 +7,7 @@ export const Frame = {
   enabled: true,
   helpContextId: 0,
   keepScrollsBarsVisible: "3 - fmScrollBarsBoth",
-  MouseProperty: "(None)",
+  mouseIcon: "(None)",
   picture: "(None)",
   pictureAlignment: "2 - fmPictureAlignmentCenter",
   pictureSizeMode: "0 - fmPictureSizeModeClip",

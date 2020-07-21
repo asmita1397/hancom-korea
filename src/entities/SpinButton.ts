@@ -1,14 +1,15 @@
 import Size from './styles/Size';
 import ZIndex from './styles/ZIndex';
 import {Position} from './styles/Position'
+import { MouseProperty } from './attributes/Picture';
 
-export interface SpinButton extends SpinButtonProperty {
+export interface SpinButton extends SpinButtonProperty,SpinButtonStyle{
 
 
     delay:number,
     orientation:string,
     smallChange:number,
-    style:SpinButtonStyle
+   
 }
 
 export interface SpinButtonProperty {
@@ -26,10 +27,9 @@ export interface SpinButtonProperty {
     value:boolean,
 }
 
-export interface SpinButtonStyle  extends Size,Position,ZIndex {
+export interface SpinButtonStyle  extends Size,Position,ZIndex,MouseProperty {
     backColor: string,
     foreColor: string,
-    cursor: string,
     min:string,
     max:string
 }

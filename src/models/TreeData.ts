@@ -23,7 +23,7 @@ export const treeData = {
         left: "0",
         top: "0",
         zoom: "100%",
-        cursor: "default",
+        mousePointer: "0 - fmMousePointerDefault",
         specialEffect: "none",
         pictureSizeMode: " 9px 10px",
         picture: "radial-gradient(circle, rgb(0, 0, 0) 0.5px, rgba(0, 0, 0, 0) 0.2px)",
