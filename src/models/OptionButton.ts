@@ -14,7 +14,7 @@ export const OptionButton = {
   mouseIcon: "(None)",
   picture: "(None)",
   picturePosition: "7 - fmPicturePositionAboveCenter",
-  tabindex: 10,
+  tabIndex: 10,
   tabStop: true,
   tripleState: false,
   tag: "",
@@ -28,14 +28,15 @@ export const OptionButton = {
   backColor: "white",
   borderColor: "#eeeeee",
   border: "1px solid",
-  borderStyle: "solid",
+  backStyle: "solid",
   font: "Arial, Helvetica, sans-serif",
   foreColor: "black",
   textAlign: "left",
-  cursor: "default",
-  boxShadow: "none",
+  mousePointer: "default",
+  specialEffect: "none",
   wordWrap: "break-word",
   overflow: "hidden",
   whiteSpace: "normal",
-
+  position: ""
+ 
 };

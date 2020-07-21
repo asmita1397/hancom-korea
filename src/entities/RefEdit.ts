@@ -14,7 +14,7 @@ export interface RefEditProperty extends BasicRefProperty,RefEditStyle {
     autoWordSelect:boolean,
     dragBehavior:string,
     enterFieldBehavior:string,
-    enterKeyBehavior:string,
+    enterKeyBehavior:boolean,
     hideSelection:boolean,
     integralHeight:boolean,
     maxLength:number,

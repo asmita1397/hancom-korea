@@ -11,7 +11,7 @@ export const SpinButton = {
   mouseIcon: "(None)",
   orientation: "-1 - fmOrientationAuto",
   smallChange: 1,
-  tabindex: 13,
+  tabIndex: 13,
   tabStop: true,
   tag: "",
   value: "",
@@ -24,5 +24,7 @@ export const SpinButton = {
   backColor: "white",
   font: "Arial, Helvetica, sans-serif",
   foreColor: "black",
-
+  position: "",
+  mousePointer: "",
+  style: ""
 };

@@ -13,7 +13,7 @@ export const ScrollBar = {
   orientation: "-1 - fmOrientationAuto",
   proportionalThumb: true,
   smallChange: 1,
-  tabindex: 13,
+  tabIndex: 13,
   tabStop: true,
   tag: "",
   value: "",
@@ -26,5 +26,7 @@ export const ScrollBar = {
   backColor: "white",
   font: "Arial, Helvetica, sans-serif",
   foreColor: "black",
-
+  position: "",
+  mousePointer: "",
+  style: ""
 };

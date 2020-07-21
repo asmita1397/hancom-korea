@@ -22,6 +22,6 @@ export interface PictureTypesControls extends PictureProperty {
 
 
 export interface MouseProperty {
-    MouseProperty: string,
+    mouseIcon: string,
     mousePointer: string
 }

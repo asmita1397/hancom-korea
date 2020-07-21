@@ -2,6 +2,8 @@ export const CheckBox = {
   name: "CheckBox1",
   type: "CheckBox",
   caption: "CheckBox1",
+  accelerator:"",
+  autoSize:false,
   controlSource: "",
   controlTipText: "",
   enabled: true,

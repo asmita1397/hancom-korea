@@ -2,25 +2,24 @@ import ZIndex from './styles/ZIndex';
 import Size from './styles/Size';
 import { MouseProperty } from './attributes/Picture';
 import { BasicAttribute } from './attributes/BasicProperty';
+import { Position } from "./styles/Position";
 
 export interface ScrollBar extends MouseProperty,BasicAttribute,ScrollBarStyle {
 
     controlSource:string,
     controlTipText:string,
     delay:number,
-    largeChange:string,
+    largeChange:number,
     orientation:string,
     proportionalThumb:boolean,
     smallChange:number,
-    value:number,
+    value:string,
    
-
-
 }
 
 export interface ScrollBarStyle extends ZIndex,Position,Size {
     backColor: string,
     foreColor: string,
-    min:string,
-    max:string
+    min:number,
+    max:number
 }

@@ -4,6 +4,7 @@ export const treeData = {
     name: "Forms",
     UserForm1: {
       property: {
+        zIndex:"",
         position: "relative",
         textAlign: "left",
         border: "none",
@@ -27,7 +28,7 @@ export const treeData = {
         specialEffect: "none",
         pictureSizeMode: " 9px 10px",
         picture: "radial-gradient(circle, rgb(0, 0, 0) 0.5px, rgba(0, 0, 0, 0) 0.2px)",
-        controlZIndex: 3,
+        controlZIndex: "3",
         name: "UserForm1",
         type: "UserForm",
         visible: true,

@@ -13,24 +13,24 @@ export interface SpinButton extends SpinButtonProperty,SpinButtonStyle{
 }
 
 export interface SpinButtonProperty {
-    id: number,
+   
     name: string,
     type: string,
     visible: boolean,
     enabled: boolean,
     helpContextId: number,
     tag: string,
-    tabIndex:number,
-    tabStop:boolean,
-    controlTipText:string,
-    controlSource:string,
-    value:boolean,
+    tabIndex: number,
+    tabStop: boolean,
+    controlTipText: string,
+    controlSource: string,
+    value: string,
 }
 
-export interface SpinButtonStyle  extends Size,Position,ZIndex,MouseProperty {
+export interface SpinButtonStyle  extends  Size,Position,ZIndex,MouseProperty {
     backColor: string,
     foreColor: string,
-    min:string,
-    max:string
+    min: number,
+    max: number
 }
 

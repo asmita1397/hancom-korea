@@ -1,6 +1,6 @@
 export default interface Size {
-    left: string,
-    top: string,
-    width: string,
-    height: string
+    left: string;
+    top: string;
+    width: string;
+    height: string;
 }

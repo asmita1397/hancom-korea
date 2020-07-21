@@ -14,6 +14,5 @@ export interface TabStripStyle extends Size,Position,ZIndex, MouseProperty {
     backColor: string,
     foreColor: string,
     style: string,
-   
 
 }

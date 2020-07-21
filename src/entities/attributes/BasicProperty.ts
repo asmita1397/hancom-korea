@@ -8,8 +8,9 @@ export interface Common {
   tag: string;
 }
 
+
 export interface BasicAttribute extends Common {
-  tabindex: number;
+  tabIndex: number;
   tabStop: boolean;
 }
 
@@ -28,7 +29,7 @@ export interface BasicButtonProperty extends BasicAttribute {
 export interface BasicRefProperty extends BasicAttribute {
     controlTipText:string,
     locked: boolean;
-    value: boolean;
+    value: string;
     imeMode: string;
     text: string;
 }
@@ -51,7 +52,7 @@ export interface BasicComboAndListBoxProperty {
 
 export interface BasicTabProperty extends BasicAttribute {
   tabOrientation: string;
-  value: number;
+  value: string;
   multiRow: boolean;
   tabFixedHeight: number;
   tabFixedWidth: number;

@@ -13,3 +13,4 @@ export interface MultiPageStyle extends Size, ZIndex, Position {
   style: string;
 }
 
+

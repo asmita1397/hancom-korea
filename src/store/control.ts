@@ -5,7 +5,6 @@ export const state: any = {
     labelControl: Label,
     commandButtonControl: CommandButton
 
-
 }
 
 

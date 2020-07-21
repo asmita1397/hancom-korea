@@ -1,9 +1,8 @@
 import { GetterTree, MutationTree, ActionTree } from 'vuex'
 import {userFormData} from '../models/UserFormData'
-export const state: any = {
-    userForms: userFormData
+import {UserForm} from '../entities/UserForm'
 
-}
+export const state: UserForm =  userFormData
 
 
 export const getters: GetterTree<any, any> = {

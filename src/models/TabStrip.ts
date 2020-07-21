@@ -9,7 +9,7 @@ export const TabStrip = {
   picture: "(None)",
   tabFixedHeight: 0,
   tabFixedWidth: 0,
-  tabindex: 13,
+  tabIndex: 13,
   tabOrientation: "0 - fmTabOrientationTop",
   tabStop: true,
   tag: "",
@@ -23,6 +23,7 @@ export const TabStrip = {
   backColor: "white",
   font: "Arial, Helvetica, sans-serif",
   foreColor: "black",
-  cursor: "default",
-
+  mousePointer: "default",
+  position:"",
+  style:""
 };

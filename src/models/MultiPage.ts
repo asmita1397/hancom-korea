@@ -7,7 +7,7 @@ export const MultiPage = {
   multiRow: false,
   tabFixedHeight: 0,
   tabFixedWidth: 0,
-  tabindex: 13,
+  tabIndex: 13,
   tabOrientation: "0 - fmTabOrientationTop",
   tabStop: true,
   tag: "",
@@ -21,5 +21,6 @@ export const MultiPage = {
   backColor: "white",
   font: "Arial, Helvetica, sans-serif",
   foreColor: "black",
-
+  style:"",
+  position:""
 };
