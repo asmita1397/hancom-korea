@@ -1,15 +1,16 @@
 import { BasicProperty, BasicBoxProperty, BasicComboAndListBoxProperty } from './attributes/BasicProperty';
-import { MouseIcon } from './attributes/Picture';
+import { MouseProperty } from './attributes/Picture';
+import { Visibility } from './styles/Visibility';
 
 export interface ComboBox extends ComboBoxProperty {
 
     style:ComboBoxStyle
 }
 
-export interface ComboBoxProperty extends BasicBoxProperty,BasicComboAndListBoxProperty,MouseIcon {
+export interface ComboBoxProperty extends BasicBoxProperty,BasicComboAndListBoxProperty,ComboBoxStyle {
     
     autoSize: boolean,
-
+    
     autoTab:boolean,
     autoWordSelect:boolean,
     boundColumn:number,
@@ -32,7 +33,7 @@ export interface ComboBoxProperty extends BasicBoxProperty,BasicComboAndListBoxP
 }
 
 
-export interface ComboBoxStyle extends BasicProperty  {
+export interface ComboBoxStyle extends Visibility, MouseProperty  {
 
     borderStyle:string,
 

@@ -29,14 +29,14 @@
       <tr>
         <td>BackColor</td>
         <td>
-          <select :value="getSelectedControl.style.backgroundColor"  @change="changeInput($event,'backgroundColor')">
+          <select :value="getSelectedControl.style.backColor"  @change="changeInput($event,'backColor')">
             <option v-for="(item,key) in backColor" :key="key" :value="item">{{key}}</option>
           </select>
         </td>
       </tr>
       <tr>
         <td>BackStyle</td>
-        <select :value="getSelectedControl.style.backgroundColor" @change="changeInput($event,'backgroundColor')">
+        <select :value="getSelectedControl.style.backColor" @change="changeInput($event,'backColor')">
           <option v-for="(item,key) in backStyle" :key="key" :value="item">{{key}}</option>
         </select>
       </tr>
@@ -83,7 +83,7 @@
       <tr>
         <td>Font</td>
         <td>
-          <select :value="getSelectedControl.style.fontFamily" @change="changeInput($event,'fontFamily')">
+          <select :value="getSelectedControl.style.font" @change="changeInput($event,'font')">
             <option v-for="(value,key) in font" v-bind:value="value" :key="key">{{key}}</option>
           </select>
         </td>
@@ -91,7 +91,7 @@
       <tr>
         <td>ForeColor</td>
         <td>
-          <select :value="getSelectedControl.style.color"  @change="changeInput($event,'color')">
+          <select :value="getSelectedControl.style.foreColor"  @change="changeInput($event,'foreColor')">
             <option v-for="(value,key) in foreColor" v-bind:value="value" :key="key">{{key}}</option>
           </select>
         </td>
@@ -147,7 +147,7 @@
       <tr>
         <td>PicturePosition</td>
         <td>
-          <select :value="getSelectedControl.picturePosition" @change="handleChangeInput($event,'boxShadow')">
+          <select :value="getSelectedControl.picturePosition" @change="handleChangeInput($event,'specialEffect')">
             <option v-for="(value,key) in picturePosition" v-bind:value="value" :key="key">{{key}}</option>
           </select>
         </td>
@@ -155,7 +155,7 @@
       <tr>
         <td>SpecialEffect</td>
         <td>
-          <select :value="getSelectedControl.style.boxShadow"  @change="changeInput($event,'boxShadow')">
+          <select :value="getSelectedControl.style.specialEffect"  @change="changeInput($event,'specialEffect')">
             <option v-for="(value,key) in specialEffect" v-bind:value="value" :key="key">{{key}}</option>
           </select>
         </td>
@@ -258,6 +258,8 @@ export default class UserFormTable extends Vue {
 
 
   @Prop() selectedUserForm: any;
+
+  
   validators: object = validators;
   backColor: object = backColor;
   borderColor: object = borderColor;
@@ -301,9 +303,9 @@ export default class UserFormTable extends Vue {
   }
   handleEnabled(data: boolean) {
       if (data) {
-        this.getSelectedControl.style.color = "black";
+        this.getSelectedControl.style.foreColor = "black";
       } else {
-        this.getSelectedControl.style.color = "#DCDCDC";
+        this.getSelectedControl.style.foreColor = "#DCDCDC";
       }
     }
   wordWrapChange(event: any) {

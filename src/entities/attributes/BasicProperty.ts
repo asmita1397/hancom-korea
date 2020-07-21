@@ -16,6 +16,7 @@ export interface BasicAttribute extends Common {
 export interface BasicProperty extends Common {
   caption: string;
   autoSize: boolean;
+
 }
 
 export interface BasicButtonProperty extends BasicAttribute {

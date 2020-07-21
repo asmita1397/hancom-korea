@@ -27,8 +27,8 @@ export interface SpinButtonProperty {
 }
 
 export interface SpinButtonStyle  extends Size,Position,ZIndex {
-    backgroundColor: string,
-    color: string,
+    backColor: string,
+    foreColor: string,
     cursor: string,
     min:string,
     max:string

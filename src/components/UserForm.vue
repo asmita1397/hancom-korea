@@ -3,30 +3,31 @@
     <div v-bind:key="index" v-for="(modal,index) in getTreeBrowserData">
       <div
         :style="modal.outerWindowStyle.container"
+        class="outerWindowContainer"
         :ref="'outrWindowDrag'.concat(modal.name)"
         @mousedown="make(modal)"
       >
-        <div :style="modal.outerWindowStyle.top" @mousedown="dragMouseDown($event,modal)">
+        <div class="outerWindowTop" @mousedown="dragMouseDown($event,modal)">
           <span>Book1 {{modal.name}} (UserForm)</span>
           <OuterWindowButton :userForm="modal" />
         </div>
 
         <div :style="modal.innerWindowStyle.container" v-resize @resize="onResize($event,modal)">
-          <div :style="modal.innerWindowStyle.top">
+          <div class="innerWindowtop">
             <span v-bind:class="{ rightToLeft: modal.rightToLeft}">{{modal.caption}}</span>
             <button
               :style="modal.innerWindowStyle.whatsThisButton"
               v-show="modal.whatsThisButton==='True'"
             >?</button>
             <img
-              class="close"
-              :style="modal.innerWindowStyle.closeButton"
+              class="innerWindowCloseButton"
               src="https://img.icons8.com/fluent/48/000000/close-window.png"
             />
           </div>
           <div
             @mouseup="handleMouseUp(modal.name)"
             :style="modal.innerWindowStyle.innerContainer"
+            class="innerWindowContainer"
             v-on:click.stop="createTool($event,modal)"
             @mousedown="handleDeactivate"
           >
@@ -84,7 +85,7 @@ export default class UserForm extends Vue {
   @Mutation activateControl!: any;
   @Mutation deactivateControl!: any;
   @Mutation controlIndex!: any;
-  @Mutation dragSelectedControls!: any
+  @Mutation dragSelectedControls!: any;
 
   positions: any = {
     clientX: "",
@@ -92,7 +93,8 @@ export default class UserForm extends Vue {
     movementX: 0,
     movementY: 0
   };
-checkedList =[]
+  checkedList = [];
+
   mounted() {
     EventBus.$on(
       "selectedControlOption",
@@ -107,16 +109,15 @@ checkedList =[]
   }
 
   handleDragSelectorChange(list: any) {
-   /* for (const val in list) {
+    /* for (const val in list) {
       console.log(list[val])
       this.controlIndex(list[val])
       this.dragSelectedControls()
    }
  */
   }
-  handleDeactivate()
-  {
-      this.checkedList=[]
+  handleDeactivate() {
+    this.checkedList = [];
   }
   make(modal: any): void {
     this.userFormIndex(modal);
@@ -240,13 +241,11 @@ checkedList =[]
       console.log(this.getControlIndex)
       
    } */
-   this.dragSelectedControls(this.checkedList)
+    this.dragSelectedControls(this.checkedList);
     console.log("mouse up");
-    if(this.selectedAreaStyle.width === "0px")
-    {
-        this.deactivateControl();
+    if (this.selectedAreaStyle.width === "0px") {
+      this.deactivateControl();
     }
-     
   }
 }
 </script>
@@ -271,5 +270,63 @@ img {
   align-content: flex-start;
   flex-wrap: wrap;
   padding: 10px;
+}
+.innerWindowtop {
+  padding: 8px;
+  background: linear-gradient(
+    30deg,
+    rgb(195, 220, 236) 0%,
+    rgb(152, 192, 215) 50%,
+    rgb(137, 193, 226) 51%,
+    rgba(161, 189, 210, 0.56) 100%
+  );
+  height: 21px;
+}
+.innerWindowCloseButton {
+  right: 10px;
+  position: absolute;
+  background-color: red;
+  top: 8px;
+}
+.outerWindowTop {
+  padding: 8px;
+  background: linear-gradient(
+    30deg,
+    rgb(195, 220, 236) 0%,
+    rgb(152, 192, 215) 50%,
+    rgb(137, 193, 226) 51%,
+    rgba(161, 189, 210, 0.56) 100%
+  );
+  height: 21px;
+}
+.outerWindowContainer {
+  position: absolute;
+  text-align: left;
+  border: 3px solid rgb(159, 196, 224);
+  width: 700px;
+  height: 400px;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  background-color: white;
+  resize: both;
+  overflow: hidden;
+  min-height: 300px;
+  min-width: 500px;
+}
+.innerWindowContainer {
+  width: 100%;
+  height: calc(100% - 37px);
+  position: absolute;
+  left: 0px;
+  top: 37px;
+  background-color: #e3e3e357;
+}
+.whatsThisButton {
+  right: 35px;
+  top: 11px;
+  position: absolute;
+  border-style: none;
+  color: white;
+  background-color: #9fb0cb;
 }
 </style>

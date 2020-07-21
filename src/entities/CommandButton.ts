@@ -1,15 +1,15 @@
-import { MouseIcon, PictureControls } from './attributes/Picture'
+import {  PictureControls, MouseProperty } from './attributes/Picture'
 import Size from './styles/Size'
 import ZIndex from './styles/ZIndex'
 import { TextWrap } from './styles/TextWrap'
 import { Visibility } from './styles/Visibility'
 import { BasicButtonProperty } from './attributes/BasicProperty'
 
-export interface CommandButton extends MouseIcon,PictureControls, BasicButtonProperty {
+export interface CommandButton extends MouseProperty,PictureControls, BasicButtonProperty, CommandButtonStyle {
 
    
     takeFocusOnClick:boolean,
-    style:CommandButtonStyle
+    
 
 }
 

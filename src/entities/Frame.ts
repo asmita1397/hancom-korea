@@ -1,24 +1,22 @@
 import Size from './styles/Size';
 import ZIndex from './styles/ZIndex';
 import { ScrollProperty } from './attributes/Scroll';
-import { PictureTypesControls, MouseIcon } from './attributes/Picture';
+import { PictureTypesControls,  MouseProperty } from './attributes/Picture';
 import { BasicAttribute } from './attributes/BasicProperty';
 
-export interface Frame extends BasicAttribute,ScrollProperty,PictureTypesControls,MouseIcon {
+export interface Frame extends BasicAttribute,ScrollProperty,PictureTypesControls,MouseProperty,FrameStyle {
 
     caption: string,
     controlTipText:string,
     cycle:string
-    style:FrameStyle
 
 }
 
 export interface FrameStyle extends Size,ZIndex,Position {
     borderStyle: string,
-    backgroundColor: string,
+    backColor: string,
     borderColor: string,
-    fontFamily: string,
-    color: string,
-    cursor: string,
-    boxShadow: string,
+    font: string,
+    foreColor: string,
+    specialEffect: string,
 }

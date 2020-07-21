@@ -14,7 +14,7 @@
       <tr>
         <td>BackColor</td>
         <td>
-          <select :value="getSelectedUserForm.innerWindowStyle.container.backgroundColor" @change="ChangeInput($event,'backgroundColor')" >
+          <select :value="getSelectedUserForm.innerWindowStyle.container.backColor" @change="ChangeInput($event,'backColor')" >
             <option v-for="(item,key) in backColor" :key="key" :value="item">{{key}}</option>
           </select>
         </td>
@@ -71,7 +71,7 @@
       <tr>
         <td>Font</td>
         <td>
-          <select :value="getSelectedUserForm.innerWindowStyle.container.fontFamily" @change="ChangeInput($event,'fontFamily')">
+          <select :value="getSelectedUserForm.innerWindowStyle.container.font" @change="ChangeInput($event,'font')">
             <option v-for="(item,key) in font" :key="key" :value="item">{{key}}</option>
           </select>
         </td>
@@ -79,7 +79,7 @@
       <tr>
         <td>ForeColor</td>
         <td>
-          <select :value="getSelectedUserForm.innerWindowStyle.container.color" @change="ChangeInput($event,'color')">
+          <select :value="getSelectedUserForm.innerWindowStyle.container.foreColor" @change="ChangeInput($event,'foreColor')">
             <option v-for="(item,key) in foreColor" :key="key" :value="item">{{key}}</option>
           </select>
         </td>
@@ -227,7 +227,7 @@
       <tr>
         <td>SpecialEffect</td>
         <td>
-          <select :value="getSelectedUserForm.innerWindowStyle.container.boxShadow" @change="ChangeInput($event,'boxShadow')">
+          <select :value="getSelectedUserForm.innerWindowStyle.container.specialEffect" @change="ChangeInput($event,'specialEffect')">
             <option v-for="(item,key) in specialEffect" :key="key" :value="item">{{key}}</option>
           </select>
         </td>

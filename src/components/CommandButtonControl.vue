@@ -29,14 +29,14 @@
       <tr>
         <td>BackColor</td>
         <td>
-          <select :value="getSelectedControl.style.backgroundColor"  @change="changeInput($event,'backgroundColor')">
+          <select :value="getSelectedControl.style.backColor"  @change="changeInput($event,'backColor')">
             <option v-for="(item,key) in backColor" :key="key" :value="item">{{key}}</option>
           </select>
         </td>
       </tr>
       <tr>
         <td>BackStyle</td>
-        <select :value="getSelectedControl.style.backgroundColor"  @change="changeInput($event,'backgroundColor')">
+        <select :value="getSelectedControl.style.backColor"  @change="changeInput($event,'backColor')">
           <option v-for="(item,key) in backStyle" :key="key" :value="item">{{key}}</option>
         </select>
       </tr>
@@ -73,7 +73,7 @@
       <tr>
         <td>Font</td>
         <td>
-          <select :value="getSelectedControl.style.fontFamily" @change="changeInput($event,'fontFamily')">
+          <select :value="getSelectedControl.style.font" @change="changeInput($event,'font')">
             <option v-for="(value,key) in font" v-bind:value="value" :key="key">{{key}}</option>
           </select>
         </td>
@@ -81,7 +81,7 @@
       <tr>
         <td>ForeColor</td>
         <td>
-          <select :value="getSelectedControl.style.color" @change="changeInput($event,'color')">
+          <select :value="getSelectedControl.style.foreColor" @change="changeInput($event,'foreColor')">
             <option v-for="(value,key) in foreColor" v-bind:value="value" :key="key">{{key}}</option>
           </select>
         </td>

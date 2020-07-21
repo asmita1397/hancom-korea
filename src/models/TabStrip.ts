@@ -1,5 +1,4 @@
 export const TabStrip = {
-  id: 10,
   name: "TabStrip1",
   type: "TabStrip",
   controlTipText: "",
@@ -16,15 +15,14 @@ export const TabStrip = {
   tag: "",
   value: "",
   visible: true,
-  style: {
-    left: "20px",
-    top: "100px",
-    width: "100px",
-    height: "40px",
-    zIndex: "1",
-    backgroundColor: "white",
-    fontFamily: "Arial, Helvetica, sans-serif",
-    color: "black",
-    cursor: "default",
-  },
+  left: "20px",
+  top: "100px",
+  width: "100px",
+  height: "40px",
+  zIndex: "1",
+  backColor: "white",
+  font: "Arial, Helvetica, sans-serif",
+  foreColor: "black",
+  cursor: "default",
+
 };

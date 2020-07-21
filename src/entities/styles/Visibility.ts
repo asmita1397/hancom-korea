@@ -1,11 +1,17 @@
 export interface Visibility {
-    backgroundColor: string,
+    backColor: string,
+    backStyle: string,
     borderColor: string,
-    border: string,
-    // borderStyle: string,
-    fontFamily: string,
+   /*  borderStyle: string, */
+    font: string,
     textAlign: string,
-    color: string,
-    cursor: string,
-    boxShadow: string,
+    foreColor: string,
+    mousePointer: string,
+    specialEffect: string,
+   /*  pictureSizeMode: string,
+    pictureTiling: string,
+    picturePosition: string, 
+    picture: string,*/
+
+
 }

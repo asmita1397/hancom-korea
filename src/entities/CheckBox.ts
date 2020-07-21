@@ -1,9 +1,10 @@
-import BasicProperty from './attributes/BasicProperty';
+import {BasicProperty} from './attributes/BasicProperty';
 import Size from './styles/Size';
 import ZIndex from './styles/ZIndex';
 import { TextWrap } from './styles/TextWrap';
+import { MouseProperty } from './attributes/Picture';
 
-export interface CheckBox extends BasicProperty {
+export interface CheckBox extends BasicProperty, CheckBoxStyle {
 
     accelerator:string,
     controlSource:string,
@@ -13,15 +14,15 @@ export interface CheckBox extends BasicProperty {
     tabStop:boolean,
     tripleState:boolean,
     value:boolean
-    style:CheckBoxStyle
+    controlTipText: string;
 }
 
-export interface CheckBoxStyle extends Size,ZIndex,TextWrap,Position {
-    backgroundColor: string,
+export interface CheckBoxStyle extends Size,ZIndex,TextWrap,Position, MouseProperty {
+    backColor: string,
     borderColor: string,
     borderStyle: string,
-    fontFamily: string,
+    font: string,
     textAlign: string,
-    color: string,
-    cursor: string,
+    foreColor: string,
+  
 }

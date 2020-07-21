@@ -31,7 +31,8 @@ import { Getter, Mutation } from "vuex-class";
 export default class OuterWindowbutton extends Vue {
   @Prop() userForm!: object;
   @Mutation closeWindow!: any;
-  
+
+ 
 }
 </script>
 

@@ -1,7 +1,7 @@
 import {BasicProperty} from "./attributes/BasicProperty";
 import { ScrollProperty } from "./attributes/Scroll";
 import { PictureParent } from "./attributes/Picture";
-import { MouseIcon } from "./attributes/Picture";
+import { MouseProperty } from "./attributes/Picture";
 import ZIndex from "./styles/ZIndex";
 import { TextWrap } from "./styles/TextWrap";
 import Size from "./styles/Size";
@@ -12,7 +12,7 @@ export interface UserForm
   extends BasicProperty,
     ScrollProperty,
     PictureParent,
-    MouseIcon {
+    MouseProperty {
   controlZIndex: string,
   keepScrollsBarsVisible: string,
   drawBuffer: number,
@@ -44,7 +44,7 @@ export interface InnerWindowStyle {
 export interface Container {
   borderTopLeftRadius: string;
   borderTopRightRadius: string;
-  backgroundColor: string;
+  backColor: string;
   overflow: string;
   resize: string;
   textAlign: string;
@@ -62,11 +62,11 @@ export interface InnerStyleContainer extends Size, Position, Container {
   maxHeight: string;
   margin: string;
   borderColor: string;
-  fontFamily: string;
-  color: string;
+  font: string;
+  foreColor: string;
   zoom: string;
   cursor: string;
-  boxShadow: string;
+  specialEffect: string;
 }
 
 export interface Top {
@@ -78,19 +78,19 @@ export interface Top {
 export interface CloseButton {
   right: string;
   position: string;
-  backgroundColor: string;
+  backColor: string;
 }
 
 export interface InnerContainer extends Size, Position {
-  backgroundColor: string;
-  backgroundSize: string;
-  backgroundImage: string;
+  backColor: string;
+  pictureSizeMode: string;
+  picture: string;
 }
 
 export interface WhatsThisButton extends Position {
   right: string,
   top: string,
   borderStyle: string,
-  color: string,
-  backgroundColor: string,
+  foreColor: string,
+  backColor: string,
 }

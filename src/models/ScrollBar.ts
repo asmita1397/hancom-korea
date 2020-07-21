@@ -1,5 +1,4 @@
 export const ScrollBar = {
-  id: 12,
   name: "ScrollBar1",
   type: "ScrollBar",
   controlSource: "",
@@ -19,14 +18,13 @@ export const ScrollBar = {
   tag: "",
   value: "",
   visible: true,
-  style: {
-    left: "20px",
-    top: "100px",
-    width: "100px",
-    height: "40px",
-    zIndex: "1",
-    backgroundColor: "white",
-    fontFamily: "Arial, Helvetica, sans-serif",
-    color: "black",
-  },
+  left: "20px",
+  top: "100px",
+  width: "100px",
+  height: "40px",
+  zIndex: "1",
+  backColor: "white",
+  font: "Arial, Helvetica, sans-serif",
+  foreColor: "black",
+
 };

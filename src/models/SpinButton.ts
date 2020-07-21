@@ -1,5 +1,4 @@
 export const SpinButton = {
-  id: 13,
   name: "SpinButton1",
   type: "SpinButton",
   controlSource: "",
@@ -17,14 +16,13 @@ export const SpinButton = {
   tag: "",
   value: "",
   visible: true,
-  style: {
-    left: "20px",
-    top: "100px",
-    width: "100px",
-    height: "40px",
-    zIndex: "1",
-    backgroundColor: "white",
-    fontFamily: "Arial, Helvetica, sans-serif",
-    color: "black",
-  },
+  left: "20px",
+  top: "100px",
+  width: "100px",
+  height: "40px",
+  zIndex: "1",
+  backColor: "white",
+  font: "Arial, Helvetica, sans-serif",
+  foreColor: "black",
+
 };

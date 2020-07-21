@@ -1,9 +1,9 @@
 import ZIndex from './styles/ZIndex';
 import Size from './styles/Size';
-import { MouseIcon } from './attributes/Picture';
+import { MouseProperty } from './attributes/Picture';
 import { BasicAttribute } from './attributes/BasicProperty';
 
-export interface ScrollBar extends MouseIcon,BasicAttribute,ScrollBarStyle {
+export interface ScrollBar extends MouseProperty,BasicAttribute,ScrollBarStyle {
 
     controlSource:string,
     controlTipText:string,
@@ -19,8 +19,8 @@ export interface ScrollBar extends MouseIcon,BasicAttribute,ScrollBarStyle {
 }
 
 export interface ScrollBarStyle extends ZIndex,Position,Size {
-    backgroundColor: string,
-    color: string,
+    backColor: string,
+    foreColor: string,
     cursor: string,
     min:string,
     max:string

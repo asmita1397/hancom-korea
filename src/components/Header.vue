@@ -135,7 +135,7 @@ export default class Header extends Vue {
   width: 100%;
 }
 .tablink {
-  background-color: rgba(240, 234, 234, 0.877);
+  background-foreColor: rgba(240, 234, 234, 0.877);
   color: rgb(17, 17, 17);
   padding: 5px;
   cursor: pointer;

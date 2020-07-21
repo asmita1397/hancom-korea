@@ -1,5 +1,4 @@
 export const MultiPage = {
-  id: 11,
   name: "MultiPage1",
   type: "MultiPage",
   controlTipText: "",
@@ -14,14 +13,13 @@ export const MultiPage = {
   tag: "",
   value: "",
   visible: true,
-  style: {
-    left: "20px",
-    top: "100px",
-    width: "100px",
-    height: "40px",
-    zIndex: "1",
-    backgroundColor: "white",
-    fontFamily: "Arial, Helvetica, sans-serif",
-    color: "black",
-  },
+  left: "20px",
+  top: "100px",
+  width: "100px",
+  height: "40px",
+  zIndex: "1",
+  backColor: "white",
+  font: "Arial, Helvetica, sans-serif",
+  foreColor: "black",
+
 };

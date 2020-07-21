@@ -51,7 +51,7 @@ export default class UserFormControl extends Vue {
     width: "98%",
     height: "98%",
     position: "absolute",
-    backgroundColor: ""
+    backColor: ""
   };
 
   deletingControlId: any = -1;

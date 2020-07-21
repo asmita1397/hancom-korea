@@ -3,11 +3,11 @@ import Size from './styles/Size';
 import { TextWrap } from './styles/TextWrap';
 import { Visibility } from './styles/Visibility';
 import ZIndex from './styles/ZIndex'
-import { MouseIcon } from './attributes/Picture';
+import { MouseProperty } from './attributes/Picture';
 import { Scroll} from './attributes/Scroll'
 import { BasicBoxProperty } from './attributes/BasicProperty';
 
-export interface TextBox extends BasicBoxProperty,MouseIcon,Scroll {
+export interface TextBox extends BasicBoxProperty,MouseProperty,Scroll {
 
     autoSize: boolean,
 
