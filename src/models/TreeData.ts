@@ -33,6 +33,7 @@ export const treeData = {
         type: "UserForm",
         visible: true,
         autoSize: false,
+        isActive: false,
         caption: "UserForm1",
         cycle: "0 - fmCycleAllForms",
         drawBuffer: 32000,

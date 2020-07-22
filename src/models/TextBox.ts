@@ -24,6 +24,7 @@ export const TextBox = {
   tabIndex: 4,
   tabKeyBehaviour: false,
   tabStop: false,
+  isActive: false,
   tag: "",
   text: "",
   value: "",

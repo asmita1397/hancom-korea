@@ -31,5 +31,6 @@ export const Label = {
   overflow: "hidden",
   whiteSpace: "normal",
   mousePointer: "default",
-  backStyle:""
+  backStyle:"",
+  
 };

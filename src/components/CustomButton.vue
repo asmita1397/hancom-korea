@@ -24,7 +24,7 @@ import { EventBus } from "./event-bus";
 @Component({})
 export default class CustomLabel extends Vue {
   @Prop() private control!: any;
-  @Prop() private modal!: object;
+  @Prop() private userForm!: object;
 
   commandButtonStyle=
   { 
@@ -56,12 +56,12 @@ export default class CustomLabel extends Vue {
   @Mutation activateControl!: Function;
   customButtonClick() {
     console.log("clickd");
-    this.userFormIndex(this.modal);
+    this.userFormIndex(this.userForm);
     this.controlIndex(this.control);
     this.updatePrevControlIndex();
     this.updateControlIndex(this.getPrevControlIndex);
     this.activateControl()
-    EventBus.$emit("userFormClicked", this.control, this.modal);
+    EventBus.$emit("userFormClicked", this.control, this.userForm);
   }
 }
 </script>

@@ -18,6 +18,7 @@ export const ToggleButton = {
   tag: "",
   value: "",
   visible: true,
+  isActive: false,
   left: "20px",
   top: "100px",
   width: "100px",

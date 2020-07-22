@@ -3,4 +3,5 @@ export default interface Size {
     top: string;
     width: string;
     height: string;
+    isActive: boolean;
 }

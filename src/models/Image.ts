@@ -23,6 +23,7 @@ export const Image = {
   specialEffect: "none",
   position:"",
   mousePointer:"",
-  autoSize:false
+  autoSize:false,
+  isActive: false,
 
 };

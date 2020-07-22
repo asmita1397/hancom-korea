@@ -21,6 +21,7 @@ export const ComboBox = {
   listStyle: "0 - fmListStylePlain",
   listWidth: "0 pt",
   locked: false,
+  isActive: false,
   matchEntry: "1 - fmMatchEntryComplete",
   matchRequired: false,
   maxLength: 0,

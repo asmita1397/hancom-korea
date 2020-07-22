@@ -17,6 +17,7 @@ export const OptionButton = {
   tabIndex: 10,
   tabStop: true,
   tripleState: false,
+  isActive: false,
   tag: "",
   value: "",
   visible: true,

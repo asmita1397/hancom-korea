@@ -18,6 +18,7 @@ export const CheckBox = {
   tabIndex: 9,
   tabStop: true,
   tag: "",
+  isActive: false,
   tripleState: false,
   value: false,
   visible: true,

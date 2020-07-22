@@ -27,6 +27,7 @@ export const RefEdit = {
   tag: "",
   text: "",
   value: "",
+  isActive: false,
   visible: true,
   left: "20px",
   top: "100px",

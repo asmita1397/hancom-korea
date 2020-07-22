@@ -25,5 +25,6 @@ export const TabStrip = {
   foreColor: "black",
   mousePointer: "default",
   position:"",
-  style:""
+  style:"",
+  isActive: false,
 };

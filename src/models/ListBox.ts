@@ -24,6 +24,7 @@ export const ListBox = {
   textColumn: -1,
   topIndex: -1,
   value: "",
+  isActive: false,
   visible: true,
   left: "20px",
   top: "100px",

@@ -33,6 +33,7 @@ export const userFormData = {
             cycle: "0 - fmCycleAllForms",
             drawBuffer: 32000,
             enabled: true,
+            isActive: false,
             helpContextId: 0,
             keepScrollsBarsVisible: "fmScrollBarsNone",
             mouseIcon: "(None)",
