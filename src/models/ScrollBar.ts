@@ -16,6 +16,7 @@ export const ScrollBar = {
   tabIndex: 13,
   tabStop: true,
   tag: "",
+  isActive:false,
   value: "",
   visible: true,
   left: "20px",

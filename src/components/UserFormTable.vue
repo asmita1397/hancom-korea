@@ -319,7 +319,7 @@ import scrollBars from "../models/scrollBars.json";
 import specialEffect from "../models/specialEffect.json";
 import startUpPosition from "../models/startUpPosition.json";
 import pictureSizeMode from "../models/pictureSizeMode.json";
-import { validators } from "../validators/validator.js";
+// import { validators } from "@/validators/validator.js";
 import { Getter, Mutation } from 'vuex-class';
 @Component({
   
@@ -333,7 +333,7 @@ import { Getter, Mutation } from 'vuex-class';
 
 export default class UserFormTable extends Vue {
   @Prop() selectedUserForm: any;
-  validators: object = validators;
+  // validators: object = validators;
   pictureSizeMode: object = pictureSizeMode;
   backColor: object = backColor;
   borderColor: object = borderColor;

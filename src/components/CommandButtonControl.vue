@@ -235,7 +235,7 @@ import mousePointer from "../models/mousePointer.json";
 import picturePosition from "../models/picturePosition.json";
 import specialEffect from "../models/specialEffect.json";
 import textAlign from "../models/textAlign.json";
-import { validators } from "../validators/validator";
+// import { validators } from "../validators/validator";
 import { Getter, Mutation } from "vuex-class";
 @Component({
   filters: {
@@ -246,7 +246,7 @@ import { Getter, Mutation } from "vuex-class";
 })
 export default class UserFormTable extends Vue {
   @Prop() selectedUserForm: any;
-  validators: object = validators;
+  // validators: object = validators;
 
   backColor: object = backColor;
   backStyle: object = backStyle;
