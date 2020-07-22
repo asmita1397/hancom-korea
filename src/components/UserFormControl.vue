@@ -2,31 +2,31 @@
   <div>
     <div :style="parent">
       <template>
-        <!--   -->
         <vue-draggable-resizable
           :class-name-handle="control.isActive?'handle':''"
-          :style="{zIndex:control.style.zIndex}"
-          v-for="control in modal.controls"
-          :key="control.id"
-          :id="control.id"
-          :w="parseInt(control.style.width)"
-          :h="parseInt(control.style.height)"
-          :x="parseInt(control.style.left)"
-          :y="parseInt(control.style.top)"
+          :style="{zIndex:control.zIndex}"
+          v-for="(control,key) in userForm.controls"
+          :key="key"
+          :id="key"
+          :w="parseInt(control.width)"
+          :h="parseInt(control.height)"
+          :x="parseInt(control.left)"
+          :y="parseInt(control.top)"
           :parent="true"
           @resizing="(x,y,width,height)=>onResize(control,x,y,width,height)"
           @dragstop="(left, top) => dragstop(control, left, top)"
           @deactivated="onDeactivated"
-          @activated="onActivated(modal,control)"
+          @activated="onActivated(userForm,control)"
         >
           <drag-selector-item :value="control">
-            <CustomLabel v-if="control.type==='Label'" :control="control" :modal="modal" />
-            <CustomButton v-if="control.type==='CommandButton'" :control="control" :modal="modal" />
+            <CustomLabel v-if="control.type==='Label'" :control="control" :userForm="userForm" />
+            <CustomButton v-if="control.type==='CommandButton'" :control="control" :userForm="userForm" />
           </drag-selector-item>
         </vue-draggable-resizable>
       </template>
     </div>
   </div>
+
 </template>
 <script lang="ts">
 import { Component, Vue, Prop } from "vue-property-decorator";
@@ -46,7 +46,7 @@ import DragSelectorItem from "./DragSelectorItem.vue";
   }
 })
 export default class UserFormControl extends Vue {
-  @Prop() modal!: any;
+  @Prop() userForm!: any;
   parent: object = {
     width: "98%",
     height: "98%",
@@ -65,20 +65,20 @@ export default class UserFormControl extends Vue {
   @Mutation dragStyle!: any;
   @Mutation deletingControl!: Function;
   mounted() {
-    console.log("mounted", this.modal);
+    console.log("mounted", this.userForm);
     document.addEventListener("keydown", this.deleteSingleControl);
   }
 
   deleteSingleControl(e: any) {
     if (e.keyCode === 13) {
       if (this.deletingUserFormId !== -1 && this.deletingControlId !== -1) {
-        if (this.modal.id === this.deletingUserFormId) {
-          this.userFormIndex(this.modal);
+        if (this.userForm.id === this.deletingUserFormId) {
+          this.userFormIndex(this.userForm);
           this.controlIndex(this.selectedControl);
           this.deletingControl();
           this.deletingControlId = -1;
           this.deletingUserFormId = -1;
-          EventBus.$emit("userFormClicked", this.modal, this.modal);
+          EventBus.$emit("userFormClicked", this.userForm, this.userForm);
         }
       }
     }
@@ -88,12 +88,12 @@ export default class UserFormControl extends Vue {
     this.deletingControlId = -1;
     this.deletingUserFormId = -1;
   }
-  onActivated(modal: any, control: any) {
-    for (let i = 0; i < modal.controls.length; i++) {
-      if (modal.controls[i].id === control.id) {
-        this.selectedControl = modal.controls[i];
+  onActivated(userForm: any, control: any) {
+    for (let i = 0; i < userForm.controls.length; i++) {
+      if (userForm.controls[i].id === control.id) {
+        this.selectedControl = userForm.controls[i];
         this.deletingControlId = i;
-        this.deletingUserFormId = modal.id;
+        this.deletingUserFormId = userForm.id;
       }
     }
   }
@@ -105,7 +105,7 @@ export default class UserFormControl extends Vue {
     width: number,
     height: number
   ): void {
-    this.userFormIndex(this.modal);
+    this.userFormIndex(this.userForm);
     this.controlIndex(control);
     this.resizeStyle({
       width: `${width}px`,
@@ -115,7 +115,7 @@ export default class UserFormControl extends Vue {
     });
   }
   dragstop(control: any, x: number, y: number): void {
-    this.userFormIndex(this.modal);
+    this.userFormIndex(this.userForm);
     this.controlIndex(control);
     this.dragStyle({
       left: `${x}px`,

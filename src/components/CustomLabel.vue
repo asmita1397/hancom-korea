@@ -1,14 +1,14 @@
 <template>
   <div>
+    
     <label
       class="lbl"
       ref="labelRef"
       v-if="control"
-      :id="control.id"
-      :key="control.id"
+      :key="control.name"
       :title="control.title"
-      :tabindex="control.tabindex"
-      :style="controlStyle"
+      :tabindex="control.tabIndex"
+      :style="labelStyle"
       @mousedown="customLabelClick"
       @mouseup.stop
       :v-model="control.caption"
@@ -28,7 +28,7 @@ import { EventBus } from "./event-bus";
 @Component({})
 export default class CustomLabel extends Vue {
   @Prop() private control!: any;
-  @Prop() private modal!: any;
+  @Prop() private userForm!: any;
 
   @Getter getPrevControlIndex!: any;
   @Mutation userFormIndex!: Function;
@@ -37,33 +37,33 @@ export default class CustomLabel extends Vue {
   @Mutation updateControlIndex!: Function;
   @Mutation activateControl!: Function;
 
-  controlStyle = {
-    left: this.control.style.left,
-    top: this.control.style.top,
-    width: this.control.style.width,
-    height: this.control.style.height,
-    zIndex: this.control.style.zIndex,
-    border: this.control.style.border,
-    backColor: this.control.style.backColor,
-    borderColor: this.control.style.borderColor,
-    font: this.control.style.font,
-    foreColor: this.control.style.foreColor,
-    textAlign: this.control.style.textAlign,
-    cursor: this.control.style.cursor,
-    specialEffect: this.control.style.specialEffect,
-    wordWrap: this.control.style.wordWrap,
-    overflow: this.control.style.overflow,
-    whiteSpace: this.control.style.whiteSpace
+  labelStyle = {
+    left: this.control.left,
+    top: this.control.top,
+    width: this.control.width,
+    height:this.control.height,
+    zIndex: this.control.zIndex,
+    border: this.control.border,
+    backgroundColor: this.control.backColor,
+    borderColor: this.control.borderColor,
+    fontFamily: this.control.font,
+    color: this.control.foreColor,
+    textAlign: this.control.textAlign,
+    cursor: this.control.mousePointer,
+    boxShadow: this.control.specialEffect,
+    wordWrap: this.control.wordWrap,
+    overflow: this.control.overflow,
+    whiteSpace:this.control.whiteSpace,
   };
 
   customLabelClick() {
     console.log("clickd");
-    this.userFormIndex(this.modal);
+    this.userFormIndex(this.userForm);
     this.controlIndex(this.control);
     this.updatePrevControlIndex();
     this.updateControlIndex(this.getPrevControlIndex);
     this.activateControl();
-    EventBus.$emit("userFormClicked", this.control, this.modal);
+    EventBus.$emit("userFormClicked", this.control, this.userForm);
   }
 }
 </script>

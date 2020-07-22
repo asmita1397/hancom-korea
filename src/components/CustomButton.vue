@@ -6,7 +6,7 @@
       :key="control.id"
       @mousedown="customButtonClick"
       @mouseup.stop
-      :style="control.style"
+      :style="commandButtonStyle"
       :title="control.title"
       :tabindex="control.tabindex"
       :v-model="control.caption"
@@ -23,8 +23,30 @@ import { Getter, Mutation } from "vuex-class";
 import { EventBus } from "./event-bus";
 @Component({})
 export default class CustomLabel extends Vue {
-  @Prop() private control!: object;
+  @Prop() private control!: any;
   @Prop() private modal!: object;
+
+  commandButtonStyle=
+  { 
+
+    left: this.control.left,
+    top: this.control.top,
+    width: this.control.width,
+    height:this.control.height,
+    zIndex: this.control.zIndex,
+    border: this.control.border,
+    backgroundColor: this.control.backColor,
+    borderColor: this.control.borderColor,
+    fontFamily: this.control.font,
+    color: this.control.foreColor,
+    textAlign: this.control.textAlign,
+    cursor: this.control.mousePointer,
+    boxShadow: this.control.specialEffect,
+    wordWrap: this.control.wordWrap,
+    overflow: this.control.overflow,
+    whiteSpace:this.control.whiteSpace,
+    borderStyle: "solid",
+  }
 
   @Getter getPrevControlIndex!: any;
   @Mutation userFormIndex!: Function;

@@ -1,49 +1,48 @@
 <template>
   <div>
-    <div v-bind:key="index" v-for="(modal,index) in getTreeBrowserData">
+    <div v-bind:key="index" v-for="(userForm,index) in getTreeData">
       <div
         :style="outerWindowStyle"
         class="outerWindowContainer"
-        :ref="'outrWindowDrag'.concat(modal.name)"
-        @mousedown="make(modal)"
-      >
-        <div class="outerWindowTop" @mousedown="dragMouseDown($event,modal)">
-          <span>Book1 {{modal.name}} (UserForm)</span>
-          <OuterWindowButton :userForm="modal" />
+        :ref="'outrWindowDrag'.concat(userForm.property.name)" 
+         @mousedown="make(userForm)"
+      > 
+        <div class="outerWindowTop" @mousedown="dragMouseDown($event,userForm)">
+          <span>Book1 {{userForm.property.name}} (UserForm)</span>
+          <OuterWindowButton :userForm="userForm" />
         </div>
 
-        <div :style="innerWindowStyle" v-resize @resize="onResize($event,modal)">
+        <div :style="innerWindowStyle" v-resize @resize="onResize($event,userForm)">
           <div class="innerWindowtop">
-            <span v-bind:class="{ rightToLeft: modal.rightToLeft}">{{modal.caption}}</span>
-            <button
+            <span v-bind:class="{ rightToLeft: userForm.property.rightToLeft}">{{userForm.property.caption}}</span>
+            <!-- <button
               :style="modal.innerWindowStyle.whatsThisButton"
               v-show="modal.whatsThisButton==='True'"
-            >?</button>
+            >?</button> -->
             <img
               class="innerWindowCloseButton"
               src="https://img.icons8.com/fluent/48/000000/close-window.png"
             />
           </div>
           <div
-            @mouseup="handleMouseUp(modal.name)"
+            @mouseup="handleMouseUp(userForm.property.name)"
             :style="innerWindowContainer"
             class="innerWindowContainer"
-            v-on:click.stop="createTool($event,modal)"
+            v-on:click.stop="createTool($event,userForm)"
             @mousedown="handleDeactivate"
           >
             <drag-selector
-              :ref="'dragselector'.concat(modal.name)"
+              :ref="'dragselector'.concat(userForm.property.name)"
               v-model="checkedList"
               @change="handleDragSelectorChange"
               class="drag-selector"
             >
-              <UserFormControl :modal="modal" :ref="modal.name" />
+              <UserFormControl :userForm="userForm" :ref="userForm.property.name" />
             </drag-selector>
           </div>
         </div>
       </div>
     </div>
-   
   </div>
 </template>
 
