@@ -17,7 +17,7 @@ export const ListBox = {
   mouseIcon: "(None)",
   multiSelect: "0 - fm-MousePointerDefault",
   rowSource: "",
-  tabindex: 6,
+  tabIndex: 6,
   tabStop: true,
   tag: "",
   text: "",

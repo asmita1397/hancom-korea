@@ -1,5 +1,6 @@
 import {BasicProperty} from './attributes/BasicProperty';
 import Size from './styles/Size';
+import { Position } from "../entities/styles/Position";
 import ZIndex from './styles/ZIndex';
 import { TextWrap } from './styles/TextWrap';
 import { MouseProperty } from './attributes/Picture';
@@ -10,7 +11,7 @@ export interface CheckBox extends BasicProperty, CheckBoxStyle {
     controlSource:string,
     groupName:string,
     locked:boolean,
-    tabindex:number,
+    tabIndex:number,
     tabStop:boolean,
     tripleState:boolean,
     value:boolean

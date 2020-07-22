@@ -12,7 +12,7 @@ export const ToggleButton = {
   mouseIcon: "(None)",
   picture: "(None)",
   picturePosition: "7 - fmPicturePositionAboveCenter",
-  tabindex: 11,
+  tabIndex: 11,
   tabStop: true,
   tripleState: false,
   tag: "",
@@ -35,5 +35,9 @@ export const ToggleButton = {
   wordWrap: "break-word",
   overflow: "hidden",
   whiteSpace: "normal",
+  groupName:"",
+  backStyle:"",
+  mousePointer:"",
+  position:"",
 
 };

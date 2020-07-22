@@ -2,9 +2,9 @@ import { BasicProperty, BasicBoxProperty, BasicComboAndListBoxProperty } from '.
 import { MouseProperty } from './attributes/Picture';
 import { Visibility } from './styles/Visibility';
 
-export interface ComboBox extends ComboBoxProperty {
+export interface ComboBox extends ComboBoxProperty,ComboBoxStyle {
 
-    style:ComboBoxStyle
+    
 }
 
 export interface ComboBoxProperty extends BasicBoxProperty,BasicComboAndListBoxProperty,ComboBoxStyle {

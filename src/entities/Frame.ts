@@ -1,5 +1,6 @@
 import Size from './styles/Size';
 import ZIndex from './styles/ZIndex';
+import { Position } from "./styles/Position";
 import { ScrollProperty } from './attributes/Scroll';
 import { PictureTypesControls,  MouseProperty } from './attributes/Picture';
 import { BasicAttribute } from './attributes/BasicProperty';

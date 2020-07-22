@@ -17,7 +17,7 @@ export const Frame = {
   scrollLeft: 0,
   scrollTop: 0,
   scrollWidth: 0,
-  tabindex: 11,
+  tabIndex: 11,
   tabStop: true,
   tag: "",
   value: "",
@@ -39,5 +39,7 @@ export const Frame = {
   wordWrap: "break-word",
   overflow: "hidden",
   whiteSpace: "normal",
+  position:"",
+  mousePointer:""
 
 };

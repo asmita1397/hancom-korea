@@ -6,10 +6,10 @@ export const TextBox = {
   autoWordSelect: true,
   controlSource: "",
   controlTipText: "",
-  dragBehaviour: "0 - fmDragBehaviotDisabled",
+  dragBehavior: "0 - fmDragBehaviotDisabled",
   enabled: true,
-  enterFieldBehaviour: "0 - fmEnterFiledBehaviorSelectAll",
-  enterKeyBehaviour: false,
+  enterFieldBehavior: "0 - fmEnterFiledBehaviorSelectAll",
+  enterKeyBehavior: false,
   helpContextId: 0,
   hideSelection: true,
   integralHeight: true,
@@ -21,7 +21,7 @@ export const TextBox = {
   passwordChar: "",
   scrollBars: "1 - fmScrollBarsHorizontal",
   selectionMargin: true,
-  tabindex: 4,
+  tabIndex: 4,
   tabKeyBehaviour: false,
   tabStop: false,
   tag: "",
@@ -45,5 +45,8 @@ export const TextBox = {
   wordWrap: "break-word",
   overflow: "hidden",
   whiteSpace: "normal",
+  mousePointer:"",
+  position:"",
+  backStyle:""
 
 };

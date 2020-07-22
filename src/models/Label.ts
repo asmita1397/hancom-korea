@@ -10,7 +10,7 @@ export const Label = {
   mouseIcon: "(None)",
   picture: "(None)",
   picturePosition: "0 - fmPicturePositionLeftTop",
-  tabindex: 0,
+  tabIndex: 0,
   tabStop: false,
   tag: "",
   visible: true,
@@ -26,10 +26,10 @@ export const Label = {
   font: "Tahoma",
   foreColor: "black",
   textAlign: "left",
-  cursor: "default",
   specialEffect: "none",
   wordWrap: "break-word",
   overflow: "hidden",
   whiteSpace: "normal",
-
+  mousePointer: "default",
+  backStyle:""
 };

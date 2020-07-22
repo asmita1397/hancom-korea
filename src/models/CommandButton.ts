@@ -10,11 +10,11 @@ export const CommandButton = {
   mouseIcon: "(None)",
   picture: "(None)",
   picturePosition: "0 - fmPicturePositionLeftTop",
-  tabindex: 1,
+  tabIndex: 1,
   tabStop: false,
   tag: "",
   takeFocusOnClick: true,
-  lock: false,
+  locked: false,
   visible: true,
   isActive: false,
   left: "20px",
@@ -34,5 +34,7 @@ export const CommandButton = {
   wordWrap: "break-word",
   overflow: "hidden",
   whiteSpace: "normal",
-
+  mousePointer:"",
+  controlTipText:"",
+  backStyle:""
 };

@@ -20,8 +20,9 @@ export const Image = {
   border: "1px solid",
   borderStyle: "solid",
   foreColor: "black",
-  textAlign: "left",
-  cursor: "default",
   specialEffect: "none",
+  position:"",
+  mousePointer:"",
+  autoSize:false
 
 };

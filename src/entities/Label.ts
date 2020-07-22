@@ -7,7 +7,7 @@ import { Visibility } from './styles/Visibility'
 export interface Label extends MouseProperty,PictureControls,LabelStyle {
     title:string,
     accelerator:string,
-    tabindex:number,
+    tabIndex:number,
     tabStop:boolean,
     visible:boolean,
     

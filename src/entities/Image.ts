@@ -2,11 +2,12 @@ import {BasicProperty} from './attributes/BasicProperty';
 import {PictureTypesControls, MouseProperty } from './attributes/Picture';
 import Size from './styles/Size';
 import ZIndex from './styles/ZIndex';
+import { Position } from "./styles/Position";
 
-export interface Image extends BasicProperty,PictureTypesControls,ImageStyle {
+export interface Image extends PictureTypesControls,ImageStyle {
 
     controlTipText:string,
-   
+    autoSize: boolean;
 
 }
 

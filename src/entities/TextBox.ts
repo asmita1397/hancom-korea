@@ -13,17 +13,15 @@ export interface TextBox extends BasicBoxProperty,MouseProperty,Scroll, TextBoxS
 
     autoTab:boolean,
     autoWordSelect:boolean,
-    dragBehaviour:string,
-    enterFieldBehaviour:string,
-    enterKeyBehaviour:boolean,
+    dragBehavior:string,
+    enterFieldBehavior:string,
+    enterKeyBehavior:boolean,
     hideSelection:boolean,
     integralHeight:boolean,
     maxLength:number,
     multiLine:boolean,
     passwordChar:string,
     tabKeyBehaviour:boolean,
-  
-   
 
 }
 

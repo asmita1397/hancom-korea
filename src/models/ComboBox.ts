@@ -10,10 +10,10 @@ export const ComboBox = {
   columnWidths: "",
   controlSource: "",
   controlTipText: "",
-  dragBehaviour: "0 - fmDragBehaviotDisabled",
+  dragBehavior: "0 - fmDragBehaviotDisabled",
   dropButtonStyle: "1 - fmDropButtonStyleArrow ",
   enabled: true,
-  enterFieldBehaviour: "0 - fmEnterFiledBehaviorSelectAll",
+  enterFieldBehavior: "0 - fmEnterFiledBehaviorSelectAll",
   helpContextId: 0,
   hideSelection: true,
   imeMode: "0 - fmIMEModeNOControl",
@@ -28,7 +28,7 @@ export const ComboBox = {
   rowSource: "",
   selectionMargin: true,
   showDropButtonWhen: "2 - fmShowDropButtonWhenAlways",
-  tabindex: 4,
+  tabIndex: 4,
   tabStop: true,
   tag: "",
   text: "",
@@ -53,5 +53,6 @@ export const ComboBox = {
   wordWrap: "break-word",
   overflow: "hidden",
   whiteSpace: "normal",
-
+  backStyle:"1 - fmBackStyleOpaque",
+  mousePointer:""
 };

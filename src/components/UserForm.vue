@@ -2,7 +2,7 @@
   <div>
     <div v-bind:key="index" v-for="(modal,index) in getTreeBrowserData">
       <div
-        :style="modal.outerWindowStyle.container"
+        :style="outerWindowStyle"
         class="outerWindowContainer"
         :ref="'outrWindowDrag'.concat(modal.name)"
         @mousedown="make(modal)"
@@ -12,7 +12,7 @@
           <OuterWindowButton :userForm="modal" />
         </div>
 
-        <div :style="modal.innerWindowStyle.container" v-resize @resize="onResize($event,modal)">
+        <div :style="innerWindowStyle" v-resize @resize="onResize($event,modal)">
           <div class="innerWindowtop">
             <span v-bind:class="{ rightToLeft: modal.rightToLeft}">{{modal.caption}}</span>
             <button
@@ -26,7 +26,7 @@
           </div>
           <div
             @mouseup="handleMouseUp(modal.name)"
-            :style="modal.innerWindowStyle.innerContainer"
+            :style="innerWindowContainer"
             class="innerWindowContainer"
             v-on:click.stop="createTool($event,modal)"
             @mousedown="handleDeactivate"
@@ -43,7 +43,7 @@
         </div>
       </div>
     </div>
-    <!--   <Dragable ref="child" /> -->
+   
   </div>
 </template>
 
@@ -55,6 +55,8 @@ import UserFormControl from "./UserFormControl.vue";
 import OuterWindowButton from "./OuterWindowButton.vue";
 import DragSelector from "./DragSelector.vue";
 import { EventBus } from "./event-bus";
+import { TreeUserFormData } from "../entities/TreeUserFormData";
+
 @Component({
   components: {
     UserFormControl,
@@ -62,7 +64,12 @@ import { EventBus } from "./event-bus";
     DragSelector
   }
 })
+
 export default class UserForm extends Vue {
+
+  @Getter getTreeData: TreeUserFormData
+
+
   selectedAreaStyle: any;
   modalName!: string;
   @Getter getTreeBrowserData!: Function;
@@ -93,9 +100,48 @@ export default class UserForm extends Vue {
     movementX: 0,
     movementY: 0
   };
+
+  innerWindowStyle = {
+    position: "relative",
+    textAlign: "left",
+    border: "none",
+    width: "400px",
+    height: "250px",
+    resize: "both",
+    overflow: "hidden",
+    borderTopLeftRadius: "4px",
+    borderTopRightRadius: "4px",
+    maxWidth: "98%",
+    maxHeight: "88%",
+    margin: "4px",
+    backgroundColor: "white",
+    borderColor: "ghostwhite",
+    fontFamily: "Tahoma",
+    color: "black",
+    left: "0",
+    top: "0",
+    zoom: "100%",
+    cursor: "default",
+    boxShadow: "none",
+  };
+
+  outerWindowStyle = {
+     display: "block",
+     zIndex: "2",
+     top: "50px",
+     left: "50px",
+  }
+
+  innerWindowContainer = {
+     backgroundSize: " 9px 10px",
+     backgroundImage: "radial-gradient(circle, rgb(0, 0, 0) 0.5px, rgba(0, 0, 0, 0) 0.2px)",
+  }
+
   checkedList = [];
 
   mounted() {
+
+
     EventBus.$on(
       "selectedControlOption",
       (selectedForm: any, selectedControlOption: any) => {

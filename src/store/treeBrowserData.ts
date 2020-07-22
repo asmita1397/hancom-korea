@@ -12,15 +12,17 @@ export const state: TreeUserFormData = treeData
 
 
 
-export const getters: GetterTree<any, any> = {
+export const getters: GetterTree<TreeUserFormData, any> = {
 
-  getTreeBrowserData: state => state.treeBrowserData.userForms[0].userForms,
+ /*  getTreeBrowserData: state => state.treeBrowserData.userForms[0].userForms,
   getRoot: state => state.treeBrowserData,
   getUserFormIndex: state => state.useFormIdIndex,
   getControlIndex: state => state.controlIdIndex,
   getPrevControlIndex: state => state.treeBrowserData.userForms[0].userForms[state.useFormIdIndex].controlZIndex,
   getSelectedUserForm: state => state.treeBrowserData.userForms[0].userForms[state.useFormIdIndex],
-  getSelectedControl: state => state.treeBrowserData.userForms[0].userForms[state.useFormIdIndex].controls[state.controlIdIndex]
+  getSelectedControl: state => state.treeBrowserData.userForms[0].userForms[state.useFormIdIndex].controls[state.controlIdIndex], */
+    
+  getTreeData: state => state.VBAProject1
 
 
 }

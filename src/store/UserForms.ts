@@ -6,7 +6,7 @@ export const state: UserForm =  userFormData
 
 
 export const getters: GetterTree<any, any> = {
-    getUserForm: state => state.userForms
+    getUserForm: state => state.UserForm
 }
 
 export const mutations: MutationTree<any> =

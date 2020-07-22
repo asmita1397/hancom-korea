@@ -65,6 +65,8 @@ export default class App extends Vue {
   @Getter getTreeBrowserData: any;
 
   @Getter prevModalZIndex: any;
+
+  @Getter getTreeData: any
   @Mutation userFormIndex: any;
   @Mutation displayUserForm: any;
   @Mutation updatePrevModalZIndex: any;
@@ -96,7 +98,10 @@ export default class App extends Vue {
   }
 
   mounted() {
-    console.log(this.getRoot);
+    console.log(this.getTreeData);
+    /* for (const key in this.getTreeData) {
+        console.log(this.getTreeData[key])
+    } */
   }
 }
 </script>
