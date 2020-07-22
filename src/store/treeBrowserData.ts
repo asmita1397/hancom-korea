@@ -46,7 +46,7 @@ export const mutations: MutationTree<any> =
 
   addtreeBrowserData: (state, userForm) => {
      const newKey=`ID_USERFORM${state.VBAProject1.userFormCount+1}`
-     state.VBAProject1[newKey] = userForm
+     state.VBAProject1['ID_USERFORM'] = userForm
     
   },
   closeWindow: (state, userForm) => {
