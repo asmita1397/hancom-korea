@@ -1,8 +1,13 @@
 export const treeData = {
   name: "VBA Project(Book1)",
+
   VBAProject1: {
-    /*  name: "Forms", */
-    UserForm1: {
+    userFormCount:0,
+    ID_USERFORM1: {
+      elementsCount:{
+        label:0,
+        commandButton:0
+      },
       property: {
         zIndex: "",
         position: "relative",
@@ -38,15 +43,10 @@ export const treeData = {
         cycle: "0 - fmCycleAllForms",
         drawBuffer: 32000,
         enabled: true,
-        /*  backgroundPosition:"center",
-         backgroundPositionX:"",
-         backgroundPositionY:"", */
         helpContextId: 0,
         keepScrollsBarsVisible: "fmScrollBarsNone",
         mouseIcon: "(None)",
-        // picture: "(None)",
         pictureAlignment: "0 - fmPictureAlignmentTopLeft",
-        // pictureSizeMode: "0 - fmPictureSizeModeClip",
         pictureTiling: false,
         rightToLeft: false,
         scrollBars: "0 - fmScrollBarsNone",
@@ -65,7 +65,7 @@ export const treeData = {
         outerWindowleft: "50px",
       },
       controls: {
-        "LABEL1": {
+        ID_LABEL1: {
           name: "Label1",
           type: "Label",
           accelerator: "",
@@ -100,49 +100,11 @@ export const treeData = {
           mousePointer: "default",
           backStyle: ""
         },
-        "COMMANDBUTTON1": {
-          name: "CommandButton1",
-          type: "CommandButton",
-          accelerator: "",
-          autoSize: false,
-          caption: "CommandButton1",
-          title: "",
-          enabled: true,
-          helpContextId: 0,
-          mouseIcon: "(None)",
-          picture: "(None)",
-          picturePosition: "0 - fmPicturePositionLeftTop",
-          tabIndex: 1,
-          tabStop: false,
-          tag: "",
-          takeFocusOnClick: true,
-          locked: false,
-          visible: true,
-          isActive: false,
-          left: "20px",
-          top: "100px",
-          width: "100px",
-          height: "40px",
-          zIndex: "1",
-          backColor: "white",
-          borderColor: "#eeeeee",
-          border: "1px solid",
-          borderStyle: "solid",
-          font: "Arial, Helvetica, sans-serif",
-          foreColor: "black",
-          textAlign: "left",
-          cursor: "default",
-          specialEffect: "none",
-          wordWrap: "break-word",
-          overflow: "hidden",
-          whiteSpace: "normal",
-          mousePointer: "",
-          controlTipText: "",
-          backStyle: ""
-        }
+        
       },
+     
 
-
-    }
+    },
+   
   }
 }

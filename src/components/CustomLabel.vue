@@ -27,8 +27,9 @@ import { Mutation, Getter } from "vuex-class";
 import { EventBus } from "./event-bus";
 @Component({})
 export default class CustomLabel extends Vue {
-  @Prop() private control!: any;
-  @Prop() private userForm!: any;
+  @Prop()  control!: any;
+  @Prop()  userFormKey!: any;
+  @Prop()  controlKey: string
 
   @Getter getPrevControlIndex!: any;
   @Mutation userFormIndex!: Function;
@@ -57,13 +58,13 @@ export default class CustomLabel extends Vue {
   };
 
   customLabelClick() {
-    console.log("clickd");
-    this.userFormIndex(this.userForm);
+  /*   console.log("clickd");
+    this.userFormIndex(this.userFormKey);
     this.controlIndex(this.control);
     this.updatePrevControlIndex();
-    this.updateControlIndex(this.getPrevControlIndex);
-    this.activateControl();
-    EventBus.$emit("userFormClicked", this.control, this.userForm);
+    this.updateControlIndex(this.getPrevControlIndex); */
+    this.activateControl({controlKey:this.controlKey,userFormKey:this.userFormKey});
+   /*  EventBus.$emit("userFormClicked", this.control, this.userFormKey); */
   }
 }
 </script>

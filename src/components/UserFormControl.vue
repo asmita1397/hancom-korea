@@ -5,22 +5,22 @@
         <vue-draggable-resizable
           :class-name-handle="control.isActive?'handle':''"
           :style="{zIndex:control.zIndex}"
-          v-for="(control,key) in userForm.controls"
-          :key="key"
+          v-for="(control,controlKey) in userForm.controls"
+          :key="controlKey"
           :id="key"
           :w="parseInt(control.width)"
           :h="parseInt(control.height)"
           :x="parseInt(control.left)"
           :y="parseInt(control.top)"
           :parent="true"
-          @resizing="(x,y,width,height)=>onResize(control,x,y,width,height)"
+          @resizing="(x,y,width,height)=>onResize(controlKey,x,y,width,height)"
           @dragstop="(left, top) => dragstop(control, left, top)"
           @deactivated="onDeactivated"
-          @activated="onActivated(userForm,control)"
+          @activated="onActivated(userFormKey,control)"
         >
           <drag-selector-item :value="control">
-            <CustomLabel v-if="control.type==='Label'" :control="control" :userForm="userForm" />
-            <CustomButton v-if="control.type==='CommandButton'" :control="control" :userForm="userForm" />
+            <CustomLabel v-if="control.type==='Label'" :control="control" :controlKey="controlKey" :userFormKey="userFormKey" />
+         <!--    <CustomButton v-if="control.type==='CommandButton'" :control="control" :controlKey="controlKey" :userFormKey="userFormKey" /> -->
           </drag-selector-item>
         </vue-draggable-resizable>
       </template>
@@ -46,7 +46,8 @@ import DragSelectorItem from "./DragSelectorItem.vue";
   }
 })
 export default class UserFormControl extends Vue {
-  @Prop() userForm!: any;
+  @Prop() userFormKey!: string;
+  @Prop() userForm!: any
   parent: object = {
     width: "98%",
     height: "98%",
@@ -65,20 +66,20 @@ export default class UserFormControl extends Vue {
   @Mutation dragStyle!: any;
   @Mutation deletingControl!: Function;
   mounted() {
-    console.log("mounted", this.userForm);
+    console.log("mounted", this.userFormKey);
     document.addEventListener("keydown", this.deleteSingleControl);
   }
 
   deleteSingleControl(e: any) {
     if (e.keyCode === 13) {
       if (this.deletingUserFormId !== -1 && this.deletingControlId !== -1) {
-        if (this.userForm.id === this.deletingUserFormId) {
-          this.userFormIndex(this.userForm);
+        if (this.userFormKey === this.deletingUserFormId) {
+          this.userFormIndex(this.userFormKey);
           this.controlIndex(this.selectedControl);
           this.deletingControl();
           this.deletingControlId = -1;
           this.deletingUserFormId = -1;
-          EventBus.$emit("userFormClicked", this.userForm, this.userForm);
+          EventBus.$emit("userFormClicked", this.userFormKey, this.userFormKey);
         }
       }
     }
@@ -99,23 +100,24 @@ export default class UserFormControl extends Vue {
   }
 
   onResize(
-    control: object,
+    controlKey: string,
     x: number,
     y: number,
     width: number,
     height: number
   ): void {
-    this.userFormIndex(this.userForm);
-    this.controlIndex(control);
+   
     this.resizeStyle({
       width: `${width}px`,
       height: `${height}px`,
       left: `${x}px`,
-      top: `${y}px`
+      top: `${y}px`,
+      controlKey:controlKey,
+      userFormKey: this.userFormKey
     });
   }
   dragstop(control: any, x: number, y: number): void {
-    this.userFormIndex(this.userForm);
+    this.userFormIndex(this.userFormKey);
     this.controlIndex(control);
     this.dragStyle({
       left: `${x}px`,

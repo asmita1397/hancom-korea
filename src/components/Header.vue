@@ -100,32 +100,101 @@ import { EventBus } from "./event-bus";
 export default class Header extends Vue {
   @Getter getUserForm!: any;
   @Getter getTreeBrowserData!: any;
+   @Getter getTreeData!: any;
   @Getter prevModalZIndex!: any;
+
+
+  @Getter getUseFormCount!: any
+  @Mutation incrementuserFormCount!: any
+
   @Mutation addUserForm!: Function;
   @Mutation addtreeBrowserData!: Function;
   @Mutation updatePrevModalZIndex!: any;
   @Mutation userFormIndex!: any
   handleAddUserForm(): void {
-   
+     this.incrementuserFormCount()
     this.updatePrevModalZIndex();
-    const userForm = {
-      ...this.getUserForm,
-      id: this.getTreeBrowserData.length + 1,
-      name: "UserForm" + (this.getTreeBrowserData.length + 1),
-      type: "UserForm",
-      outerWindowStyle: {
-        ...this.getUserForm.outerWindowStyle,
-        container: {
-          ...this.getUserForm.outerWindowStyle.container,
-          zIndex:this.prevModalZIndex.toString()
-        }
-      }
+
+
+    const getUserForm = JSON.parse(JSON.stringify(this.getUserForm))
+    const newUserForm = {
+     /*  ...getUserForm,
+     property:{
+       ...getUserForm.property,
+        name: "UserForm" + (this.getUseFormCount + 1),
+         type: "UserForm",
+         outerWindowZIndex:this.prevModalZIndex.toString()
+     }
+   */
+   elementsCount:{
+    label:0,
+    commandButton:0
+  },
+  property: {
+    zIndex: "2",
+    position: "relative",
+    textAlign: "left",
+    border: "none",
+    width: "400px",
+    height: "250px",
+    resize: "both",
+    overflow: "hidden",
+    borderTopLeftRadius: "4px",
+    borderTopRightRadius: "4px",
+    maxWidth: "98%",
+    maxHeight: "88%",
+    margin: "4px",
+    backColor: "white",
+    borderColor: "ghostwhite",
+    font: "Tahoma",
+    foreColor: "black",
+    left: "0",
+    top: "0",
+    zoom: "100%",
+    mousePointer: "0 - fmMousePointerDefault",
+    specialEffect: "none",
+    pictureSizeMode: " 9px 10px",
+    picture: "radial-gradient(circle, rgb(0, 0, 0) 0.5px, rgba(0, 0, 0, 0) 0.2px)",
+    controlZIndex: "3",
+    name: "UserForm2",
+    type: "UserForm",
+    visible: true,
+    autoSize: false,
+    isActive: false,
+    caption: "UserForm1",
+    cycle: "0 - fmCycleAllForms",
+    drawBuffer: 32000,
+    enabled: true,
+    helpContextId: 0,
+    keepScrollsBarsVisible: "fmScrollBarsNone",
+    mouseIcon: "(None)",
+    pictureAlignment: "0 - fmPictureAlignmentTopLeft",
+    pictureTiling: false,
+    rightToLeft: false,
+    scrollBars: "0 - fmScrollBarsNone",
+    scrollHeight: 0,
+    scrollLeft: 0,
+    scrollTop: 0,
+    startUpPosition: "0 - Manual",
+    scrollWidth: 0,
+    showModal: true,
+    tag: "",
+    whatsThisButton: false,
+    whatsThisHelp: false,
+    display: "block",
+    outerWindowZIndex: "2",
+    outerWindowtop: "50px",
+    outerWindowleft: "50px",
+  },
+  controls:{}
     };
   
-    this.addtreeBrowserData(userForm);
-    /*  this.userFormIndex(this.getTreeBrowserData.length-1) */
-    //  console.log(this.getTreeBrowserData[this.getTreeBrowserData.length-1])
-    EventBus.$emit('nodeWasClicked',this.getTreeBrowserData[this.getTreeBrowserData.length-1])
+    this.addtreeBrowserData(newUserForm);
+  
+  }
+  mounted()
+  {
+    console.log("++++++++++++++",this.getUserForm.property)
   }
 }
 </script>
@@ -135,7 +204,7 @@ export default class Header extends Vue {
   width: 100%;
 }
 .tablink {
-  background-foreColor: rgba(240, 234, 234, 0.877);
+  background-color: rgba(240, 234, 234, 0.877);
   color: rgb(17, 17, 17);
   padding: 5px;
   cursor: pointer;

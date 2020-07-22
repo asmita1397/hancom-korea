@@ -9,6 +9,7 @@ import { Visibility } from "./styles/Visibility";
 import { Position } from "./styles/Position";
 
 export interface UserForm {
+  elementsCount: ElemntsCount;
   property: UserForm1;
   controls:Object;
 }
@@ -64,4 +65,8 @@ export interface UserFormStyle extends
   specialEffect: string;
 }
 
+export interface ElemntsCount {
+  label: number,
+  commandButton: number
+}
 

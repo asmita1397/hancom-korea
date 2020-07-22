@@ -1,24 +1,54 @@
 <template>
   <div>
-    <div v-bind:key="index" v-for="(userForm,index) in getTreeData">
+    <div v-bind:key="userFormKey" v-for="(userForm,userFormKey) in getTreeData">
       <div
-        :style="outerWindowStyle"
+        v-if="userFormKey.startsWith('ID_')"
+        :style="{
+          display:userForm.property.display, 
+        zIndex: userForm.property.outerWindowZIndex, 
+        top: userForm.property.outerWindowtop,
+        left: userForm.property.outerWindowleft}"
         class="outerWindowContainer"
-        :ref="'outrWindowDrag'.concat(userForm.property.name)" 
-         @mousedown="make(userForm)"
-      > 
-        <div class="outerWindowTop" @mousedown="dragMouseDown($event,userForm)">
+        :ref="'outrWindowDrag'.concat(userFormKey)"
+        @mousedown="make(userFormKey)"
+      >
+        <div class="outerWindowTop" @mousedown="dragMouseDown($event,userFormKey)">
           <span>Book1 {{userForm.property.name}} (UserForm)</span>
-          <OuterWindowButton :userForm="userForm" />
+          <OuterWindowButton :userForm="userFormKey" />
         </div>
 
-        <div :style="innerWindowStyle" v-resize @resize="onResize($event,userForm)">
+        <div
+          :style="{
+    color: userForm.property.foreColor,
+    left: userForm.property.left,
+    top:userForm.property.top,
+    zoom:userForm.property.zoom,
+    cursor: userForm.property.mousePointer,
+    boxShadow: userForm.property.specialEffect,
+    position: userForm.property.position,
+    textAlign: userForm.property.textAlign,
+    border: userForm.property.border,
+    width: userForm.property.width,
+    margin: userForm.property.margin,
+    backgroundColor: userForm.property.backColor,
+    borderColor: userForm.property.borderColor,
+    fontFamily:userForm.property.font,
+    height:userForm.property.height,
+    resize: userForm.property.resize,
+    overflow: userForm.property.overflow,
+    borderTopLeftRadius: userForm.property.borderTopLeftRadius,
+    borderTopRightRadius:userForm.property.borderTopRightRadius,
+    maxWidth: userForm.property.maxWidth,
+    maxHeight: userForm.property.maxHeight,
+    }"
+          v-resize
+          @resize="onResize($event,userFormKey)"
+        >
           <div class="innerWindowtop">
-            <span v-bind:class="{ rightToLeft: userForm.property.rightToLeft}">{{userForm.property.caption}}</span>
-            <!-- <button
-              :style="modal.innerWindowStyle.whatsThisButton"
-              v-show="modal.whatsThisButton==='True'"
-            >?</button> -->
+            <span
+              v-bind:class="{ rightToLeft: userForm.property.rightToLeft}"
+            >{{userForm.property.caption}}</span>
+            <button :style="whatsThisButton" v-show="userForm.property.whatsThisButton===true">?</button>
             <img
               class="innerWindowCloseButton"
               src="https://img.icons8.com/fluent/48/000000/close-window.png"
@@ -37,7 +67,7 @@
               @change="handleDragSelectorChange"
               class="drag-selector"
             >
-              <UserFormControl :userForm="userForm" :ref="userForm.property.name" />
+              <UserFormControl :userFormKey="userFormKey" :userForm="userForm" />
             </drag-selector>
           </div>
         </div>
@@ -48,7 +78,7 @@
 
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Watch } from "vue-property-decorator";
 import { State, Getter, Mutation } from "vuex-class";
 import UserFormControl from "./UserFormControl.vue";
 import OuterWindowButton from "./OuterWindowButton.vue";
@@ -63,14 +93,12 @@ import { TreeUserFormData } from "../entities/TreeUserFormData";
     DragSelector
   }
 })
-
 export default class UserForm extends Vue {
-
-  @Getter getTreeData: TreeUserFormData
-
+  @Getter getTreeData: TreeUserFormData;
 
   selectedAreaStyle: any;
-  modalName!: string;
+  userFormName!: string;
+  userFormKey!: string;
   @Getter getTreeBrowserData!: Function;
   @Getter getLabelControl!: any;
   @Getter getCommandButtonControl!: any;
@@ -93,6 +121,11 @@ export default class UserForm extends Vue {
   @Mutation controlIndex!: any;
   @Mutation dragSelectedControls!: any;
 
+ @Watch('userData')
+  onPropertyChanged(value: string, oldValue: string) {
+    console.log(" grtusr======================================",value)
+    console.log("++++",oldValue)
+  }
   positions: any = {
     clientX: "",
     clientY: "",
@@ -121,27 +154,31 @@ export default class UserForm extends Vue {
     top: "0",
     zoom: "100%",
     cursor: "default",
-    boxShadow: "none",
+    boxShadow: "none"
   };
 
   outerWindowStyle = {
-     display: "block",
-     zIndex: "2",
-     top: "50px",
-     left: "50px",
-  }
+    display: "block",
+    zIndex: "2",
+    top: "50px",
+    left: "50px"
+  };
 
   innerWindowContainer = {
-     backgroundSize: " 9px 10px",
-     backgroundImage: "radial-gradient(circle, rgb(0, 0, 0) 0.5px, rgba(0, 0, 0, 0) 0.2px)",
-  }
+    backgroundSize: " 9px 10px",
+    backgroundImage:
+      "radial-gradient(circle, rgb(0, 0, 0) 0.5px, rgba(0, 0, 0, 0) 0.2px)"
+  };
 
   checkedList = [];
 
+  
   mounted() {
-
-
-    EventBus.$on(
+    /* console.log(this.$store) */
+    this.$store.watch(this.$store.getters.getTreeData, n => {
+      console.log('watched: ', n)
+    })
+   /*  EventBus.$on(
       "selectedControlOption",
       (selectedForm: any, selectedControlOption: any) => {
         if (selectedControlOption.type !== "UserForm") {
@@ -150,8 +187,9 @@ export default class UserForm extends Vue {
           this.deactivateControl();
         }
       }
-    );
+    ); */
   }
+
 
   handleDragSelectorChange(list: any) {
     /* for (const val in list) {
@@ -164,23 +202,22 @@ export default class UserForm extends Vue {
   handleDeactivate() {
     this.checkedList = [];
   }
-  make(modal: any): void {
-    this.userFormIndex(modal);
+  make(userFormKey: string): void {
     this.updatePrevModalZIndex();
     console.log("mak activ");
-    this.makeActive(this.prevModalZIndex);
-    this.updateSelect(true);
-    this.updateSelectedUserForm(modal);
+    this.makeActive({ zIndex: this.prevModalZIndex, key: userFormKey });
+    /*  this.updateSelect(true);
+    this.updateSelectedUserForm(userFormKey);
     EventBus.$emit(
       "userFormClicked",
       this.selectedUserForm,
       this.selectedUserForm
-    );
+    ); */
   }
-  dragMouseDown(event: any, modal: any): void {
-    this.userFormIndex(modal);
-    console.log("dragging", modal.name);
-    this.modalName = "outrWindowDrag".concat(modal.name);
+  dragMouseDown(event: any, userFormKey: any): void {
+    console.log("dragging", userFormKey);
+    this.userFormKey = userFormKey;
+    this.userFormName = "outrWindowDrag".concat(userFormKey);
     event.preventDefault();
     this.positions.clientX = event.clientX;
     this.positions.clientY = event.clientY;
@@ -188,6 +225,7 @@ export default class UserForm extends Vue {
     document.onmouseup = this.closeDragElement;
   }
   elementDrag(event: any): void {
+    console.log("kkkkk");
     event.preventDefault();
     this.positions.movementX = this.positions.clientX - event.clientX;
     this.positions.movementY = this.positions.clientY - event.clientY;
@@ -195,23 +233,28 @@ export default class UserForm extends Vue {
     this.positions.clientY = event.clientY;
 
     const top =
-      (this as any).$refs[this.modalName][0].offsetTop -
+      (this as any).$refs[this.userFormName][0].offsetTop -
       this.positions.movementY +
       "px";
     const left =
-      (this as any).$refs[this.modalName][0].offsetLeft -
+      (this as any).$refs[this.userFormName][0].offsetLeft -
       this.positions.movementX +
       "px";
-    this.dragOuterWindow({ top: top, left: left });
+      console.log(left, top)
+    this.dragOuterWindow({
+      userFormKey: this.userFormKey,
+      top: top,
+      left: left
+    });
+    console.log((this as any).$refs);
   }
   closeDragElement(): void {
     document.onmouseup = null;
     document.onmousemove = null;
   }
 
-  onResize(e: any, userForm: object) {
-    /* console.log(userForm) */
-    this.resizeUserForm(e.detail);
+  onResize(e: any, userFormKey: object) {
+    this.resizeUserForm({ styleDetail: e.detail, userFormKey: userFormKey });
   }
   createTool(e: any, modal: any) {
     this.userFormIndex(modal);
@@ -356,7 +399,7 @@ img {
   resize: both;
   overflow: hidden;
   min-height: 300px;
-  min-width: 500px;
+  min-width: 100px;
 }
 .innerWindowContainer {
   width: 100%;

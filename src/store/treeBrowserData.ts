@@ -22,42 +22,57 @@ export const getters: GetterTree<TreeUserFormData, any> = {
   getSelectedUserForm: state => state.treeBrowserData.userForms[0].userForms[state.useFormIdIndex],
   getSelectedControl: state => state.treeBrowserData.userForms[0].userForms[state.useFormIdIndex].controls[state.controlIdIndex], */
     
-  getTreeData: state => state.VBAProject1
-
+  getTreeData: state => state.VBAProject1,
+  getUseFormCount: state=> state.VBAProject1.userFormCount
 
 }
 
 export const mutations: MutationTree<any> =
 {
-  addtreeBrowserData: (state, userForm) => {
 
-    state.treeBrowserData.userForms[0].userForms = [
-      ...state.treeBrowserData.userForms[0].userForms,
-      userForm
-    ];
+  dragOuterWindow: (state, userForm) => {
+    
+    state.VBAProject1[userForm.userFormKey].property.outerWindowtop = userForm.top
+    state.VBAProject1[userForm.userFormKey].property.outerWindowleft= userForm.left
+    
+
+  },
+  incrementuserFormCount:(state) => {
+    state.VBAProject1.userFormCount += 1
+  },
+  makeActive: (state, userForm) => {
+    state.VBAProject1[userForm.key].property.outerWindowZIndex= userForm.zIndex.toString()
+  },
+
+  addtreeBrowserData: (state, userForm) => {
+     const newKey=`ID_USERFORM${state.VBAProject1.userFormCount+1}`
+     state.VBAProject1[newKey] = userForm
+    
   },
   closeWindow: (state, userForm) => {
-    const userFormIndex = state.treeBrowserData.userForms[0].userForms.findIndex((val: any) => val.id === userForm.id)
-    state.treeBrowserData.userForms[0].userForms[userFormIndex].outerWindowStyle.container.display = "none";
+    state.VBAProject1[userForm].property.display = "none";
   },
+   
+  resizeUserForm: (state, userForm) => {
+    state.VBAProject1[userForm.userFormKey].property.width = `${userForm.styleDetail.width}px`
+    state.VBAProject1[userForm.userFormKey].property.height = `${userForm.styleDetail.height}px`
+  },
+ 
+  resizeStyle: (state, controlStyle) => {
+    console.log(state.VBAProject1[controlStyle.userFormKey].controls[controlStyle.controlKey].width, controlStyle.width)
+    state.VBAProject1[controlStyle.userFormKey].controls[controlStyle.controlKey].width = controlStyle.width
+    state.VBAProject1[controlStyle.userFormKey].controls[controlStyle.controlKey].left = controlStyle.left
+    state.VBAProject1[controlStyle.userFormKey].controls[controlStyle.controlKey].top = controlStyle.top
+    state.VBAProject1[controlStyle.userFormKey].controls[controlStyle.controlKey].height = controlStyle.height
+  },
+
   userFormIndex: (state, userForm) => {
     state.useFormIdIndex = state.treeBrowserData.userForms[0].userForms.findIndex((val: any) => val.id === userForm.id)
   },
   controlIndex: (state, control) => {
     state.controlIdIndex = state.treeBrowserData.userForms[0].userForms[state.useFormIdIndex].controls.findIndex((val: any) => val.id === control.id)
   },
-  resizeUserForm: (state, userForm) => {
-    state.treeBrowserData.userForms[0].userForms[state.useFormIdIndex].innerWindowStyle.container.width = userForm.width
-    state.treeBrowserData.userForms[0].userForms[state.useFormIdIndex].innerWindowStyle.container.height = userForm.height
-
-  },
-  resizeStyle: (state, controlStyle) => {
-
-    state.treeBrowserData.userForms[0].userForms[state.useFormIdIndex].controls[state.controlIdIndex].style.width = controlStyle.width
-    state.treeBrowserData.userForms[0].userForms[state.useFormIdIndex].controls[state.controlIdIndex].style.left = controlStyle.left
-    state.treeBrowserData.userForms[0].userForms[state.useFormIdIndex].controls[state.controlIdIndex].style.top = controlStyle.top
-    state.treeBrowserData.userForms[0].userForms[state.useFormIdIndex].controls[state.controlIdIndex].style.height = controlStyle.height
-  },
+ 
   dragStyle: (state, controlStyle) => {
     state.treeBrowserData.userForms[0].userForms[state.useFormIdIndex].controls[state.controlIdIndex].style.left = controlStyle.left
     state.treeBrowserData.userForms[0].userForms[state.useFormIdIndex].controls[state.controlIdIndex].style.top = controlStyle.top
@@ -69,14 +84,8 @@ export const mutations: MutationTree<any> =
       control
     ];
   },
-  dragOuterWindow: (state, userForm) => {
-    state.treeBrowserData.userForms[0].userForms[state.useFormIdIndex].outerWindowStyle.container.top = userForm.top
-    state.treeBrowserData.userForms[0].userForms[state.useFormIdIndex].outerWindowStyle.container.left = userForm.left
-
-  },
-  makeActive: (state, userFormZIndex) => {
-    state.treeBrowserData.userForms[0].userForms[state.useFormIdIndex].outerWindowStyle.container.zIndex = userFormZIndex.toString()
-  },
+  
+ 
   updatePrevControlIndex: (state) => {
     state.treeBrowserData.userForms[0].userForms[state.useFormIdIndex].controlZIndex += 1
   },
@@ -103,15 +112,18 @@ export const mutations: MutationTree<any> =
     console.log(state.treeBrowserData.userForms[0].userForms)
     state.treeBrowserData.userForms[0].userForms[state.useFormIdIndex].controls.splice(state.controlIdIndex, 1)
   },
-  activateControl: (state) => {
-    state.treeBrowserData.userForms[0].userForms[state.useFormIdIndex].controls.map((val: any, index: number) => {
+  activateControl: (state,keys) => {
+  
+    state.VBAProject1[keys.userFormKey].controls[keys.controlKey].isActive=true
+
+    /* state.treeBrowserData.userForms[0].userForms[state.useFormIdIndex].controls.map((val: any, index: number) => {
       if (index === state.controlIdIndex) {
         val.isActive = true
       }
       else {
         val.isActive = false
       }
-    })
+    }) */
   },
   deactivateControl: (state) => {
     state.treeBrowserData.userForms[0].userForms[state.useFormIdIndex].controls.map((val: any) => {
