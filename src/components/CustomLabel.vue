@@ -57,11 +57,6 @@ export default class CustomLabel extends Vue {
   customLabelClick() {
     this.updatePrevControlIndex(this.userFormKey);
     this.updateControlIndex({userFormKey:this.userFormKey,controlKey:this.controlKey}); 
-     /*  console.log("clickd");
-    this.userFormIndex(this.userFormKey);
-    this.controlIndex(this.control);
-    
-    */
     this.activateControl({
       controlKey: this.controlKey,
       userFormKey: this.userFormKey

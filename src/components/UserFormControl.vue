@@ -16,7 +16,7 @@
           @resizing="(x,y,width,height)=>onResize(controlKey,x,y,width,height)"
           @dragstop="(left, top) => dragstop(controlKey, left, top)"
           @deactivated="onDeactivated"
-          @activated="onActivated(userFormKey,control)"
+          @activated="onActivated(userForm,controlKey)"
         >
           <drag-selector-item :value="controlKey">
             <CustomLabel
@@ -80,16 +80,18 @@ export default class UserFormControl extends Vue {
 
   deleteSingleControl(e: any) {
     if (e.keyCode === 13) {
-      if (this.deletingUserFormId !== -1 && this.deletingControlId !== -1) {
+      console.log("dlt")
+      this.deletingControl(this.userFormKey);
+     /*  if (this.deletingUserFormId !== -1 && this.deletingControlId !== -1) {
         if (this.userFormKey === this.deletingUserFormId) {
           this.userFormIndex(this.userFormKey);
           this.controlIndex(this.selectedControl);
-          this.deletingControl();
+          
           this.deletingControlId = -1;
           this.deletingUserFormId = -1;
           EventBus.$emit("userFormClicked", this.userFormKey, this.userFormKey);
         }
-      }
+      } */
     }
   }
 
@@ -97,14 +99,16 @@ export default class UserFormControl extends Vue {
     this.deletingControlId = -1;
     this.deletingUserFormId = -1;
   }
-  onActivated(userForm: any, control: any) {
-    for (let i = 0; i < userForm.controls.length; i++) {
+  onActivated(userForm: any, controlKey: string) {
+   
+   /*  for (let i = 0; i < userForm.controls.length; i++) {
       if (userForm.controls[i].id === control.id) {
         this.selectedControl = userForm.controls[i];
         this.deletingControlId = i;
         this.deletingUserFormId = userForm.id;
       }
-    }
+    } */
+    
   }
 
   onResize(

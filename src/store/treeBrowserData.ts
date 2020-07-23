@@ -66,6 +66,17 @@ export const mutations: MutationTree<any> =
   updateControlIndex: (state, controlStyle) => {
     state.VBAProject1[controlStyle.userFormKey].controls[controlStyle.controlKey].zIndex = state.VBAProject1[controlStyle.userFormKey].property.controlZIndex.toString()
   },
+  deletingControl: (state,userFormKey) => {
+    console.log(state.VBAProject1[userFormKey].controls)
+    for (const key in state.VBAProject1[userFormKey].controls) {
+      
+      if(state.VBAProject1[userFormKey].controls[key].isActive)
+      {
+        Vue.delete(state.VBAProject1[userFormKey].controls, key);
+      }
+   }
+  },
+
 
 
 
@@ -84,10 +95,7 @@ export const mutations: MutationTree<any> =
   updateControlStyle: (state, updatedStyle) => {
     state.treeBrowserData.userForms[0].userForms[state.useFormIdIndex].controls[state.controlIdIndex].style[updatedStyle.styleName] = updatedStyle.styleValue
   },
-  deletingControl: (state) => {
-    console.log(state.treeBrowserData.userForms[0].userForms)
-    state.treeBrowserData.userForms[0].userForms[state.useFormIdIndex].controls.splice(state.controlIdIndex, 1)
-  },
+  
 
 
   activateControl: (state, keys) => {
