@@ -18,7 +18,7 @@
           @deactivated="onDeactivated"
           @activated="onActivated(userFormKey,control)"
         >
-          <drag-selector-item :value="control">
+          <drag-selector-item :value="controlKey">
             <CustomLabel
               v-if="control.type==='Label'"
               :control="control"

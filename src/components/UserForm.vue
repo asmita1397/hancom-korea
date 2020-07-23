@@ -5,9 +5,10 @@
         v-if="userFormKey.startsWith('ID_')"
         :style="{
           display:userForm.property.display, 
-        zIndex: userForm.property.outerWindowZIndex, 
-        top: userForm.property.outerWindowtop,
-        left: userForm.property.outerWindowleft}"
+          zIndex: userForm.property.outerWindowZIndex, 
+          top: userForm.property.outerWindowtop,
+          left: userForm.property.outerWindowleft
+        }"
         class="outerWindowContainer"
         :ref="'outrWindowDrag'.concat(userFormKey)"
         @mousedown="make(userFormKey)"
@@ -19,28 +20,28 @@
 
         <div
           :style="{
-    color: userForm.property.foreColor,
-    left: userForm.property.left,
-    top:userForm.property.top,
-    zoom:userForm.property.zoom,
-    cursor: userForm.property.mousePointer,
-    boxShadow: userForm.property.specialEffect,
-    position: userForm.property.position,
-    textAlign: userForm.property.textAlign,
-    border: userForm.property.border,
-    width: userForm.property.width,
-    margin: userForm.property.margin,
-    backgroundColor: userForm.property.backColor,
-    borderColor: userForm.property.borderColor,
-    fontFamily:userForm.property.font,
-    height:userForm.property.height,
-    resize: userForm.property.resize,
-    overflow: userForm.property.overflow,
-    borderTopLeftRadius: userForm.property.borderTopLeftRadius,
-    borderTopRightRadius:userForm.property.borderTopRightRadius,
-    maxWidth: userForm.property.maxWidth,
-    maxHeight: userForm.property.maxHeight,
-    }"
+            color: userForm.property.foreColor,
+            left: userForm.property.left,
+            top:userForm.property.top,
+            zoom:userForm.property.zoom,
+            cursor: userForm.property.mousePointer,
+            boxShadow: userForm.property.specialEffect,
+            position: userForm.property.position,
+            textAlign: userForm.property.textAlign,
+            border: userForm.property.border,
+            width: userForm.property.width,
+            margin: userForm.property.margin,
+            backgroundColor: userForm.property.backColor,
+            borderColor: userForm.property.borderColor,
+            fontFamily:userForm.property.font,
+            height:userForm.property.height,
+            resize: userForm.property.resize,
+            overflow: userForm.property.overflow,
+            borderTopLeftRadius: userForm.property.borderTopLeftRadius,
+            borderTopRightRadius:userForm.property.borderTopRightRadius,
+            maxWidth: userForm.property.maxWidth,
+            maxHeight: userForm.property.maxHeight,
+          }"
           v-resize
           @resize="onResize($event,userFormKey)"
         >
@@ -48,7 +49,7 @@
             <span
               v-bind:class="{ rightToLeft: userForm.property.rightToLeft}"
             >{{userForm.property.caption}}</span>
-            <button :style="whatsThisButton" v-show="userForm.property.whatsThisButton===true">?</button>
+            <!--   <button :style="whatsThisButton" v-show="userForm.property.whatsThisButton===true">?</button> -->
             <img
               class="innerWindowCloseButton"
               src="https://img.icons8.com/fluent/48/000000/close-window.png"
@@ -145,8 +146,6 @@ export default class UserForm extends Vue {
   checkedList = [];
 
   mounted() {
-
-
     /*  EventBus.$on(
       "selectedControlOption",
       (selectedForm: any, selectedControlOption: any) => {
@@ -172,7 +171,6 @@ export default class UserForm extends Vue {
   }
   make(userFormKey: string): void {
     this.updatePrevModalZIndex();
-    console.log("mak activ");
     this.makeActive({ zIndex: this.prevModalZIndex, key: userFormKey });
     /*  this.updateSelect(true);
     this.updateSelectedUserForm(userFormKey);
@@ -223,7 +221,6 @@ export default class UserForm extends Vue {
     this.resizeUserForm({ styleDetail: e.detail, userFormKey: userFormKey });
   }
   createTool(e: any, userFormKey: any) {
-   
     if (this.selectedControl === "label") {
       this.incrementControl({ userFormKey: userFormKey, type: "label" });
       const getLabelControl = JSON.parse(JSON.stringify(this.getLabelControl));
@@ -256,35 +253,41 @@ export default class UserForm extends Vue {
         newControl: tool,
         userFormKey: userFormKey
       });
-    }
-    else if (this.selectedControl === "commandbutton") {
-      
-      this.incrementControl({ userFormKey: userFormKey, type: "commandButton" });
-      const getCommandButtonControl = JSON.parse(JSON.stringify(this.getCommandButtonControl));
+    } else if (this.selectedControl === "commandbutton") {
+      this.incrementControl({
+        userFormKey: userFormKey,
+        type: "commandButton"
+      });
+      const getCommandButtonControl = JSON.parse(
+        JSON.stringify(this.getCommandButtonControl)
+      );
 
       const tool = {
         ...getCommandButtonControl,
-        name: "CommandButton".concat(this.getTreeData[userFormKey].elementsCount.commandButton),
-        caption: "CommandButton".concat(this.getTreeData[userFormKey].elementsCount.commandButton),
+        name: "CommandButton".concat(
+          this.getTreeData[userFormKey].elementsCount.commandButton
+        ),
+        caption: "CommandButton".concat(
+          this.getTreeData[userFormKey].elementsCount.commandButton
+        ),
         left:
-            this.selectedAreaStyle.width === "0px"
-              ? `${e.offsetX}px`
-              : this.selectedAreaStyle.left,
-          top:
-            this.selectedAreaStyle.width === "0px"
-              ? `${e.offsetY}px`
-              : this.selectedAreaStyle.top,
-          width:
-            this.selectedAreaStyle.width === "0px"
-              ? this.getCommandButtonControl.width
-              : this.selectedAreaStyle.width,
-          height:
-            this.selectedAreaStyle.height === "0px"
-              ? this.getCommandButtonControl.height
-              : this.selectedAreaStyle.height
-        }
+          this.selectedAreaStyle.width === "0px"
+            ? `${e.offsetX}px`
+            : this.selectedAreaStyle.left,
+        top:
+          this.selectedAreaStyle.width === "0px"
+            ? `${e.offsetY}px`
+            : this.selectedAreaStyle.top,
+        width:
+          this.selectedAreaStyle.width === "0px"
+            ? this.getCommandButtonControl.width
+            : this.selectedAreaStyle.width,
+        height:
+          this.selectedAreaStyle.height === "0px"
+            ? this.getCommandButtonControl.height
+            : this.selectedAreaStyle.height
+      };
 
-       
       this.addControl({
         newControl: tool,
         userFormKey: userFormKey
@@ -302,11 +305,10 @@ export default class UserForm extends Vue {
       console.log(this.getControlIndex)
       
    } */
-    /* this.dragSelectedControls(this.checkedList);
-    console.log("mouse up");
+    this.dragSelectedControls({ selectedControlList:this.checkedList,userFormKey:userFormKey});
     if (this.selectedAreaStyle.width === "0px") {
-      this.deactivateControl();
-    } */
+      this.deactivateControl(userFormKey);
+    }
   }
 }
 </script>

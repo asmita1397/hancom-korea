@@ -95,14 +95,11 @@
 import { Component, Vue } from "vue-property-decorator";
 import { Mutation, Getter } from "vuex-class";
 import { EventBus } from "./event-bus";
-import {userFormData} from '../models/UserFormData'
-import { UserForm } from "../entities/UserForm";
+import { UserFormEntity } from "../entities/UserForm";
 
 @Component({})
 export default class Header extends Vue {
  
- /*  @Getter getTreeBrowserData!: any;
-  @Getter getTreeData!: any; */
   @Getter prevModalZIndex!: any;
   @Getter getUseFormCount!: any;
   @Mutation incrementuserFormCount!: any;
@@ -110,16 +107,12 @@ export default class Header extends Vue {
   
   @Mutation addtreeBrowserData!: Function;
   @Mutation updatePrevModalZIndex!: any;
- /*  @Mutation userFormIndex!: any;
- */
-  
-  getUserForm: UserForm = userFormData
 
   handleAddUserForm(): void {
     this.incrementuserFormCount();
     this.updatePrevModalZIndex();
 
-    const getUserForm = JSON.parse(JSON.stringify(this.getUserForm));
+    const getUserForm = new UserFormEntity()
     const newUserForm = {
       ...getUserForm,
       property: {

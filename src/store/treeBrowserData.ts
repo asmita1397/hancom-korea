@@ -3,27 +3,10 @@ import { treeData } from '../models/TreeData'
 import { TreeUserFormData } from "../entities/TreeUserFormData";
 import Vue from 'vue'
 export const state: TreeUserFormData = treeData
-// ={
-  // treeBrowserData: treeData,
-  /* useFormIdIndex: -1,
-  controlIdIndex: -1 */
-// }
-
-
-
 
 export const getters: GetterTree<TreeUserFormData, any> = {
-
- /*  getTreeBrowserData: state => state.treeBrowserData.userForms[0].userForms,
-  getRoot: state => state.treeBrowserData,
-  getUserFormIndex: state => state.useFormIdIndex,
-  getControlIndex: state => state.controlIdIndex,
-  getPrevControlIndex: state => state.treeBrowserData.userForms[0].userForms[state.useFormIdIndex].controlZIndex,
-  getSelectedUserForm: state => state.treeBrowserData.userForms[0].userForms[state.useFormIdIndex],
-  getSelectedControl: state => state.treeBrowserData.userForms[0].userForms[state.useFormIdIndex].controls[state.controlIdIndex], */
-    
   getTreeData: state => state.VBAProject1,
-  getUseFormCount: state=> state.VBAProject1.userFormCount
+  getUseFormCount: state => state.VBAProject1.userFormCount
 
 }
 
@@ -31,33 +14,26 @@ export const mutations: MutationTree<any> =
 {
 
   dragOuterWindow: (state, userForm) => {
-    
     state.VBAProject1[userForm.userFormKey].property.outerWindowtop = userForm.top
-    state.VBAProject1[userForm.userFormKey].property.outerWindowleft= userForm.left
-    
-
+    state.VBAProject1[userForm.userFormKey].property.outerWindowleft = userForm.left
   },
-  incrementuserFormCount:(state) => {
+  incrementuserFormCount: (state) => {
     state.VBAProject1.userFormCount += 1
   },
   makeActive: (state, userForm) => {
-    state.VBAProject1[userForm.key].property.outerWindowZIndex= userForm.zIndex.toString()
+    state.VBAProject1[userForm.key].property.outerWindowZIndex = userForm.zIndex.toString()
   },
-
   addtreeBrowserData: (state, userForm) => {
-     const newKey=`ID_USERFORM${state.VBAProject1.userFormCount+1}`
-     Vue.set(state.VBAProject1,newKey, userForm)
-    
+    const newKey = `ID_USERFORM${state.VBAProject1.userFormCount + 1}`
+    Vue.set(state.VBAProject1, newKey, userForm)
   },
   closeWindow: (state, userForm) => {
     state.VBAProject1[userForm].property.display = "none";
   },
-   
   resizeUserForm: (state, userForm) => {
     state.VBAProject1[userForm.userFormKey].property.width = `${userForm.styleDetail.width}px`
     state.VBAProject1[userForm.userFormKey].property.height = `${userForm.styleDetail.height}px`
   },
- 
   resizeStyle: (state, controlStyle) => {
     state.VBAProject1[controlStyle.userFormKey].controls[controlStyle.controlKey].width = controlStyle.width
     state.VBAProject1[controlStyle.userFormKey].controls[controlStyle.controlKey].left = controlStyle.left
@@ -67,40 +43,25 @@ export const mutations: MutationTree<any> =
   dragStyle: (state, controlStyle) => {
     state.VBAProject1[controlStyle.userFormKey].controls[controlStyle.controlKey].left = controlStyle.left
     state.VBAProject1[controlStyle.userFormKey].controls[controlStyle.controlKey].top = controlStyle.top
-
   },
-  incrementControl(state,control)
-  {
+  incrementControl(state, control) {
     state.VBAProject1[control.userFormKey].elementsCount[control.type] += 1
-  },
+    console.log(state.VBAProject1[control.userFormKey].elementsCount[control.type])
 
+  },
   addControl: (state, addControl) => {
-   
-    if(addControl.newControl.type === 'Label')
-    {
-     const newControlKey =  `ID_LABEL${state.VBAProject1[addControl.userFormKey].elementsCount.label+1}`
-     Vue.set(state.VBAProject1[addControl.userFormKey].controls, newControlKey,  addControl.newControl);
+    if (addControl.newControl.type === 'Label') {
+      const newControlKey = `ID_LABEL${state.VBAProject1[addControl.userFormKey].elementsCount.label + 1}`
+      Vue.set(state.VBAProject1[addControl.userFormKey].controls, newControlKey, addControl.newControl);
     }
-    else if(addControl.newControl.type === 'CommandButton')
-    {
-     
-     const newControlKey =  `ID_COMMANDBUTTON${state.VBAProject1[addControl.userFormKey].elementsCount.commandbutton+1}`
-     Vue.set(state.VBAProject1[addControl.userFormKey].controls, newControlKey,  addControl.newControl);
+    else if (addControl.newControl.type === 'CommandButton') {
+      const newControlKey = `ID_COMMANDBUTTON${state.VBAProject1[addControl.userFormKey].elementsCount.commandButton + 1}`
+      Vue.set(state.VBAProject1[addControl.userFormKey].controls, newControlKey, addControl.newControl);
     }
-    
+
   },
 
 
-  userFormIndex: (state, userForm) => {
-    state.useFormIdIndex = state.treeBrowserData.userForms[0].userForms.findIndex((val: any) => val.id === userForm.id)
-  },
-  controlIndex: (state, control) => {
-    state.controlIdIndex = state.treeBrowserData.userForms[0].userForms[state.useFormIdIndex].controls.findIndex((val: any) => val.id === control.id)
-  },
- 
- 
-  
- 
   updatePrevControlIndex: (state) => {
     state.treeBrowserData.userForms[0].userForms[state.useFormIdIndex].controlZIndex += 1
   },
@@ -117,9 +78,13 @@ export const mutations: MutationTree<any> =
   updatedInnerWindowStyle: (state, updatedStyle) => {
     state.treeBrowserData.userForms[0].userForms[state.useFormIdIndex].innerWindowStyle.container[updatedStyle.styleName] = updatedStyle.styleValue
   },
+
+  
   updateControl: (state, updatedStyle) => {
     state.treeBrowserData.userForms[0].userForms[state.useFormIdIndex].controls[state.controlIdIndex][updatedStyle.styleName] = updatedStyle.styleValue
   },
+
+
   updateControlStyle: (state, updatedStyle) => {
     state.treeBrowserData.userForms[0].userForms[state.useFormIdIndex].controls[state.controlIdIndex].style[updatedStyle.styleName] = updatedStyle.styleValue
   },
@@ -127,9 +92,9 @@ export const mutations: MutationTree<any> =
     console.log(state.treeBrowserData.userForms[0].userForms)
     state.treeBrowserData.userForms[0].userForms[state.useFormIdIndex].controls.splice(state.controlIdIndex, 1)
   },
-  activateControl: (state,keys) => {
-  
-    state.VBAProject1[keys.userFormKey].controls[keys.controlKey].isActive=true
+  activateControl: (state, keys) => {
+
+    state.VBAProject1[keys.userFormKey].controls[keys.controlKey].isActive = true
 
     /* state.treeBrowserData.userForms[0].userForms[state.useFormIdIndex].controls.map((val: any, index: number) => {
       if (index === state.controlIdIndex) {
@@ -140,24 +105,25 @@ export const mutations: MutationTree<any> =
       }
     }) */
   },
-  deactivateControl: (state) => {
-    state.treeBrowserData.userForms[0].userForms[state.useFormIdIndex].controls.map((val: any) => {
-      if (val.isActive === true) {
-        val.isActive = false
+  deactivateControl: (state,userFormKey) => {
+    for (const key in state.VBAProject1[userFormKey].controls) {
+      
+      if(state.VBAProject1[userFormKey].controls[key].isActive)
+      {
+       state.VBAProject1[userFormKey].controls[key].isActive = false
       }
-    })
+   }
   },
-  dragSelectedControls: (state, contolList) => {
-    state.treeBrowserData.userForms[0].userForms[state.useFormIdIndex].controls.map((val: any) => {
-      val.isActive= false
-      contolList.map((control: any) => {
-        if (control.id === val.id) {
-          val.isActive = true
+  dragSelectedControls: (state, selectedControl) => {
+    for (const controlKey in state.VBAProject1[selectedControl.userFormKey].controls) {
+      state.VBAProject1[selectedControl.userFormKey].controls[controlKey].isActive = false
+      for (const key in selectedControl.selectedControlList) {
+        if(selectedControl.selectedControlList[key] === controlKey)
+        {
+          state.VBAProject1[selectedControl.userFormKey].controls[controlKey].isActive = true
         }
-        
-      }
-      )
-    })
+     }
+   }
   },
 
 
