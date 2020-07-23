@@ -38,7 +38,7 @@ export class UserFormEntity implements UserForm {
       pictureSizeMode: " 9px 10px",
       picture:
         "radial-gradient(circle, rgb(0, 0, 0) 0.5px, rgba(0, 0, 0, 0) 0.2px)",
-      controlZIndex: "3",
+      controlZIndex: 3,
       name: "UserForm1",
       type: "UserForm",
       visible: true,
@@ -88,7 +88,7 @@ export interface UserForm1
     Size,
     UserFormStyle,
     PictureTypesControls {
-  controlZIndex: string;
+  controlZIndex: number;
   drawBuffer: number;
   cycle: string;
   rightToLeft: boolean;

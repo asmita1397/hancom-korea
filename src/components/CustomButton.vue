@@ -44,20 +44,16 @@ export default class CustomLabel extends Vue {
   @Prop() userFormKey!: any;
   @Prop() controlKey: string;
 
-
+  
   @Getter getPrevControlIndex!: any;
-  @Mutation userFormIndex!: Function;
+  
   @Mutation updatePrevControlIndex!: Function;
-  @Mutation controlIndex!: Function;
   @Mutation updateControlIndex!: Function;
   @Mutation activateControl!: Function;
+
   customButtonClick() {
-   /*  console.log("clickd");
-    this.userFormIndex(this.userForm);
-    this.controlIndex(this.control);
-    this.updatePrevControlIndex();
-    this.updateControlIndex(this.getPrevControlIndex);
-    this.activateControl(); */
+       this.updatePrevControlIndex(this.userFormKey);
+    this.updateControlIndex({userFormKey:this.userFormKey,controlKey:this.controlKey});
      this.activateControl({
       controlKey: this.controlKey,
       userFormKey: this.userFormKey

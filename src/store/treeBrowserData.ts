@@ -60,15 +60,15 @@ export const mutations: MutationTree<any> =
     }
 
   },
-
-
-  updatePrevControlIndex: (state) => {
-    state.treeBrowserData.userForms[0].userForms[state.useFormIdIndex].controlZIndex += 1
+  updatePrevControlIndex: (state,userFormKey) => {
+    state.VBAProject1[userFormKey].property.controlZIndex += 1
   },
-  updateControlIndex: (state, controlIndex) => {
-    state.treeBrowserData.userForms[0].userForms[state.useFormIdIndex].controls[state.controlIdIndex].style.zIndex = controlIndex.toString()
-
+  updateControlIndex: (state, controlStyle) => {
+    state.VBAProject1[controlStyle.userFormKey].controls[controlStyle.controlKey].zIndex = state.VBAProject1[controlStyle.userFormKey].property.controlZIndex.toString()
   },
+
+
+
   displayUserForm: (state) => {
     state.treeBrowserData.userForms[0].userForms[state.useFormIdIndex].outerWindowStyle.container.display = "block"
   },
@@ -78,13 +78,9 @@ export const mutations: MutationTree<any> =
   updatedInnerWindowStyle: (state, updatedStyle) => {
     state.treeBrowserData.userForms[0].userForms[state.useFormIdIndex].innerWindowStyle.container[updatedStyle.styleName] = updatedStyle.styleValue
   },
-
-  
   updateControl: (state, updatedStyle) => {
     state.treeBrowserData.userForms[0].userForms[state.useFormIdIndex].controls[state.controlIdIndex][updatedStyle.styleName] = updatedStyle.styleValue
   },
-
-
   updateControlStyle: (state, updatedStyle) => {
     state.treeBrowserData.userForms[0].userForms[state.useFormIdIndex].controls[state.controlIdIndex].style[updatedStyle.styleName] = updatedStyle.styleValue
   },
@@ -92,6 +88,8 @@ export const mutations: MutationTree<any> =
     console.log(state.treeBrowserData.userForms[0].userForms)
     state.treeBrowserData.userForms[0].userForms[state.useFormIdIndex].controls.splice(state.controlIdIndex, 1)
   },
+
+
   activateControl: (state, keys) => {
 
     state.VBAProject1[keys.userFormKey].controls[keys.controlKey].isActive = true
