@@ -46,7 +46,7 @@ export const mutations: MutationTree<any> =
 
   addtreeBrowserData: (state, userForm) => {
      const newKey=`ID_USERFORM${state.VBAProject1.userFormCount+1}`
-     state.VBAProject1['ID_USERFORM'] = userForm
+     state.VBAProject1[newKey] = userForm
     
   },
   closeWindow: (state, userForm) => {
@@ -59,12 +59,18 @@ export const mutations: MutationTree<any> =
   },
  
   resizeStyle: (state, controlStyle) => {
-    console.log(state.VBAProject1[controlStyle.userFormKey].controls[controlStyle.controlKey].width, controlStyle.width)
     state.VBAProject1[controlStyle.userFormKey].controls[controlStyle.controlKey].width = controlStyle.width
     state.VBAProject1[controlStyle.userFormKey].controls[controlStyle.controlKey].left = controlStyle.left
     state.VBAProject1[controlStyle.userFormKey].controls[controlStyle.controlKey].top = controlStyle.top
     state.VBAProject1[controlStyle.userFormKey].controls[controlStyle.controlKey].height = controlStyle.height
   },
+  dragStyle: (state, controlStyle) => {
+    state.VBAProject1[controlStyle.userFormKey].controls[controlStyle.controlKey].left = controlStyle.left
+    state.VBAProject1[controlStyle.userFormKey].controls[controlStyle.controlKey].top = controlStyle.top
+
+  },
+
+
 
   userFormIndex: (state, userForm) => {
     state.useFormIdIndex = state.treeBrowserData.userForms[0].userForms.findIndex((val: any) => val.id === userForm.id)
@@ -73,11 +79,7 @@ export const mutations: MutationTree<any> =
     state.controlIdIndex = state.treeBrowserData.userForms[0].userForms[state.useFormIdIndex].controls.findIndex((val: any) => val.id === control.id)
   },
  
-  dragStyle: (state, controlStyle) => {
-    state.treeBrowserData.userForms[0].userForms[state.useFormIdIndex].controls[state.controlIdIndex].style.left = controlStyle.left
-    state.treeBrowserData.userForms[0].userForms[state.useFormIdIndex].controls[state.controlIdIndex].style.top = controlStyle.top
-
-  },
+ 
   addControl: (state, control) => {
     state.treeBrowserData.userForms[0].userForms[state.useFormIdIndex].controls = [
       ...state.treeBrowserData.userForms[0].userForms[state.useFormIdIndex].controls,

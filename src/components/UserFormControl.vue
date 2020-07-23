@@ -14,19 +14,23 @@
           :y="parseInt(control.top)"
           :parent="true"
           @resizing="(x,y,width,height)=>onResize(controlKey,x,y,width,height)"
-          @dragstop="(left, top) => dragstop(control, left, top)"
+          @dragstop="(left, top) => dragstop(controlKey, left, top)"
           @deactivated="onDeactivated"
           @activated="onActivated(userFormKey,control)"
         >
           <drag-selector-item :value="control">
-            <CustomLabel v-if="control.type==='Label'" :control="control" :controlKey="controlKey" :userFormKey="userFormKey" />
-         <!--    <CustomButton v-if="control.type==='CommandButton'" :control="control" :controlKey="controlKey" :userFormKey="userFormKey" /> -->
+            <CustomLabel
+              v-if="control.type==='Label'"
+              :control="control"
+              :controlKey="controlKey"
+              :userFormKey="userFormKey"
+            />
+            <!--    <CustomButton v-if="control.type==='CommandButton'" :control="control" :controlKey="controlKey" :userFormKey="userFormKey" /> -->
           </drag-selector-item>
         </vue-draggable-resizable>
       </template>
     </div>
   </div>
-
 </template>
 <script lang="ts">
 import { Component, Vue, Prop } from "vue-property-decorator";
@@ -47,7 +51,7 @@ import DragSelectorItem from "./DragSelectorItem.vue";
 })
 export default class UserFormControl extends Vue {
   @Prop() userFormKey!: string;
-  @Prop() userForm!: any
+  @Prop() userForm!: any;
   parent: object = {
     width: "98%",
     height: "98%",
@@ -106,22 +110,22 @@ export default class UserFormControl extends Vue {
     width: number,
     height: number
   ): void {
-   
     this.resizeStyle({
       width: `${width}px`,
       height: `${height}px`,
       left: `${x}px`,
       top: `${y}px`,
-      controlKey:controlKey,
+      controlKey: controlKey,
       userFormKey: this.userFormKey
     });
   }
-  dragstop(control: any, x: number, y: number): void {
-    this.userFormIndex(this.userFormKey);
-    this.controlIndex(control);
+  dragstop(controlKey: string, x: number, y: number): void {
+    console.log("drag stop",controlKey,this.userFormKey)
     this.dragStyle({
       left: `${x}px`,
-      top: `${y}px`
+      top: `${y}px`,
+      controlKey: controlKey,
+      userFormKey: this.userFormKey
     });
   }
 }
