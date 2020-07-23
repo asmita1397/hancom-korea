@@ -2,8 +2,7 @@
   <div>
     <button
       v-if="control"
-      :id="control.id"
-      :key="control.id"
+      :key="control.name"
       @mousedown="customButtonClick"
       @mouseup.stop
       :style="{
@@ -41,8 +40,9 @@ import { Getter, Mutation } from "vuex-class";
 import { EventBus } from "./event-bus";
 @Component({})
 export default class CustomLabel extends Vue {
-  @Prop() private control!: any;
-  @Prop() private userForm!: object;
+  @Prop() control!: any;
+  @Prop() userFormKey!: any;
+  @Prop() controlKey: string;
 
 
   @Getter getPrevControlIndex!: any;
@@ -52,13 +52,17 @@ export default class CustomLabel extends Vue {
   @Mutation updateControlIndex!: Function;
   @Mutation activateControl!: Function;
   customButtonClick() {
-    console.log("clickd");
+   /*  console.log("clickd");
     this.userFormIndex(this.userForm);
     this.controlIndex(this.control);
     this.updatePrevControlIndex();
     this.updateControlIndex(this.getPrevControlIndex);
-    this.activateControl();
-    EventBus.$emit("userFormClicked", this.control, this.userForm);
+    this.activateControl(); */
+     this.activateControl({
+      controlKey: this.controlKey,
+      userFormKey: this.userFormKey
+    });
+    // EventBus.$emit("userFormClicked", this.control, this.userForm);
   }
 }
 </script>

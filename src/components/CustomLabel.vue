@@ -1,8 +1,6 @@
 <template>
   <div>
     <label
-      class="lbl"
-      ref="labelRef"
       v-if="control"
       :key="control.name"
       :title="control.title"

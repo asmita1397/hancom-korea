@@ -25,7 +25,11 @@
               :controlKey="controlKey"
               :userFormKey="userFormKey"
             />
-            <!--    <CustomButton v-if="control.type==='CommandButton'" :control="control" :controlKey="controlKey" :userFormKey="userFormKey" /> -->
+            <CustomButton
+             v-if="control.type==='CommandButton'"
+              :control="control"
+              :controlKey="controlKey"
+              :userFormKey="userFormKey" />
           </drag-selector-item>
         </vue-draggable-resizable>
       </template>

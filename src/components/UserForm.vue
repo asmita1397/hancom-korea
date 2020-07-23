@@ -61,14 +61,13 @@
             @click="createTool($event,userFormKey)"
             @mousedown="handleDeactivate"
           >
-         
             <drag-selector
               :ref="'dragselector'.concat(userFormKey)"
               v-model="checkedList"
               @change="handleDragSelectorChange"
               class="drag-selector"
             >
-              <UserFormControl :userFormKey="userFormKey" :userForm="userForm" :key="componentKey"/>
+              <UserFormControl :userFormKey="userFormKey" :userForm="userForm" :key="componentKey" />
             </drag-selector>
           </div>
         </div>
@@ -86,7 +85,10 @@ import OuterWindowButton from "./OuterWindowButton.vue";
 import DragSelector from "./DragSelector.vue";
 import { EventBus } from "./event-bus";
 import { TreeUserFormData } from "../entities/TreeUserFormData";
-
+import { Label } from "../models/Label";
+import { CommandButton } from "../models/CommandButton";
+import { Label as LabelType } from "../entities/Label";
+import { CommandButton as CommandButtonType } from "../entities/CommandButton";
 @Component({
   components: {
     UserFormControl,
@@ -95,14 +97,14 @@ import { TreeUserFormData } from "../entities/TreeUserFormData";
   }
 })
 export default class UserForm extends Vue {
-  @Getter getTreeData: TreeUserFormData;
+  @Getter getTreeData: any;
 
   selectedAreaStyle: any;
   userFormName!: string;
   userFormKey!: string;
+
   @Getter getTreeBrowserData!: Function;
-  @Getter getLabelControl!: any;
-  @Getter getCommandButtonControl!: any;
+
   @Getter selectedControl!: any;
   @Getter prevModalZIndex!: any;
   @Getter selectedUserForm!: any;
@@ -121,14 +123,9 @@ export default class UserForm extends Vue {
   @Mutation deactivateControl!: any;
   @Mutation controlIndex!: any;
   @Mutation dragSelectedControls!: any;
+  @Mutation incrementControl!: any;
 
- @Watch('userData')
-  onPropertyChanged(value: string, oldValue: string) {
-    console.log(" grtusr======================================",value)
-    console.log("++++",oldValue)
-  }
-
-  componentKey = 0
+  componentKey = 0;
   positions: any = {
     clientX: "",
     clientY: "",
@@ -136,10 +133,8 @@ export default class UserForm extends Vue {
     movementY: 0
   };
 
-
-  
-
- 
+  getLabelControl: LabelType = Label;
+  getCommandButtonControl: CommandButtonType = CommandButton;
 
   innerWindowContainer = {
     backgroundSize: " 9px 10px",
@@ -149,15 +144,10 @@ export default class UserForm extends Vue {
 
   checkedList = [];
 
-    
   mounted() {
-    /* console.log(this.$store) */
-    this.$store.watch(this.$store.getters.getTreeData, n => {
-      console.log('watched: ', n)
-     
-    })
-      this.componentKey += 1;
-   /*  EventBus.$on(
+
+
+    /*  EventBus.$on(
       "selectedControlOption",
       (selectedForm: any, selectedControlOption: any) => {
         if (selectedControlOption.type !== "UserForm") {
@@ -168,7 +158,6 @@ export default class UserForm extends Vue {
       }
     ); */
   }
-
 
   handleDragSelectorChange(list: any) {
     /* for (const val in list) {
@@ -204,7 +193,6 @@ export default class UserForm extends Vue {
     document.onmouseup = this.closeDragElement;
   }
   elementDrag(event: any): void {
-    console.log("kkkkk");
     event.preventDefault();
     this.positions.movementX = this.positions.clientX - event.clientX;
     this.positions.movementY = this.positions.clientY - event.clientY;
@@ -219,13 +207,12 @@ export default class UserForm extends Vue {
       (this as any).$refs[this.userFormName][0].offsetLeft -
       this.positions.movementX +
       "px";
-      console.log(left, top)
+    console.log(left, top);
     this.dragOuterWindow({
       userFormKey: this.userFormKey,
       top: top,
       left: left
     });
-    console.log((this as any).$refs);
   }
   closeDragElement(): void {
     document.onmouseup = null;
@@ -236,39 +223,50 @@ export default class UserForm extends Vue {
     this.resizeUserForm({ styleDetail: e.detail, userFormKey: userFormKey });
   }
   createTool(e: any, userFormKey: any) {
-    
+   
     if (this.selectedControl === "label") {
-      console.log("labl",e.offsetX);
+      this.incrementControl({ userFormKey: userFormKey, type: "label" });
+      const getLabelControl = JSON.parse(JSON.stringify(this.getLabelControl));
+
       const tool = {
-        ...this.getLabelControl,
-          left:
-            this.selectedAreaStyle.width === "0px"
-              ? `${e.offsetX}px`
-              : this.selectedAreaStyle.left,
-          top:
-            this.selectedAreaStyle.width === "0px"
-              ? `${e.offsetY}px`
-              : this.selectedAreaStyle.top,
-          width:
-            this.selectedAreaStyle.width === "0px"
-              ? this.getLabelControl.width
-              : this.selectedAreaStyle.width,
-          height:
-            this.selectedAreaStyle.height === "0px"
-              ? this.getLabelControl.height
-              : this.selectedAreaStyle.height
+        ...getLabelControl,
+        name: "Label".concat(this.getTreeData[userFormKey].elementsCount.label),
+        caption: "Label".concat(
+          this.getTreeData[userFormKey].elementsCount.label
+        ),
+        left:
+          this.selectedAreaStyle.width === "0px"
+            ? `${e.offsetX}px`
+            : this.selectedAreaStyle.left,
+        top:
+          this.selectedAreaStyle.width === "0px"
+            ? `${e.offsetY}px`
+            : this.selectedAreaStyle.top,
+        width:
+          this.selectedAreaStyle.width === "0px"
+            ? getLabelControl.width
+            : this.selectedAreaStyle.width,
+        height:
+          this.selectedAreaStyle.height === "0px"
+            ? getLabelControl.height
+            : this.selectedAreaStyle.height
       };
       console.log("tool", tool);
-      this.addControl({newControl:tool,userFormKey:userFormKey,uniqueKey:this.selectedAreaStyle.height});
-    } /* else if (this.selectedControl === "commandbutton") {
+      this.addControl({
+        newControl: tool,
+        userFormKey: userFormKey
+      });
+    }
+    else if (this.selectedControl === "commandbutton") {
+      
+      this.incrementControl({ userFormKey: userFormKey, type: "commandButton" });
+      const getCommandButtonControl = JSON.parse(JSON.stringify(this.getCommandButtonControl));
+
       const tool = {
-        ...this.getCommandButtonControl,
-        id: modal.controls.length + 1,
-        name: "CommandButton".concat(modal.controls.length + 1),
-        caption: "CommandButton".concat(modal.controls.length + 1),
-        style: {
-          ...this.getCommandButtonControl.style,
-          left:
+        ...getCommandButtonControl,
+        name: "CommandButton".concat(this.getTreeData[userFormKey].elementsCount.commandButton),
+        caption: "CommandButton".concat(this.getTreeData[userFormKey].elementsCount.commandButton),
+        left:
             this.selectedAreaStyle.width === "0px"
               ? `${e.offsetX}px`
               : this.selectedAreaStyle.left,
@@ -278,23 +276,26 @@ export default class UserForm extends Vue {
               : this.selectedAreaStyle.top,
           width:
             this.selectedAreaStyle.width === "0px"
-              ? this.getCommandButtonControl.style.width
+              ? this.getCommandButtonControl.width
               : this.selectedAreaStyle.width,
           height:
             this.selectedAreaStyle.height === "0px"
-              ? this.getCommandButtonControl.style.height
+              ? this.getCommandButtonControl.height
               : this.selectedAreaStyle.height
         }
-      };
-      console.log("tool", tool);
-      this.addControl(tool);
-    } */
+
+       
+      this.addControl({
+        newControl: tool,
+        userFormKey: userFormKey
+      });
+    }
     this.updateSelectedControl("select");
   }
   handleMouseUp(userFormKey: string) {
-    const dragRef = 'dragselector'.concat(userFormKey)
+    const dragRef = "dragselector".concat(userFormKey);
     this.selectedAreaStyle = (this as any).$refs[dragRef][0].selectAreaStyle;
-    console.log(this.selectedAreaStyle)
+    console.log(this.selectedAreaStyle);
     /* for (const val in this.checkedList) {
       console.log( this.checkedList[val])
       this.controlIndex( this.checkedList[val])

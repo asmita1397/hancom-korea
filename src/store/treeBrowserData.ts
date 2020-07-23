@@ -69,16 +69,24 @@ export const mutations: MutationTree<any> =
     state.VBAProject1[controlStyle.userFormKey].controls[controlStyle.controlKey].top = controlStyle.top
 
   },
+  incrementControl(state,control)
+  {
+    state.VBAProject1[control.userFormKey].elementsCount[control.type] += 1
+  },
 
   addControl: (state, addControl) => {
-    
-     if(addControl.newControl.type === 'Label')
-     {
-      state.VBAProject1[addControl.userFormKey].elementsCount.label += 1
-      const newControlKey =  `ID_LABEL${state.VBAProject1[addControl.userFormKey].controls.length}`
-      Vue.set(state.VBAProject1[addControl.userFormKey].controls, newControlKey,  addControl.newControl);
-  
-     }
+   
+    if(addControl.newControl.type === 'Label')
+    {
+     const newControlKey =  `ID_LABEL${state.VBAProject1[addControl.userFormKey].elementsCount.label+1}`
+     Vue.set(state.VBAProject1[addControl.userFormKey].controls, newControlKey,  addControl.newControl);
+    }
+    else if(addControl.newControl.type === 'CommandButton')
+    {
+     
+     const newControlKey =  `ID_COMMANDBUTTON${state.VBAProject1[addControl.userFormKey].elementsCount.commandbutton+1}`
+     Vue.set(state.VBAProject1[addControl.userFormKey].controls, newControlKey,  addControl.newControl);
+    }
     
   },
 

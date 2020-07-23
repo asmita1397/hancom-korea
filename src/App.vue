@@ -60,7 +60,7 @@ import { EventBus } from "./components/event-bus";
 export default class App extends Vue {
   
   @State("userForms") userForms: any;
-  @Getter getUserForm: any;
+
   @Getter getRoot!: any;
   @Getter getTreeBrowserData: any;
 
