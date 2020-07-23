@@ -226,7 +226,7 @@ export default {
                 width: `${width}px`,
                 height: `${height}px`,
                 zIndex: 444,
-                backColor: 'rgba(51, 51, 51, 0.5)',
+                backgroundColor:'rgba(51, 51, 51, 0.5)',
                 position: 'absolute'
             };
         }

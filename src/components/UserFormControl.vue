@@ -128,6 +128,8 @@ export default class UserFormControl extends Vue {
       userFormKey: this.userFormKey
     });
   }
+
+  
 }
 </script>
 

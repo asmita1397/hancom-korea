@@ -1,7 +1,7 @@
 import { GetterTree, MutationTree, ActionTree } from 'vuex'
 import { treeData } from '../models/TreeData'
 import { TreeUserFormData } from "../entities/TreeUserFormData";
-
+import Vue from 'vue'
 export const state: TreeUserFormData = treeData
 // ={
   // treeBrowserData: treeData,
@@ -46,7 +46,7 @@ export const mutations: MutationTree<any> =
 
   addtreeBrowserData: (state, userForm) => {
      const newKey=`ID_USERFORM${state.VBAProject1.userFormCount+1}`
-     state.VBAProject1[newKey] = userForm
+     Vue.set(state.VBAProject1,newKey, userForm)
     
   },
   closeWindow: (state, userForm) => {
@@ -70,6 +70,17 @@ export const mutations: MutationTree<any> =
 
   },
 
+  addControl: (state, addControl) => {
+    
+     if(addControl.newControl.type === 'Label')
+     {
+      state.VBAProject1[addControl.userFormKey].elementsCount.label += 1
+      const newControlKey =  `ID_LABEL${state.VBAProject1[addControl.userFormKey].controls.length}`
+      Vue.set(state.VBAProject1[addControl.userFormKey].controls, newControlKey,  addControl.newControl);
+  
+     }
+    
+  },
 
 
   userFormIndex: (state, userForm) => {
@@ -80,12 +91,6 @@ export const mutations: MutationTree<any> =
   },
  
  
-  addControl: (state, control) => {
-    state.treeBrowserData.userForms[0].userForms[state.useFormIdIndex].controls = [
-      ...state.treeBrowserData.userForms[0].userForms[state.useFormIdIndex].controls,
-      control
-    ];
-  },
   
  
   updatePrevControlIndex: (state) => {

@@ -23,7 +23,8 @@
     boxShadow: control.specialEffect,
     wordWrap: control.wordWrap,
     overflow: control.overflow,
-    whiteSpace: control.whiteSpace
+    whiteSpace: control.whiteSpace,
+   
     }"
       @mousedown="customLabelClick"
       @mouseup.stop

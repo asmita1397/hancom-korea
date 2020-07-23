@@ -6,7 +6,25 @@
       :key="control.id"
       @mousedown="customButtonClick"
       @mouseup.stop
-      :style="commandButtonStyle"
+      :style="{
+        left: control.left,
+        top: control.top,
+        width: control.width,
+        height:control.height,
+        zIndex: control.zIndex,
+        border: control.border,
+        backgroundColor: control.backColor,
+        borderColor: control.borderColor,
+        fontFamily: control.font,
+        color: control.foreColor,
+        textAlign: control.textAlign,
+        cursor: control.mousePointer,
+        boxShadow: control.specialEffect,
+        wordWrap: control.wordWrap,
+        overflow: control.overflow,
+        whiteSpace:control.whiteSpace,
+        borderStyle: 'solid'
+      }"
       :title="control.title"
       :tabindex="control.tabindex"
       :v-model="control.caption"
@@ -26,27 +44,6 @@ export default class CustomLabel extends Vue {
   @Prop() private control!: any;
   @Prop() private userForm!: object;
 
-  commandButtonStyle=
-  { 
-
-    left: this.control.left,
-    top: this.control.top,
-    width: this.control.width,
-    height:this.control.height,
-    zIndex: this.control.zIndex,
-    border: this.control.border,
-    backgroundColor: this.control.backColor,
-    borderColor: this.control.borderColor,
-    fontFamily: this.control.font,
-    color: this.control.foreColor,
-    textAlign: this.control.textAlign,
-    cursor: this.control.mousePointer,
-    boxShadow: this.control.specialEffect,
-    wordWrap: this.control.wordWrap,
-    overflow: this.control.overflow,
-    whiteSpace:this.control.whiteSpace,
-    borderStyle: "solid",
-  }
 
   @Getter getPrevControlIndex!: any;
   @Mutation userFormIndex!: Function;
@@ -60,7 +57,7 @@ export default class CustomLabel extends Vue {
     this.controlIndex(this.control);
     this.updatePrevControlIndex();
     this.updateControlIndex(this.getPrevControlIndex);
-    this.activateControl()
+    this.activateControl();
     EventBus.$emit("userFormClicked", this.control, this.userForm);
   }
 }
