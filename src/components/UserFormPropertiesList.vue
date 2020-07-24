@@ -3,7 +3,7 @@
     <div>
       <div class="sideheader">
         <span class="sideheader1">
-          Properties - {{this.selectedUserForm&&this.selectedUserForm.name}}
+          Properties -<!--  {{this.selectedUserForm && this.selectedUserForm.property.name}} -->
           <button
             style="float:right"
           >
@@ -14,28 +14,30 @@
     </div>
     <div class="form-group">
       <label for="userForm"></label>
+     
       <select
         class="form-control"
         name="selectedUserForm"
         id="selectedUserForm"
         v-model="selectedOption"
+        v-if="selectedUserForm"
         @change="handleSelectedOption(selectedUserForm,selectedOption)"
       >
         <option
           :value="selectedUserForm"
           :selected="true"
-        >{{ selectedUserForm.name }} {{selectedUserForm.type}}</option>
+        >{{ selectedUserForm.property.name }} {{selectedUserForm.property.type}} </option>
         <option v-for="control in selectedUserForm.controls" :value="control" :key="control.id">
           <b>{{ control.name }} {{control.type}}</b>
         </option>
       </select>
 
-      <UserFormTable v-if="selectedOption.type==='UserForm'" :selectedUserForm="selectedUserForm" />
-      <LabelControlTable v-if="selectedOption.type==='Label'" :selectedUserForm="selectedOption" />
+      <UserFormTable v-if="selectedOption.property.type==='UserForm'" :selectedUserForm="selectedUserForm" />
+      <!-- <LabelControlTable v-if="selectedOption.type==='Label'" :selectedUserForm="selectedOption" />
       <CommandButtonControl
         v-if="selectedOption.type==='CommandButton'"
         :selectedUserForm="selectedOption"
-      />
+      /> -->
     </div>
   </div>
 </template>
@@ -52,7 +54,7 @@ import CommandButtonControl from "./CommandButtonControl.vue";
 })
 export default class UserFormPropertiesList extends Vue {
   @Getter getControlIndex!: any;
-  selectedUserForm = {};
+  selectedUserForm: object;
   selectedOption = {};
 
   @Mutation controlIndex!: any;
@@ -60,7 +62,7 @@ export default class UserFormPropertiesList extends Vue {
   mounted() {
     EventBus.$on("userFormClicked", (control: object, userForm: object) => {
 
-      console.log("----------------------------------------------------------------------")
+      console.log("-------",control,userForm)
       this.selectedOption = control;
       this.selectedUserForm = userForm;
     });

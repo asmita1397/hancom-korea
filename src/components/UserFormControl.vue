@@ -63,16 +63,13 @@ export default class UserFormControl extends Vue {
     backColor: ""
   };
 
-  deletingControlId: any = -1;
-  deletingUserFormId: any = -1;
   selectedControl!: any;
-  @Mutation userFormIndex!: Function;
-  @Getter getUserFormIndex!: any;
-  @Getter getControlIndex!: any;
-  @Mutation controlIndex!: any;
+
   @Mutation resizeStyle!: any;
   @Mutation dragStyle!: any;
   @Mutation deletingControl!: Function;
+
+
   mounted() {
     console.log("mounted", this.userFormKey);
     document.addEventListener("keydown", this.deleteSingleControl);
@@ -82,33 +79,14 @@ export default class UserFormControl extends Vue {
     if (e.keyCode === 13) {
       console.log("dlt")
       this.deletingControl(this.userFormKey);
-     /*  if (this.deletingUserFormId !== -1 && this.deletingControlId !== -1) {
-        if (this.userFormKey === this.deletingUserFormId) {
-          this.userFormIndex(this.userFormKey);
-          this.controlIndex(this.selectedControl);
-          
-          this.deletingControlId = -1;
-          this.deletingUserFormId = -1;
-          EventBus.$emit("userFormClicked", this.userFormKey, this.userFormKey);
-        }
-      } */
     }
   }
 
   onDeactivated() {
-    this.deletingControlId = -1;
-    this.deletingUserFormId = -1;
+     console.log("deactivated")
   }
-  onActivated(userForm: any, controlKey: string) {
-   
-   /*  for (let i = 0; i < userForm.controls.length; i++) {
-      if (userForm.controls[i].id === control.id) {
-        this.selectedControl = userForm.controls[i];
-        this.deletingControlId = i;
-        this.deletingUserFormId = userForm.id;
-      }
-    } */
-    
+  onActivated() {
+      console.log("activated")    
   }
 
   onResize(

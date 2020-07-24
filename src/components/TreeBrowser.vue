@@ -1,18 +1,19 @@
 <template >
   <div class="tree" style="min-height:'50px'">
     <div @click="nodeClicked" :style="{'margin-left': `${depth * 2}px`}" class="node">
-      <span v-if="hasChildren" class="fa">{{expanded ? '[-] &#xf07c;' : '[+] &#xf07b;'}}</span>
+      <span v-if="hasChildren" class="fa">{{expanded ? '[-] &#xf07c;' : '[+] &#xf07b;'}}   </span>
       <span class="type" v-else>
         <i style="font-size:15px" class="fa">&#xf15c;</i>
+        {{node}}
       </span>
-      {{node.name}}
+    
     </div>
 
     <ul v-if="expanded">
       <TreeBrowser
-        v-for="child in node.userForms"
+        v-for="child in node"
         :key="child.name"
-        :node="child"
+        :node="child.property"
         :depth="depth + 1"
         @onClick="(node) => $emit('onClick',node)"
       />
@@ -22,10 +23,12 @@
 
 
 <script lang="ts">
+
 import { Component, Vue, Prop } from "vue-property-decorator";
 import { Mutation, Getter } from "vuex-class";
 
 @Component({})
+
 export default class TreeBrowser extends Vue {
   @Prop() node!: any;
 
@@ -43,10 +46,17 @@ export default class TreeBrowser extends Vue {
     default: 0
   };
   expanded = false;
-
+  
   mounted() {
     this.updateSelect(true);
+    console.log("===========",this.node)
+    if(this.node.name=== undefined)
+    {
+      this.node= this.node["VBAProject1"]
+    }
+    console.log("===========",this.node)
   }
+
   nodeClicked() {
     this.expanded = !this.expanded;
     if (!this.hasChildren) {
@@ -56,7 +66,8 @@ export default class TreeBrowser extends Vue {
 
   
   get hasChildren() {
-    return this.node.userForms;
+    console.log(this.node)
+    return this.node;
   }
 }
 </script>

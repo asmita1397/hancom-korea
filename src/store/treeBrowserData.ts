@@ -6,13 +6,13 @@ export const state: TreeUserFormData = treeData
 
 export const getters: GetterTree<TreeUserFormData, any> = {
   getTreeData: state => state.VBAProject1,
-  getUseFormCount: state => state.VBAProject1.userFormCount
+  getUseFormCount: state => state.VBAProject1.userFormCount,
+  getRoot: state => state
 
 }
 
 export const mutations: MutationTree<any> =
 {
-
   dragOuterWindow: (state, userForm) => {
     state.VBAProject1[userForm.userFormKey].property.outerWindowtop = userForm.top
     state.VBAProject1[userForm.userFormKey].property.outerWindowleft = userForm.left

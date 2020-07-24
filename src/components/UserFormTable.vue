@@ -8,21 +8,21 @@
       <tr>
         <td>(Name)</td>
         <td>
-          <input type="text" :value="getSelectedUserForm.name"  @input="e=>handleChangeInput(e,'name')"/>
+          <input type="text" :value="selectedUserForm.property.name"  @input="e=>handleChangeInput(e,'name')"/>
         </td>
       </tr>
       <tr>
         <td>BackColor</td>
         <td>
-          <select :value="getSelectedUserForm.innerWindowStyle.container.backColor" @change="ChangeInput($event,'backColor')" >
+          <select :value="selectedUserForm.property.backColor" @change="ChangeInput($event,'backColor')" >
             <option v-for="(item,key) in backColor" :key="key" :value="item">{{key}}</option>
           </select>
         </td>
       </tr>
-      <tr>
+       <tr>
         <td>BorderColor</td>
         <td>
-          <select :value="getSelectedUserForm.innerWindowStyle.container.borderColor" @change="ChangeInput($event,'borderColor')">
+          <select :value="selectedUserForm.property.borderColor" @change="ChangeInput($event,'borderColor')">
             <option v-for="(item,key) in borderColor" :key="key" :value="item">{{key}}</option>
           </select>
         </td>
@@ -30,21 +30,21 @@
       <tr>
         <td>BorderStyle</td>
         <td>
-          <select :value="getSelectedUserForm.innerWindowStyle.container.border" @change="ChangeInput($event,'border')">
+          <select :value="selectedUserForm.property.border" @change="ChangeInput($event,'border')">
             <option v-for="(item,key) in borderStyle" :key="key" :value="item">{{key}}</option>
           </select>
         </td>
       </tr>
-      <tr>
+    <tr>
         <td>Caption</td>
         <td>
-          <input type="text" :value="getSelectedUserForm.caption"   @input="e=>handleChangeInput(e,'caption')"/>
+          <input type="text" :value="selectedUserForm.property.caption"   @input="e=>handleChangeInput(e,'caption')"/>
         </td>
-      </tr>
-      <tr>
+  </tr>
+            <tr>
         <td>Cycle</td>
         <td>
-          <select :value="getSelectedUserForm.cycle" @change="handleChangeInput($event,'cycle')">
+          <select :value="selectedUserForm.property.cycle" @change="handleChangeInput($event,'cycle')">
             <option v-for="(item,key) in cycle" :key="key" :value="item">{{key}}</option>
           </select>
         </td>
@@ -54,7 +54,7 @@
         <td>
           <input
             type="number"
-            v-model="getSelectedUserForm.drawBuffer"
+            v-model="selectedUserForm.property.drawBuffer"
             @change="drawBufferValidate(getSelectedUserForm.drawBuffer)"
           />
         </td>
@@ -62,7 +62,7 @@
       <tr>
         <td>Enabled</td>
         <td>
-          <select :value="getSelectedUserForm.enabled" @change="handleChangeInput($event,'enabled')">
+          <select :value="selectedUserForm.property.enabled" @change="handleChangeInput($event,'enabled')">
             <option :value="true" selected>True</option>
             <option :value="false">False</option>
           </select>
@@ -71,7 +71,7 @@
       <tr>
         <td>Font</td>
         <td>
-          <select :value="getSelectedUserForm.innerWindowStyle.container.font" @change="ChangeInput($event,'font')">
+          <select :value="selectedUserForm.property.font" @change="ChangeInput($event,'font')">
             <option v-for="(item,key) in font" :key="key" :value="item">{{key}}</option>
           </select>
         </td>
@@ -79,17 +79,17 @@
       <tr>
         <td>ForeColor</td>
         <td>
-          <select :value="getSelectedUserForm.innerWindowStyle.container.foreColor" @change="ChangeInput($event,'foreColor')">
+          <select :value="selectedUserForm.property.foreColor" @change="ChangeInput($event,'foreColor')">
             <option v-for="(item,key) in foreColor" :key="key" :value="item">{{key}}</option>
           </select>
         </td>
       </tr>
-      <tr>
+     <tr>
         <td>Height</td>
         <td>
           <input
             type="number"
-            :value="getSelectedUserForm.innerWindowStyle.container.height | sizeFilter"
+            :value="selectedUserForm.property.height | sizeFilter"
             @change="validators.sizeValidate($event,getSelectedUserForm,'height')"
             @keyup.enter="validators.sizeValidate($event,getSelectedUserForm,'height')"
           />
@@ -100,7 +100,7 @@
         <td>
           <input
             type="number"
-            v-model="getSelectedUserForm.helpContextId"
+            v-model="selectedUserForm.property.helpContextId"
            @change="helpContextIdValidate(selectedUserForm.helpContextId)" 
           />
           
@@ -109,7 +109,7 @@
       <tr>
         <td>KeepScrollsBarsVisible</td>
         <td>
-          <select :value="getSelectedUserForm.keepScrollsBarsVisible" @change="handleChangeInput($event,'keepScrollsBarsVisible')">
+          <select :value="selectedUserForm.property.keepScrollsBarsVisible" @change="handleChangeInput($event,'keepScrollsBarsVisible')">
             <option v-for="(item,key) in keepScrollsBarsVisible" :key="key" :value="item">{{key}}</option>
           </select>
         </td>
@@ -119,13 +119,13 @@
         <td>
           <input
             type="number"
-            :value="getSelectedUserForm.innerWindowStyle.container.left"
+            :value="selectedUserForm.property.left"
             @change="validators.sizeValidate($event,getSelectedUserForm,'left')"
             @keyup.enter="validators.sizeValidate($event,getSelectedUserForm,'left')"
           />
         </td>
       </tr>
-      <tr>
+     <tr>
         <td>MouseIcon</td>
         <td>
           <input type="file" accept=".ico" />
@@ -134,8 +134,8 @@
       <tr>
         <td>MousePointer</td>
         <td>
-          <select :value="getSelectedUserForm.innerWindowStyle.container.cursor" @change="ChangeInput($event,'cursor')"> 
-            <option v-for="(item,key) in mousePointer" :key="key" :value="item">{{key}}</option>
+          <select :value="selectedUserForm.property.mousePointer" @change="ChangeInput($event,'cursor')"> 
+            <option v-for="(item,key) in  mousePointer" :key="key" :value="item">{{key}}</option>
           </select>
         </td>
       </tr>
@@ -145,10 +145,10 @@
           <input type="file" accept=".png, .jpg, .jpeg, .ico" />
         </td>
       </tr>
-      <tr>
+     <tr>
         <td>PictureAlignment</td>
         <td>
-          <select :value="getSelectedUserForm.pictureAlignment" @change="handleChangeInput($event,'pictureAlignment')">
+          <select :value="selectedUserForm.property.pictureAlignment" @change="handleChangeInput($event,'pictureAlignment')">
             <option v-for="(item,key) in pictureAlignment" :key="key" :value="item">{{key}}</option>
           </select>
         </td>
@@ -156,7 +156,7 @@
       <tr>
         <td>PictureSizeMode</td>
         <td>
-          <select :value="getSelectedUserForm.pictureSizeMode" @change="handleChangeInput($event,'pictureSizeMode')">
+          <select :value="selectedUserForm.property.pictureSizeMode" @change="handleChangeInput($event,'pictureSizeMode')">
             <option v-for="(item,key) in pictureSizeMode" :key="key" :value="item">{{key}}</option>
           </select>
         </td>
@@ -164,7 +164,7 @@
       <tr>
         <td>PictureTiling</td>
         <td>
-          <select :value="getSelectedUserForm.pictureTiling" @change="handleChangeInput($event,'pictureTiling')">
+          <select :value="selectedUserForm.property.pictureTiling" @change="handleChangeInput($event,'pictureTiling')">
             <option :value="false" selected>False</option>
             <option :value="true">True</option>
           </select>
@@ -174,7 +174,7 @@
         <td>RightToLeft</td>
         <td>
           <select
-            v-model="getSelectedUserForm.rightToLeft"
+            v-model="selectedUserForm.property.rightToLeft"
             @change="rightToLeft(getSelectedUserForm.rightToLeft)"
           >
             <option selected :value="false">False</option>
@@ -185,40 +185,40 @@
       <tr>
         <td>ScrollBars</td>
         <td>
-          <select :value="getSelectedUserForm.scrollBars" @change="handleChangeInput($event,'scrollBars')">
+          <select :value="selectedUserForm.property.scrollBars" @change="handleChangeInput($event,'scrollBars')">
             <option v-for="(item,key) in scrollBars" :key="key" :value="item">{{key}}</option>
           </select>
         </td>
       </tr>
-      <tr>
+       <tr>
         <td>ScrollHeight</td>
         <td>
-          <input type="number" :value="getSelectedUserForm.scrollHeight"   @input="e=>handleChangeInput(e,'scrollHeight')"/>
+          <input type="number" :value="selectedUserForm.property.scrollHeight"   @input="e=>handleChangeInput(e,'scrollHeight')"/>
         </td>
       </tr>
       <tr>
         <td>ScrollLeft</td>
         <td>
-          <input type="number" :value="getSelectedUserForm.scrollLeft"  @input="e=>handleChangeInput(e,'scrollLeft')" />
+          <input type="number" :value="selectedUserForm.property.scrollLeft"  @input="e=>handleChangeInput(e,'scrollLeft')" />
         </td>
       </tr>
       <tr>
         <td>ScrollTop</td>
         <td>
-          <input type="number" :value="getSelectedUserForm.scrollTop"   @input="e=>handleChangeInput(e,'scrollTop')"/>
+          <input type="number" :value="selectedUserForm.property.scrollTop"   @input="e=>handleChangeInput(e,'scrollTop')"/>
         </td>
       </tr>
 
       <tr>
         <td>ScrollWidth</td>
         <td>
-          <input type="number" :value="getSelectedUserForm.scrollWidth"   @input="e=>handleChangeInput(e,'scrollWidth')"/>
+          <input type="number" :value="selectedUserForm.property.scrollWidth"   @input="e=>handleChangeInput(e,'scrollWidth')"/>
         </td>
       </tr>
-      <tr>
+     <tr>
         <td>ShowModal</td>
         <td>
-          <select :value="getSelectedUserForm.showModal" @change="handleChangeInput($event,'showModal')">
+          <select :value="selectedUserForm.property.showModal" @change="handleChangeInput($event,'showModal')">
             <option :value="true" selected>True</option>
             <option :value="false">False</option>
           </select>
@@ -227,23 +227,23 @@
       <tr>
         <td>SpecialEffect</td>
         <td>
-          <select :value="getSelectedUserForm.innerWindowStyle.container.specialEffect" @change="ChangeInput($event,'specialEffect')">
+          <select :value="selectedUserForm.property.specialEffect" @change="ChangeInput($event,'specialEffect')">
             <option v-for="(item,key) in specialEffect" :key="key" :value="item">{{key}}</option>
           </select>
         </td>
       </tr>
-      <tr>
+       <tr>
         <td>StartUpPosition</td>
         <td>
-          <select :value="getSelectedUserForm.startUpPosition" @change="handleChangeInput($event,'startUpPosition')">
+          <select :value="selectedUserForm.property.startUpPosition" @change="handleChangeInput($event,'startUpPosition')">
             <option v-for="(item,key) in startUpPosition" :key="key" :value="item">{{key}}</option>
           </select>
         </td>
       </tr>
-      <tr>
+     <tr>
         <td>Tag</td>
         <td>
-          <input type="text" :value="getSelectedUserForm.tag"  @input="e=>handleChangeInput(e,'tag')"/>
+          <input type="text" :value="selectedUserForm.property.tag"  @input="e=>handleChangeInput(e,'tag')"/>
         </td>
       </tr>
       <tr>
@@ -251,7 +251,7 @@
         <td>
           <input
             type="number"
-            :value="getSelectedUserForm.innerWindowStyle.container.top"
+            :value="selectedUserForm.property.top"
             @change="validators.sizeValidate($event,getSelectedUserForm,'top')"
             @keyup.enter="validators.sizeValidate($event,getSelectedUserForm,'top')"
           />
@@ -261,7 +261,7 @@
         <td>WhatsThisButton</td>
         <td>
           <select
-            v-model="getSelectedUserForm.whatsThisButton"
+            v-model="selectedUserForm.property.whatsThisButton"
             @change="handleWhatsThis(getSelectedUserForm.whatsThisButton)"
           >
             <option :value="true">True</option>
@@ -272,7 +272,7 @@
       <tr>
         <td>WhatsThisHelp</td>
         <td>
-          <select :value="getSelectedUserForm.whatsThisButton" @change="handleChangeInput($event,'whatsThisButton')">
+          <select :value="selectedUserForm.property.whatsThisButton" @change="handleChangeInput($event,'whatsThisButton')">
             <option :value="true">True</option>
             <option :value="false" selected>False</option>
           </select>
@@ -283,7 +283,7 @@
         <td>
           <input
             type="number"
-            :value="getSelectedUserForm.innerWindowStyle.container.width | sizeFilter"
+            :value="selectedUserForm.property.width | sizeFilter"
             @change="validators.sizeValidate($event,getSelectedUserForm,'width')"
             @keyup.enter="validators.sizeValidate($event,getSelectedUserForm,'width')"
           />
@@ -294,12 +294,12 @@
         <td>
           <input
             type="number"
-            :value="getSelectedUserForm.innerWindowStyle.container.zoom | sizeFilter"
+            :value="selectedUserForm.property.zoom | sizeFilter"
             @change="validators.zoomValidate($event,getSelectedUserForm,'zoom')"
             @keyup.enter="validators.zoomValidate($event,getSelectedUserForm,'zoom')"
           />
         </td>
-      </tr>
+      </tr>  
     </table>
   </div>
 </template>

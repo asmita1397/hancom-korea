@@ -11,15 +11,16 @@
         }"
         class="outerWindowContainer"
         :ref="'outrWindowDrag'.concat(userFormKey)"
-        @mousedown="make(userFormKey)"
+        @mousedown="make(userFormKey,userForm)"
       >
         <div class="outerWindowTop" @mousedown="dragMouseDown($event,userFormKey)">
           <span>Book1 {{userForm.property.name}} (UserForm)</span>
           <OuterWindowButton :userForm="userFormKey" />
         </div>
-
         <div
           :style="{
+             margin: userForm.property.margin,
+            zIndex: userForm.property.zIndex ,
             color: userForm.property.foreColor,
             left: userForm.property.left,
             top:userForm.property.top,
@@ -41,6 +42,7 @@
             borderTopRightRadius:userForm.property.borderTopRightRadius,
             maxWidth: userForm.property.maxWidth,
             maxHeight: userForm.property.maxHeight,
+            rightToLeft:  userForm.property.rightToLeft
           }"
           v-resize
           @resize="onResize($event,userFormKey)"
@@ -143,6 +145,9 @@ export default class UserForm extends Vue {
       "radial-gradient(circle, rgb(0, 0, 0) 0.5px, rgba(0, 0, 0, 0) 0.2px)"
   };
 
+
+
+
   checkedList = [];
 
   mounted() {
@@ -169,19 +174,20 @@ export default class UserForm extends Vue {
   handleDeactivate() {
     this.checkedList = [];
   }
-  make(userFormKey: string): void {
+  make(userFormKey: string, userForm: object): void {
     this.updatePrevModalZIndex();
     this.makeActive({ zIndex: this.prevModalZIndex, key: userFormKey });
-    /*  this.updateSelect(true);
-    this.updateSelectedUserForm(userFormKey);
+     this.updateSelect(true);
+    this.updateSelectedUserForm(userForm);
+    console.log("ppppppppppppppppppp")
     EventBus.$emit(
       "userFormClicked",
       this.selectedUserForm,
       this.selectedUserForm
-    ); */
+    );
   }
   dragMouseDown(event: any, userFormKey: any): void {
-    console.log("dragging", userFormKey);
+   
     this.userFormKey = userFormKey;
     this.userFormName = "outrWindowDrag".concat(userFormKey);
     event.preventDefault();
@@ -205,7 +211,7 @@ export default class UserForm extends Vue {
       (this as any).$refs[this.userFormName][0].offsetLeft -
       this.positions.movementX +
       "px";
-    console.log(left, top);
+    
     this.dragOuterWindow({
       userFormKey: this.userFormKey,
       top: top,
@@ -248,7 +254,7 @@ export default class UserForm extends Vue {
             ? getLabelControl.height
             : this.selectedAreaStyle.height
       };
-      console.log("tool", tool);
+     
       this.addControl({
         newControl: tool,
         userFormKey: userFormKey
@@ -298,13 +304,6 @@ export default class UserForm extends Vue {
   handleMouseUp(userFormKey: string) {
     const dragRef = "dragselector".concat(userFormKey);
     this.selectedAreaStyle = (this as any).$refs[dragRef][0].selectAreaStyle;
-    console.log(this.selectedAreaStyle);
-    /* for (const val in this.checkedList) {
-      console.log( this.checkedList[val])
-      this.controlIndex( this.checkedList[val])
-      console.log(this.getControlIndex)
-      
-   } */
     this.dragSelectedControls({ selectedControlList:this.checkedList,userFormKey:userFormKey});
     if (this.selectedAreaStyle.width === "0px") {
       this.deactivateControl(userFormKey);
