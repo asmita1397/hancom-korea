@@ -14,7 +14,7 @@
       <tr>
         <td>BackColor</td>
         <td>
-          <select :value="selectedUserForm.property.backColor" @change="ChangeInput($event,'backColor')" >
+          <select :value="selectedUserForm.property.backColor" @change="handleChangeInput($event,'backColor')" >
             <option v-for="(item,key) in backColor" :key="key" :value="item">{{key}}</option>
           </select>
         </td>
@@ -22,7 +22,7 @@
        <tr>
         <td>BorderColor</td>
         <td>
-          <select :value="selectedUserForm.property.borderColor" @change="ChangeInput($event,'borderColor')">
+          <select :value="selectedUserForm.property.borderColor" @change="handleChangeInput($event,'borderColor')">
             <option v-for="(item,key) in borderColor" :key="key" :value="item">{{key}}</option>
           </select>
         </td>
@@ -30,7 +30,7 @@
       <tr>
         <td>BorderStyle</td>
         <td>
-          <select :value="selectedUserForm.property.border" @change="ChangeInput($event,'border')">
+          <select :value="selectedUserForm.property.border" @change="handleChangeInput($event,'border')">
             <option v-for="(item,key) in borderStyle" :key="key" :value="item">{{key}}</option>
           </select>
         </td>
@@ -71,7 +71,7 @@
       <tr>
         <td>Font</td>
         <td>
-          <select :value="selectedUserForm.property.font" @change="ChangeInput($event,'font')">
+          <select :value="selectedUserForm.property.font" @change="handleChangeInput($event,'font')">
             <option v-for="(item,key) in font" :key="key" :value="item">{{key}}</option>
           </select>
         </td>
@@ -79,7 +79,7 @@
       <tr>
         <td>ForeColor</td>
         <td>
-          <select :value="selectedUserForm.property.foreColor" @change="ChangeInput($event,'foreColor')">
+          <select :value="selectedUserForm.property.foreColor" @change="handleChangeInput($event,'foreColor')">
             <option v-for="(item,key) in foreColor" :key="key" :value="item">{{key}}</option>
           </select>
         </td>
@@ -134,7 +134,7 @@
       <tr>
         <td>MousePointer</td>
         <td>
-          <select :value="selectedUserForm.property.mousePointer" @change="ChangeInput($event,'cursor')"> 
+          <select :value="selectedUserForm.property.mousePointer" @change="handleChangeInput($event,'cursor')"> 
             <option v-for="(item,key) in  mousePointer" :key="key" :value="item">{{key}}</option>
           </select>
         </td>
@@ -227,7 +227,7 @@
       <tr>
         <td>SpecialEffect</td>
         <td>
-          <select :value="selectedUserForm.property.specialEffect" @change="ChangeInput($event,'specialEffect')">
+          <select :value="selectedUserForm.property.specialEffect" @change="handleChangeInput($event,'specialEffect')">
             <option v-for="(item,key) in specialEffect" :key="key" :value="item">{{key}}</option>
           </select>
         </td>
@@ -284,8 +284,8 @@
           <input
             type="number"
             :value="selectedUserForm.property.width | sizeFilter"
-            @change="validators.sizeValidate($event,getSelectedUserForm,'width')"
-            @keyup.enter="validators.sizeValidate($event,getSelectedUserForm,'width')"
+            @change="validators.sizeValidate($event,selectedUserForm,'width')"
+            @keyup.enter="validators.sizeValidate($event,selectedUserForm,'width')"
           />
         </td>
       </tr>
@@ -295,8 +295,8 @@
           <input
             type="number"
             :value="selectedUserForm.property.zoom | sizeFilter"
-            @change="validators.zoomValidate($event,getSelectedUserForm,'zoom')"
-            @keyup.enter="validators.zoomValidate($event,getSelectedUserForm,'zoom')"
+            @change="validators.zoomValidate($event,selectedUserForm,'zoom')"
+            @keyup.enter="validators.zoomValidate($event,selectedUserForm,'zoom')"
           />
         </td>
       </tr>  
@@ -319,7 +319,7 @@ import scrollBars from "../models/scrollBars.json";
 import specialEffect from "../models/specialEffect.json";
 import startUpPosition from "../models/startUpPosition.json";
 import pictureSizeMode from "../models/pictureSizeMode.json";
-// import { validators } from "@/validators/validator.js";
+import { validators } from "@/validators/validator.js";
 import { Getter, Mutation } from 'vuex-class';
 @Component({
   
@@ -333,7 +333,7 @@ import { Getter, Mutation } from 'vuex-class';
 
 export default class UserFormTable extends Vue {
   @Prop() selectedUserForm: any;
-  // validators: object = validators;
+  validators: object = validators;
   pictureSizeMode: object = pictureSizeMode;
   backColor: object = backColor;
   borderColor: object = borderColor;
@@ -366,11 +366,11 @@ handleChangeInput(e: any, styleName: string)
   this.updateStyle({styleValue:e.target.value,styleName:styleName})
   
 }
-ChangeInput(e: any, styleName: string)
+/* ChangeInput(e: any, styleName: string)
 {
   this.updatedInnerWindowStyle({styleValue:e.target.value,styleName:styleName})
   
-}
+} */
 
 
   drawBufferValidate(data: any) {

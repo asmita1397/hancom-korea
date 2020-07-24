@@ -2,6 +2,7 @@ import { GetterTree, MutationTree, ActionTree } from 'vuex'
 import { treeData } from '../models/TreeData'
 import { TreeUserFormData } from "../entities/TreeUserFormData";
 import Vue from 'vue'
+
 export const state: TreeUserFormData = treeData
 
 export const getters: GetterTree<TreeUserFormData, any> = {
@@ -83,9 +84,9 @@ export const mutations: MutationTree<any> =
   displayUserForm: (state) => {
     state.treeBrowserData.userForms[0].userForms[state.useFormIdIndex].outerWindowStyle.container.display = "block"
   },
-  updateStyle: (state, updatedStyle) => {
+ /*  updateStyle: (state, updatedStyle) => {
     state.treeBrowserData.userForms[0].userForms[state.useFormIdIndex][updatedStyle.styleName] = updatedStyle.styleValue
-  },
+  }, */
   updatedInnerWindowStyle: (state, updatedStyle) => {
     state.treeBrowserData.userForms[0].userForms[state.useFormIdIndex].innerWindowStyle.container[updatedStyle.styleName] = updatedStyle.styleValue
   },

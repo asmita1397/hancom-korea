@@ -26,6 +26,12 @@ export const mutations: MutationTree<any> =
     updatePrevModalZIndex: state => state.prevModalZIndex = state.prevModalZIndex + 1,
     updateSelect: (state, isSelect) => state.selected = isSelect,
 
+    updateStyle: (state,updatedStyle) =>
+    {
+        console.log(state.selectedUserForm)
+        state.selectedUserForm.property[updatedStyle.styleName] = updatedStyle.styleValue
+    }
+
 }
 
 export const actions: ActionTree<any, any> = {

@@ -32,8 +32,8 @@
         </option>
       </select>
 
-      <UserFormTable v-if="selectedOption.property.type==='UserForm'" :selectedUserForm="selectedUserForm" />
-      <!-- <LabelControlTable v-if="selectedOption.type==='Label'" :selectedUserForm="selectedOption" />
+      <UserFormTable v-if="selectedOption.property.type==='UserForm'" :selectedUserForm="selectedUserForm"  />
+     <!--  <LabelControlTable v-if="selectedOption.type==='Label'" :selectedUserForm="selectedOption" />
       <CommandButtonControl
         v-if="selectedOption.type==='CommandButton'"
         :selectedUserForm="selectedOption"
@@ -56,15 +56,17 @@ export default class UserFormPropertiesList extends Vue {
   @Getter getControlIndex!: any;
   selectedUserForm: object;
   selectedOption = {};
+  userFormKey: string
 
   @Mutation controlIndex!: any;
 
   mounted() {
-    EventBus.$on("userFormClicked", (control: object, userForm: object) => {
+    EventBus.$on("userFormClicked", (control: object, userForm: object,userFormKey: string) => {
 
       console.log("-------",control,userForm)
       this.selectedOption = control;
       this.selectedUserForm = userForm;
+       this.userFormKey=userFormKey
     });
   }
 
