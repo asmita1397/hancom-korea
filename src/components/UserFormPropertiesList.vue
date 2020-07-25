@@ -1,12 +1,11 @@
 <template>
-  <div>
+  <div v-if="noDisplay===false">
     <div>
       <div class="sideheader">
         <span class="sideheader1">
-          Properties -<!--  {{this.selectedUserForm && this.selectedUserForm.property.name}} -->
-          <button
-            style="float:right"
-          >
+          Properties -
+          <!--  {{this.selectedUserForm && this.selectedUserForm.property.name}} -->
+          <button style="float:right" v-on:click="noDisplayTable"> 
             <b>X</b>
           </button>
         </span>
@@ -14,7 +13,7 @@
     </div>
     <div class="form-group">
       <label for="userForm"></label>
-     
+
       <select
         class="form-control"
         name="selectedUserForm"
@@ -26,18 +25,21 @@
         <option
           :value="selectedUserForm"
           :selected="true"
-        >{{ selectedUserForm.property.name }} {{selectedUserForm.property.type}} </option>
+        >{{ selectedUserForm.property.name }} {{selectedUserForm.property.type}}</option>
         <option v-for="control in selectedUserForm.controls" :value="control" :key="control.id">
           <b>{{ control.name }} {{control.type}}</b>
         </option>
       </select>
 
-      <UserFormTable v-if="selectedOption.property.type==='UserForm'" :selectedUserForm="selectedUserForm"  />
-     <!--  <LabelControlTable v-if="selectedOption.type==='Label'" :selectedUserForm="selectedOption" />
+      <UserFormTable
+        v-if="selectedOption.property.type==='UserForm'"
+        :selectedUserForm="selectedUserForm"
+      />
+      <!--  <LabelControlTable v-if="selectedOption.type==='Label'" :selectedUserForm="selectedOption" />
       <CommandButtonControl
         v-if="selectedOption.type==='CommandButton'"
         :selectedUserForm="selectedOption"
-      /> -->
+      />-->
     </div>
   </div>
 </template>
@@ -56,18 +58,20 @@ export default class UserFormPropertiesList extends Vue {
   @Getter getControlIndex!: any;
   selectedUserForm: object;
   selectedOption = {};
-  userFormKey: string
-
+  userFormKey: string;
+  noDisplay= false
   @Mutation controlIndex!: any;
 
   mounted() {
-    EventBus.$on("userFormClicked", (control: object, userForm: object,userFormKey: string) => {
-
-      console.log("-------",control,userForm)
-      this.selectedOption = control;
-      this.selectedUserForm = userForm;
-       this.userFormKey=userFormKey
-    });
+    EventBus.$on(
+      "userFormClicked",
+      (control: object, userForm: object, userFormKey: string) => {
+        console.log("-------", control, userForm);
+        this.selectedOption = control;
+        this.selectedUserForm = userForm;
+        this.userFormKey = userFormKey;
+      }
+    );
   }
 
   handleSelectedOption(selectedUserForm: any, selectedOption: any) {
@@ -75,6 +79,10 @@ export default class UserFormPropertiesList extends Vue {
     console.log(this.getControlIndex);
     EventBus.$emit("selectedControlOption", selectedUserForm, selectedOption);
   }
+
+   noDisplayTable(){
+      this.noDisplay=true;
+    }
 }
 </script>
 
