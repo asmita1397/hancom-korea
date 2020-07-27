@@ -10,4 +10,4 @@ function throttle(method, delay = 30) {
     };
 }
 
-export {throttle};
+export { throttle };
