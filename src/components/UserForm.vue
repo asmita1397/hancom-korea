@@ -46,9 +46,7 @@
           }"
           v-resize
           @resize="onResize($event,userFormKey)"
-         
         >
-          
           <div class="innerWindowtop">
             <span
               v-bind:class="{ rightToLeft: userForm.property.rightToLeft}"
@@ -65,15 +63,14 @@
             class="innerWindowContainer"
             @click="createTool($event,userFormKey)"
             @mousedown="handleDeactivate"
-         @contextmenu.prevent="handleContextMenuOpen"
-            
+            @contextmenu.prevent="handlePasteControl($event,userFormKey)"
           >
-        <!--  -->
-          <context-menu id="context-menu" ref="ctxMenu">
-            <li>cut</li>
-            <li @click="handlePasteControl($event,userFormKey)">paste</li>
-            <li>copy</li>
-          </context-menu>
+            <!--   @contextmenu.prevent=""-->
+            <context-menu id="context-menu" ref="ctxMenu1">
+              <li>cut</li>
+              <li @click="handlePasteControl($event,userFormKey)">paste</li>
+              <li>copy</li>
+            </context-menu>
 
             <drag-selector
               :ref="'dragselector'.concat(userFormKey)"
@@ -109,7 +106,7 @@ import { CommandButton as CommandButtonType } from "../entities/CommandButton";
     UserFormControl,
     OuterWindowButton,
     DragSelector,
-     contextMenu
+    contextMenu
   }
 })
 export default class UserForm extends Vue {
@@ -174,10 +171,9 @@ export default class UserForm extends Vue {
       }
     ); */
   }
- handleContextMenuOpen(): void
- {
-    (this as any).$refs.ctxMenu[0].open()
- }
+  handleContextMenuOpen(): void {
+    (this as any).$refs.ctxMenu1[0].open();
+  }
 
   handleDragSelectorChange(list: any) {
     /* for (const val in list) {
@@ -188,11 +184,13 @@ export default class UserForm extends Vue {
  */
   }
   handlePasteControl(e: any, userFormKey: string) {
-    console.log("context------", userFormKey);
+  
+    console.log("context------", userFormKey , Object.keys(this.getCuttedControlList)[0]);
+
     if (Object.keys(this.getCuttedControlList)[0] !== undefined) {
       this.pasteControl({
         userFormKey: userFormKey,
-        control: this.getCuttedControlList
+        newControl: Object.values(this.getCuttedControlList)
       });
     }
   }

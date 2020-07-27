@@ -2,7 +2,6 @@ import { GetterTree, MutationTree, ActionTree } from 'vuex'
 import Vue from "vue";
 import store from './index'
 
-/* console.log("stor", store) */
 export const state: any = {
     selectedUserForm: {},
     selectedControl: "",

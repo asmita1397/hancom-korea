@@ -51,13 +51,14 @@ export const mutations: MutationTree<any> =
   },
   addControl: (state, addControl) => {
     if (addControl.newControl.type === 'Label') {
+      state.VBAProject1[addControl.userFormKey].elementsCount['label'] += 1
       const newControlKey = `ID_LABEL${state.VBAProject1[addControl.userFormKey].elementsCount.label}`
       Vue.set(state.VBAProject1[addControl.userFormKey].controls, newControlKey, addControl.newControl);
     }
-    else if (addControl.newControl.type === 'CommandButton') {
+   /*  else if (addControl.newControl.type === 'CommandButton') {
       const newControlKey = `ID_COMMANDBUTTON${state.VBAProject1[addControl.userFormKey].elementsCount.commandButton}`
       Vue.set(state.VBAProject1[addControl.userFormKey].controls, newControlKey, addControl.newControl);
-    }
+    } */
 
   },
   updatePrevControlIndex: (state,userFormKey) => {
@@ -136,10 +137,19 @@ export const mutations: MutationTree<any> =
         Vue.delete(state.VBAProject1[control.userFormKey].controls, control.controlKey); 
       
   },
-  pasteControl: (state,newControl)=>
+  pasteControl: (state,addControl)=>
   {
-
-    Vue.set(state.VBAProject1[newControl.userFormKey].controls, Object.keys(newControl.control)[0],Object.values(newControl.control)[0])
+   
+   /*  Vue.set(state.VBAProject1[newControl.userFormKey].controls, Object.keys(newControl.control)[0],Object.values(newControl.control)[0]) */
+    if (addControl.newControl[0].type === 'Label') {
+      console.log("mnmnn")
+      const newControlKey = `ID_LABEL${state.VBAProject1[addControl.userFormKey].elementsCount.label}`
+      Vue.set(state.VBAProject1[addControl.userFormKey].controls, newControlKey, addControl.newControl[0]);
+    }
+    else if (addControl.newControl.type === 'CommandButton') {
+      const newControlKey = `ID_COMMANDBUTTON${state.VBAProject1[addControl.userFormKey].elementsCount.commandButton}`
+      Vue.set(state.VBAProject1[addControl.userFormKey].controls, newControlKey, addControl.newControl);
+    }
   }
 }
 
