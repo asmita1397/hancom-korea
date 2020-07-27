@@ -71,12 +71,12 @@ export default class CustomLabel extends Vue {
   @Mutation updateCuttedControlList!: Function
 
   subMenuClick(e: any) {
-    console.log("jjjjjjjjjjjjjjjjjjjjjjj")
     this.updateCuttedControlList()
     console.log("event",e)
     this.cutControlList({
        controlKey: this.controlKey,
-       control: this.control
+       control: this.control,
+       userFormKey: this.userFormKey
     })
     this.cutSelectedControl({
        userFormKey: this.userFormKey,

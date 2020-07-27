@@ -7,7 +7,8 @@ export const state: any = {
     selectedControl: "",
     prevModalZIndex: 5,
     selected: false,
-    cuttedControlList:{}
+    cuttedControlList:{},
+    cutControlUserform:''
 }
 
 
@@ -16,7 +17,8 @@ export const getters: GetterTree<any, any> = {
     selectedControl: state => state.selectedControl,
     prevModalZIndex: state => state.prevModalZIndex,
     selected: state => state.selected,
-    getCuttedControlList: state => state.cuttedControlList
+    getCuttedControlList: state => state.cuttedControlList,
+    getCutControlUserform: state => state.cutControlUserform
 }
 
 export const mutations: MutationTree<any> =
@@ -35,6 +37,7 @@ export const mutations: MutationTree<any> =
     },
     cutControlList: (state,controlObject) =>
     {
+        state.cutControlUserform = controlObject.userFormKey
         Vue.set(state.cuttedControlList,controlObject.controlKey,controlObject.control );
        
     },

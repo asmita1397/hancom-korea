@@ -1,6 +1,8 @@
 import { GetterTree, MutationTree, ActionTree } from 'vuex'
 import { treeData } from '../models/TreeData'
 import { TreeUserFormData } from "../entities/TreeUserFormData";
+import { getters as gets } from "./globalProperty";
+import { state as globalState } from "./globalProperty";
 import Vue from 'vue'
 
 export const state: TreeUserFormData = treeData
@@ -51,30 +53,28 @@ export const mutations: MutationTree<any> =
   },
   addControl: (state, addControl) => {
     if (addControl.newControl.type === 'Label') {
-      state.VBAProject1[addControl.userFormKey].elementsCount['label'] += 1
       const newControlKey = `ID_LABEL${state.VBAProject1[addControl.userFormKey].elementsCount.label}`
       Vue.set(state.VBAProject1[addControl.userFormKey].controls, newControlKey, addControl.newControl);
     }
-   /*  else if (addControl.newControl.type === 'CommandButton') {
+    else if (addControl.newControl.type === 'CommandButton') {
       const newControlKey = `ID_COMMANDBUTTON${state.VBAProject1[addControl.userFormKey].elementsCount.commandButton}`
       Vue.set(state.VBAProject1[addControl.userFormKey].controls, newControlKey, addControl.newControl);
-    } */
+    }
 
   },
-  updatePrevControlIndex: (state,userFormKey) => {
+  updatePrevControlIndex: (state, userFormKey) => {
     state.VBAProject1[userFormKey].property.controlZIndex += 1
   },
   updateControlIndex: (state, controlStyle) => {
     state.VBAProject1[controlStyle.userFormKey].controls[controlStyle.controlKey].zIndex = state.VBAProject1[controlStyle.userFormKey].property.controlZIndex.toString()
   },
-  deletingControl: (state,userFormKey) => {
+  deletingControl: (state, userFormKey) => {
     for (const key in state.VBAProject1[userFormKey].controls) {
-      
-      if(state.VBAProject1[userFormKey].controls[key].isActive)
-      {
+
+      if (state.VBAProject1[userFormKey].controls[key].isActive) {
         Vue.delete(state.VBAProject1[userFormKey].controls, key);
       }
-   }
+    }
   },
 
 
@@ -83,9 +83,9 @@ export const mutations: MutationTree<any> =
   displayUserForm: (state) => {
     state.treeBrowserData.userForms[0].userForms[state.useFormIdIndex].outerWindowStyle.container.display = "block"
   },
- /*  updateStyle: (state, updatedStyle) => {
-    state.treeBrowserData.userForms[0].userForms[state.useFormIdIndex][updatedStyle.styleName] = updatedStyle.styleValue
-  }, */
+  /*  updateStyle: (state, updatedStyle) => {
+     state.treeBrowserData.userForms[0].userForms[state.useFormIdIndex][updatedStyle.styleName] = updatedStyle.styleValue
+   }, */
   updatedInnerWindowStyle: (state, updatedStyle) => {
     state.treeBrowserData.userForms[0].userForms[state.useFormIdIndex].innerWindowStyle.container[updatedStyle.styleName] = updatedStyle.styleValue
   },
@@ -95,7 +95,7 @@ export const mutations: MutationTree<any> =
   updateControlStyle: (state, updatedStyle) => {
     state.treeBrowserData.userForms[0].userForms[state.useFormIdIndex].controls[state.controlIdIndex].style[updatedStyle.styleName] = updatedStyle.styleValue
   },
-  
+
 
 
   activateControl: (state, keys) => {
@@ -111,44 +111,39 @@ export const mutations: MutationTree<any> =
       }
     }) */
   },
-  deactivateControl: (state,userFormKey) => {
+  deactivateControl: (state, userFormKey) => {
     for (const key in state.VBAProject1[userFormKey].controls) {
-      
-      if(state.VBAProject1[userFormKey].controls[key].isActive)
-      {
-       state.VBAProject1[userFormKey].controls[key].isActive = false
+
+      if (state.VBAProject1[userFormKey].controls[key].isActive) {
+        state.VBAProject1[userFormKey].controls[key].isActive = false
       }
-   }
+    }
   },
   dragSelectedControls: (state, selectedControl) => {
     for (const controlKey in state.VBAProject1[selectedControl.userFormKey].controls) {
       state.VBAProject1[selectedControl.userFormKey].controls[controlKey].isActive = false
       for (const key in selectedControl.selectedControlList) {
-        if(selectedControl.selectedControlList[key] === controlKey)
-        {
+        if (selectedControl.selectedControlList[key] === controlKey) {
           state.VBAProject1[selectedControl.userFormKey].controls[controlKey].isActive = true
         }
-     }
-   }
+      }
+    }
   },
 
-  cutSelectedControl: (state,control) => {
-      
-        Vue.delete(state.VBAProject1[control.userFormKey].controls, control.controlKey); 
-      
+  cutSelectedControl: (state, control) => {
+    Vue.delete(state.VBAProject1[control.userFormKey].controls, control.controlKey);
   },
-  pasteControl: (state,addControl)=>
-  {
-   
-   /*  Vue.set(state.VBAProject1[newControl.userFormKey].controls, Object.keys(newControl.control)[0],Object.values(newControl.control)[0]) */
-    if (addControl.newControl[0].type === 'Label') {
-      console.log("mnmnn")
-      const newControlKey = `ID_LABEL${state.VBAProject1[addControl.userFormKey].elementsCount.label}`
-      Vue.set(state.VBAProject1[addControl.userFormKey].controls, newControlKey, addControl.newControl[0]);
+  pasteControl: (state, addControl) => {
+    if (globalState.cutControlUserform === addControl.userFormKey) {
+      Vue.set(state.VBAProject1[addControl.userFormKey].controls, addControl.controlKey, addControl.control)
     }
-    else if (addControl.newControl.type === 'CommandButton') {
-      const newControlKey = `ID_COMMANDBUTTON${state.VBAProject1[addControl.userFormKey].elementsCount.commandButton}`
-      Vue.set(state.VBAProject1[addControl.userFormKey].controls, newControlKey, addControl.newControl);
+    else {
+      console.log("different", addControl.control)
+      if (addControl.control.type === 'Label') {
+        state.VBAProject1[addControl.userFormKey].elementsCount['label'] += 1
+        const newControlKey = `ID_LABEL${state.VBAProject1[addControl.userFormKey].elementsCount.label}`
+        Vue.set(state.VBAProject1[addControl.userFormKey].controls, newControlKey, addControl.control);
+      }
     }
   }
 }

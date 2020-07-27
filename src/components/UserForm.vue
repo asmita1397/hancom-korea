@@ -184,13 +184,12 @@ export default class UserForm extends Vue {
  */
   }
   handlePasteControl(e: any, userFormKey: string) {
-  
-    console.log("context------", userFormKey , Object.keys(this.getCuttedControlList)[0]);
 
     if (Object.keys(this.getCuttedControlList)[0] !== undefined) {
       this.pasteControl({
         userFormKey: userFormKey,
-        newControl: Object.values(this.getCuttedControlList)
+        controlKey: Object.keys(this.getCuttedControlList)[0],
+        control: Object.values(this.getCuttedControlList)[0]
       });
     }
   }
