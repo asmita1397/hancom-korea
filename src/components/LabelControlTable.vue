@@ -8,19 +8,19 @@
       <tr>
         <td>(Name)</td>
         <td>
-          <input type="text" :value="getSelectedControl.name"  @input="handleChangeInput($event,'name')"/>
+          <input type="text" :value="selectedUserForm.name"  @input="handleChangeInput($event,'name')"/>
         </td>
       </tr>
       <tr>
         <td>Accelerator</td>
         <td>
-          <input type="text" :value="getSelectedControl.accelerator" @input="handleChangeInput($event,'accelerator')" />
+          <input type="text" :value="selectedUserForm.accelerator" @input="handleChangeInput($event,'accelerator')" />
         </td>
       </tr>
       <tr>
         <td>AutoSize</td>
         <td>
-          <select v-model="getSelectedControl.autoSize" @change="autoSizeChange">
+          <select v-model="selectedUserForm.autoSize" @change="autoSizeChange">
             <option selected :value="false">False</option>
             <option :value="true">True</option>
           </select>
@@ -29,21 +29,21 @@
       <tr>
         <td>BackColor</td>
         <td>
-          <select :value="getSelectedControl.style.backColor"  @change="changeInput($event,'backColor')">
+          <select :value="selectedUserForm.backColor"  @change="changeInput($event,'backColor')">
             <option v-for="(item,key) in backColor" :key="key" :value="item">{{key}}</option>
           </select>
         </td>
       </tr>
       <tr>
         <td>BackStyle</td>
-        <select :value="getSelectedControl.style.backColor" @change="changeInput($event,'backColor')">
+        <select :value="selectedUserForm.backColor" @change="changeInput($event,'backColor')">
           <option v-for="(item,key) in backStyle" :key="key" :value="item">{{key}}</option>
         </select>
       </tr>
       <tr>
         <td>BorderColor</td>
         <td>
-          <select :value="getSelectedControl.style.borderColor" @change="changeInput($event,'borderColor')">
+          <select :value="selectedUserForm.borderColor" @change="changeInput($event,'borderColor')">
             <option v-for="(item,key) in borderColor" :key="key" :value="item">{{key}}</option>
           </select>
         </td>
@@ -51,7 +51,7 @@
       <tr>
         <td>BorderStyle</td>
         <td>
-          <select :value="getSelectedControl.style.border" @change="changeInput($event,'border')">
+          <select :value="selectedUserForm.border" @change="changeInput($event,'border')">
             <option v-for="(item,key) in borderStyle" :key="key" :value="item">{{key}}</option>
           </select>
         </td>
@@ -59,21 +59,21 @@
       <tr>
         <td>Caption</td>
         <td>
-          <input type="text" :value="getSelectedControl.caption"  @input="handleChangeInput($event,'caption')" />
+          <input type="text" :value="selectedUserForm.caption"  @input="handleChangeInput($event,'caption')" />
         </td>
       </tr>
       <tr>
         <td>ControlTipText</td>
         <td>
-          <input type="text" :value="getSelectedControl.title"  @input="handleChangeInput($event,'title')"/>
+          <input type="text" :value="selectedUserForm.title"  @input="handleChangeInput($event,'title')"/>
         </td>
       </tr>
       <tr>
         <td>Enabled</td>
         <td>
           <select
-            v-model="getSelectedControl.enabled"
-            @change="handleEnabled(getSelectedControl.enabled)"
+            v-model="selectedUserForm.enabled"
+            @change="handleEnabled(selectedUserForm.enabled)"
           >
             <option selected :value="true">True</option>
             <option :value="false">False</option>
@@ -83,7 +83,7 @@
       <tr>
         <td>Font</td>
         <td>
-          <select :value="getSelectedControl.style.font" @change="changeInput($event,'font')">
+          <select :value="selectedUserForm.font" @change="changeInput($event,'font')">
             <option v-for="(value,key) in font" v-bind:value="value" :key="key">{{key}}</option>
           </select>
         </td>
@@ -91,7 +91,7 @@
       <tr>
         <td>ForeColor</td>
         <td>
-          <select :value="getSelectedControl.style.foreColor"  @change="changeInput($event,'foreColor')">
+          <select :value="selectedUserForm.foreColor"  @change="changeInput($event,'foreColor')">
             <option v-for="(value,key) in foreColor" v-bind:value="value" :key="key">{{key}}</option>
           </select>
         </td>
@@ -101,16 +101,16 @@
         <td>
           <input
             type="number"
-            :value="getSelectedControl.style.height  | sizeFilter"
-            @change="validators.sizeValidateForControls($event,getSelectedControl,'height')"
-            @keyup.enter="validators.sizeValidateForControlsForControls($event,getSelectedControl,'height')"
+            :value="selectedUserForm.height  | sizeFilter"
+            @change="validators.sizeValidateForControls($event,selectedUserForm,'height')"
+            @keyup.enter="validators.sizeValidateForControlsForControls($event,selectedUserForm,'height')"
           />
         </td>
       </tr>
       <tr>
         <td>HelpContextId</td>
         <td>
-          <input type="number" :value="getSelectedControl.helpContextId"   @input="handleChangeInput($event,'helpContextId')" />
+          <input type="number" :value="selectedUserForm.helpContextId"   @input="handleChangeInput($event,'helpContextId')" />
         </td>
       </tr>
       <tr>
@@ -118,9 +118,9 @@
         <td>
           <input
             type="number"
-            :value="getSelectedControl.style.left  | sizeFilter"
-            @change="validators.sizeValidateForControls($event,getSelectedControl,'left')"
-            @keyup.enter="validators.sizeValidateForControls($event,getSelectedControl,'left')"
+            :value="selectedUserForm.left  | sizeFilter"
+            @change="validators.sizeValidateForControls($event,selectedUserForm,'left')"
+            @keyup.enter="validators.sizeValidateForControls($event,selectedUserForm,'left')"
           />
         </td>
       </tr>
@@ -133,7 +133,7 @@
       <tr>
         <td>MousePointer</td>
         <td>
-          <select :value="getSelectedControl.style.cursor"  @change="changeInput($event,'cursor')">
+          <select :value="selectedUserForm.cursor"  @change="changeInput($event,'cursor')">
             <option v-for="(value,key) in mousePointer" v-bind:value="value" :key="key">{{key}}</option>
           </select>
         </td>
@@ -147,7 +147,7 @@
       <tr>
         <td>PicturePosition</td>
         <td>
-          <select :value="getSelectedControl.picturePosition" @change="handleChangeInput($event,'specialEffect')">
+          <select :value="selectedUserForm.picturePosition" @change="handleChangeInput($event,'specialEffect')">
             <option v-for="(value,key) in picturePosition" v-bind:value="value" :key="key">{{key}}</option>
           </select>
         </td>
@@ -155,7 +155,7 @@
       <tr>
         <td>SpecialEffect</td>
         <td>
-          <select :value="getSelectedControl.style.specialEffect"  @change="changeInput($event,'specialEffect')">
+          <select :value="selectedUserForm.specialEffect"  @change="changeInput($event,'specialEffect')">
             <option v-for="(value,key) in specialEffect" v-bind:value="value" :key="key">{{key}}</option>
           </select>
         </td>
@@ -163,13 +163,13 @@
       <tr>
         <td>TabIndex</td>
         <td>
-          <input type="number" :value="getSelectedControl.tabindex" @input="handleChangeInput($event,'tabindex')" />
+          <input type="number" :value="selectedUserForm.tabindex" @input="handleChangeInput($event,'tabindex')" />
         </td>
       </tr>
       <tr>
         <td>TabStop</td>
         <td>
-          <select :value="getSelectedControl.tabStop" @change="handleChangeInput($event,'tabStop')">
+          <select :value="selectedUserForm.tabStop" @change="handleChangeInput($event,'tabStop')">
             <option :value="false" selected>False</option>
             <option :value="true">True</option>
           </select>
@@ -178,13 +178,13 @@
       <tr>
         <td>Tag</td>
         <td>
-          <input type="text" :value="getSelectedControl.tag" @input="handleChangeInput($event,'tag')"/>
+          <input type="text" :value="selectedUserForm.tag" @input="handleChangeInput($event,'tag')"/>
         </td>
       </tr>
       <tr>
         <td>TextAlign</td>
         <td>
-          <select value="getSelectedControl.style.textAlign" @change="changeInput($event,'textAlign')">
+          <select value="selectedUserForm.textAlign" @change="changeInput($event,'textAlign')">
             <option v-for="(value,key) in textAlign" v-bind:value="value" :key="key">{{key}}</option>
           </select>
         </td>
@@ -194,16 +194,16 @@
         <td>
           <input
             type="number"
-            :value="getSelectedControl.style.top  | sizeFilter"
-            @change="validators.sizeValidateForControls($event,getSelectedControl,'top')"
-            @keyup.enter="validators.sizeValidateForControls($event,getSelectedControl,'top')"
+            :value="selectedUserForm.top  | sizeFilter"
+            @change="validators.sizeValidateForControls($event,selectedUserForm,'top')"
+            @keyup.enter="validators.sizeValidateForControls($event,selectedUserForm,'top')"
           />
         </td>
       </tr>
       <tr>
         <td>Visible</td>
         <td>
-          <select :value="getSelectedControl.visible" @change="handleChangeInput($event,'visible')">
+          <select :value="selectedUserForm.visible" @change="handleChangeInput($event,'visible')">
             <option :value="false">False</option>
             <option :value="true" selected>True</option>
           </select>
@@ -214,16 +214,16 @@
         <td>
           <input
             type="number"
-            :value="getSelectedControl.style.width  | sizeFilter"
-            @change="validators.sizeValidateForControls($event,getSelectedControl,'width')"
-            @keyup.enter="validators.sizeValidateForControls($event,getSelectedControl,'width')"
+            :value="selectedUserForm.width  | sizeFilter"
+            @change="validators.sizeValidateForControls($event,selectedUserForm,'width')"
+            @keyup.enter="validators.sizeValidateForControls($event,selectedUserForm,'width')"
           />
         </td>
       </tr>
       <tr>
         <td>WordWrap</td>
         <td>
-          <select :v-model="getSelectedControl.wordWrap" @change="wordWrapChange($event)">
+          <select :v-model="selectedUserForm.wordWrap" @change="wordWrapChange($event)">
             <option selected :value="false">False</option>
             <option :value="true">True</option>
           </select>
@@ -273,7 +273,7 @@ export default class UserFormTable extends Vue {
   textAlign: object = textAlign;
 
 
-  @Getter getSelectedControl!: any
+  /* @Getter selectedUserForm!: any */
   @Mutation updateControl!: any 
   @Mutation updateControlStyle!: any
 
@@ -296,25 +296,25 @@ export default class UserFormTable extends Vue {
   }
   autoSizeChange(e: any) {
     if (e.target.value) {
-      this.getSelectedControl.style.overflowWrap = "break-word";
+      this.selectedUserForm.overflowWrap = "break-word";
     } else {
-      this.getSelectedControl.style.overflowWrap = "normal";
+      this.selectedUserForm.overflowWrap = "normal";
     }
   }
   handleEnabled(data: boolean) {
       if (data) {
-        this.getSelectedControl.style.foreColor = "black";
+        this.selectedUserForm.foreColor = "black";
       } else {
-        this.getSelectedControl.style.foreColor = "#DCDCDC";
+        this.selectedUserForm.foreColor = "#DCDCDC";
       }
     }
   wordWrapChange(event: any) {
     if (event.target.value === "true") {
-      this.getSelectedControl.style.wordWrap = "break-word";
-      this.getSelectedControl.style.whiteSpace = "normal";
+      this.selectedUserForm.wordWrap = "break-word";
+      this.selectedUserForm.whiteSpace = "normal";
     } else {
-      this.getSelectedControl.style.wordWrap = "normal";
-      this.getSelectedControl.style.whiteSpace = "nowrap";
+      this.selectedUserForm.wordWrap = "normal";
+      this.selectedUserForm.whiteSpace = "nowrap";
     }
   }
 }

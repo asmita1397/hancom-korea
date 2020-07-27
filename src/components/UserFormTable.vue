@@ -55,7 +55,7 @@
           <input
             type="number"
             v-model="selectedUserForm.property.drawBuffer"
-            @change="drawBufferValidate(getSelectedUserForm.drawBuffer)"
+            @change="drawBufferValidate(selectedUserForm.drawBuffer)"
           />
         </td>
       </tr>
@@ -90,8 +90,8 @@
           <input
             type="number"
             :value="selectedUserForm.property.height | sizeFilter"
-            @change="validators.sizeValidate($event,getSelectedUserForm,'height')"
-            @keyup.enter="validators.sizeValidate($event,getSelectedUserForm,'height')"
+            @change="validators.sizeValidate($event,selectedUserForm,'height')"
+            @keyup.enter="validators.sizeValidate($event,selectedUserForm,'height')"
           />
         </td>
       </tr>
@@ -120,8 +120,8 @@
           <input
             type="number"
             :value="selectedUserForm.property.left"
-            @change="validators.sizeValidate($event,getSelectedUserForm,'left')"
-            @keyup.enter="validators.sizeValidate($event,getSelectedUserForm,'left')"
+            @change="validators.sizeValidate($event,selectedUserForm,'left')"
+            @keyup.enter="validators.sizeValidate($event,selectedUserForm,'left')"
           />
         </td>
       </tr>
@@ -175,7 +175,7 @@
         <td>
           <select
             v-model="selectedUserForm.property.rightToLeft"
-            @change="rightToLeft(getSelectedUserForm.rightToLeft)"
+            @change="rightToLeft(selectedUserForm.rightToLeft)"
           >
             <option selected :value="false">False</option>
             <option :value="true">True</option>
@@ -252,8 +252,8 @@
           <input
             type="number"
             :value="selectedUserForm.property.top"
-            @change="validators.sizeValidate($event,getSelectedUserForm,'top')"
-            @keyup.enter="validators.sizeValidate($event,getSelectedUserForm,'top')"
+            @change="validators.sizeValidate($event,selectedUserForm,'top')"
+            @keyup.enter="validators.sizeValidate($event,selectedUserForm,'top')"
           />
         </td>
       </tr>
@@ -262,7 +262,7 @@
         <td>
           <select
             v-model="selectedUserForm.property.whatsThisButton"
-            @change="handleWhatsThis(getSelectedUserForm.whatsThisButton)"
+            @change="handleWhatsThis(selectedUserForm.whatsThisButton)"
           >
             <option :value="true">True</option>
             <option :value="false" selected>False</option>
@@ -319,7 +319,7 @@ import scrollBars from "../models/scrollBars.json";
 import specialEffect from "../models/specialEffect.json";
 import startUpPosition from "../models/startUpPosition.json";
 import pictureSizeMode from "../models/pictureSizeMode.json";
-import { validators } from "@/validators/validator.js";
+/* import { validators } from "@/validators/validator.js"; */
 import { Getter, Mutation } from 'vuex-class';
 @Component({
   
@@ -333,7 +333,7 @@ import { Getter, Mutation } from 'vuex-class';
 
 export default class UserFormTable extends Vue {
   @Prop() selectedUserForm: any;
-  validators: object = validators;
+ /*  validators: object = validators; */
   pictureSizeMode: object = pictureSizeMode;
   backColor: object = backColor;
   borderColor: object = borderColor;
@@ -352,13 +352,13 @@ export default class UserFormTable extends Vue {
 
 
  
-   @Getter getSelectedUserForm!: any
+  /*  @Getter selectedUserForm!: any */
    @Mutation updateStyle!: Function
    @Mutation updatedInnerWindowStyle!: Function
 
    mounted()
    {
-     console.log(this.getSelectedUserForm)
+     /* console.log(this.selectedUserForm) */
    }
 
 handleChangeInput(e: any, styleName: string)
@@ -375,15 +375,15 @@ handleChangeInput(e: any, styleName: string)
 
   drawBufferValidate(data: any) {
     if (data > 16000 && data <= 1048576) {
-      this.getSelectedUserForm.drawBuffer = data;
+      this.selectedUserForm.drawBuffer = data;
     } else {
-      this.getSelectedUserForm.drawBuffer = this.previousDrawBuffer;
+      this.selectedUserForm.drawBuffer = this.previousDrawBuffer;
     }
   }
 
   helpContextIdValidate(data: any): void {
     if (data > 2147000000) {
-      this.getSelectedUserForm.helpContextId = this.previoushelpContextId;
+      this.selectedUserForm.helpContextId = this.previoushelpContextId;
     }
   }
 

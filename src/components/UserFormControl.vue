@@ -7,7 +7,6 @@
           :style="{zIndex:control.zIndex}"
           v-for="(control,controlKey) in userForm.controls"
           :key="controlKey"
-          :id="key"
           :w="parseInt(control.width)"
           :h="parseInt(control.height)"
           :x="parseInt(control.left)"

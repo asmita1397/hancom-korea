@@ -46,7 +46,9 @@
           }"
           v-resize
           @resize="onResize($event,userFormKey)"
+         
         >
+          
           <div class="innerWindowtop">
             <span
               v-bind:class="{ rightToLeft: userForm.property.rightToLeft}"
@@ -63,11 +65,20 @@
             class="innerWindowContainer"
             @click="createTool($event,userFormKey)"
             @mousedown="handleDeactivate"
+         @contextmenu.prevent="handleContextMenuOpen"
+            
           >
+        <!--  -->
+          <context-menu id="context-menu" ref="ctxMenu">
+            <li>cut</li>
+            <li @click="handlePasteControl($event,userFormKey)">paste</li>
+            <li>copy</li>
+          </context-menu>
+
             <drag-selector
               :ref="'dragselector'.concat(userFormKey)"
               v-model="checkedList"
-              @change="handleDragSelectorChange"
+              @change="handleDragSelectorChange(userFormKey)"
               class="drag-selector"
             >
               <UserFormControl :userFormKey="userFormKey" :userForm="userForm" :key="componentKey" />
@@ -91,12 +102,14 @@ import { TreeUserFormData } from "../entities/TreeUserFormData";
 import { Label } from "../models/Label";
 import { CommandButton } from "../models/CommandButton";
 import { Label as LabelType } from "../entities/Label";
+import contextMenu from "vue-context-menu";
 import { CommandButton as CommandButtonType } from "../entities/CommandButton";
 @Component({
   components: {
     UserFormControl,
     OuterWindowButton,
-    DragSelector
+    DragSelector,
+     contextMenu
   }
 })
 export default class UserForm extends Vue {
@@ -112,6 +125,7 @@ export default class UserForm extends Vue {
   @Getter prevModalZIndex!: any;
   @Getter selectedUserForm!: any;
   @Getter getControlIndex!: any;
+  @Getter getCuttedControlList!: any;
 
   @Mutation userFormIndex!: Function;
   @Mutation addControl!: Function;
@@ -127,6 +141,7 @@ export default class UserForm extends Vue {
   @Mutation controlIndex!: any;
   @Mutation dragSelectedControls!: any;
   @Mutation incrementControl!: any;
+  @Mutation pasteControl!: any;
 
   componentKey = 0;
   positions: any = {
@@ -145,9 +160,6 @@ export default class UserForm extends Vue {
       "radial-gradient(circle, rgb(0, 0, 0) 0.5px, rgba(0, 0, 0, 0) 0.2px)"
   };
 
-
-
-
   checkedList = [];
 
   mounted() {
@@ -162,6 +174,10 @@ export default class UserForm extends Vue {
       }
     ); */
   }
+ handleContextMenuOpen(): void
+ {
+    (this as any).$refs.ctxMenu[0].open()
+ }
 
   handleDragSelectorChange(list: any) {
     /* for (const val in list) {
@@ -171,15 +187,24 @@ export default class UserForm extends Vue {
    }
  */
   }
+  handlePasteControl(e: any, userFormKey: string) {
+    console.log("context------", userFormKey);
+    if (Object.keys(this.getCuttedControlList)[0] !== undefined) {
+      this.pasteControl({
+        userFormKey: userFormKey,
+        control: this.getCuttedControlList
+      });
+    }
+  }
   handleDeactivate() {
     this.checkedList = [];
   }
   make(userFormKey: string, userForm: object): void {
     this.updatePrevModalZIndex();
     this.makeActive({ zIndex: this.prevModalZIndex, key: userFormKey });
-     this.updateSelect(true);
+    this.updateSelect(true);
     this.updateSelectedUserForm(userForm);
-    console.log("ppppppppppppppppppp")
+
     EventBus.$emit(
       "userFormClicked",
       this.selectedUserForm,
@@ -187,7 +212,6 @@ export default class UserForm extends Vue {
     );
   }
   dragMouseDown(event: any, userFormKey: any): void {
-   
     this.userFormKey = userFormKey;
     this.userFormName = "outrWindowDrag".concat(userFormKey);
     event.preventDefault();
@@ -211,7 +235,7 @@ export default class UserForm extends Vue {
       (this as any).$refs[this.userFormName][0].offsetLeft -
       this.positions.movementX +
       "px";
-    
+
     this.dragOuterWindow({
       userFormKey: this.userFormKey,
       top: top,
@@ -254,7 +278,7 @@ export default class UserForm extends Vue {
             ? getLabelControl.height
             : this.selectedAreaStyle.height
       };
-     
+
       this.addControl({
         newControl: tool,
         userFormKey: userFormKey
@@ -304,7 +328,10 @@ export default class UserForm extends Vue {
   handleMouseUp(userFormKey: string) {
     const dragRef = "dragselector".concat(userFormKey);
     this.selectedAreaStyle = (this as any).$refs[dragRef][0].selectAreaStyle;
-    this.dragSelectedControls({ selectedControlList:this.checkedList,userFormKey:userFormKey});
+    this.dragSelectedControls({
+      selectedControlList: this.checkedList,
+      userFormKey: userFormKey
+    });
     if (this.selectedAreaStyle.width === "0px") {
       this.deactivateControl(userFormKey);
     }

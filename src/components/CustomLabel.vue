@@ -1,5 +1,5 @@
 <template>
-  <div @contextmenu.prevent="$refs.ctxMenu.open">
+  <div  @contextmenu.prevent="$refs.ctxMenu.open">
     <label
       v-if="control"
       :key="control.name"
@@ -35,7 +35,7 @@
     </label>
 
     <context-menu id="context-menu" ref="ctxMenu">
-      <li @click="subMenuClick">cut</li>
+      <li @click.self="subMenuClick">cut</li>
       <li class="disabled">paste</li>
       <li>copy</li>
     </context-menu>
@@ -60,14 +60,31 @@ export default class CustomLabel extends Vue {
   @Prop() controlKey: string;
 
   @Getter getPrevControlIndex!: any;
+ @Getter getCuttedControlList!: any
+ @Getter getTreeData!: any
 
   @Mutation updatePrevControlIndex!: Function;
   @Mutation updateControlIndex!: Function;
   @Mutation activateControl!: Function;
+  @Mutation cutSelectedControl!: Function;
+  @Mutation cutControlList!: Function;
+  @Mutation updateCuttedControlList!: Function
 
-  subMenuClick() {
-    console.log("nnnnnnnnn")
+  subMenuClick(e: any) {
+    console.log("jjjjjjjjjjjjjjjjjjjjjjj")
+    this.updateCuttedControlList()
+    console.log("event",e)
+    this.cutControlList({
+       controlKey: this.controlKey,
+       control: this.control
+    })
+    this.cutSelectedControl({
+       userFormKey: this.userFormKey,
+        controlKey: this.controlKey,
+    })
+    console.log("list",this.getCuttedControlList)
   }
+
   customLabelClick() {
     this.updatePrevControlIndex(this.userFormKey);
     this.updateControlIndex({
@@ -78,7 +95,8 @@ export default class CustomLabel extends Vue {
       controlKey: this.controlKey,
       userFormKey: this.userFormKey
     });
-    /*  EventBus.$emit("userFormClicked", this.control, this.userFormKey); */
+    console.log(this.getTreeData[this.userFormKey])
+     EventBus.$emit("userFormClicked", this.getTreeData[this.userFormKey],this.control );
   }
 }
 </script>

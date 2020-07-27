@@ -1,4 +1,5 @@
 import { GetterTree, MutationTree, ActionTree } from 'vuex'
+import Vue from "vue";
 import store from './index'
 
 /* console.log("stor", store) */
@@ -6,7 +7,8 @@ export const state: any = {
     selectedUserForm: {},
     selectedControl: "",
     prevModalZIndex: 5,
-    selected: false
+    selected: false,
+    cuttedControlList:{}
 }
 
 
@@ -14,7 +16,8 @@ export const getters: GetterTree<any, any> = {
     selectedUserForm: state => state.selectedUserForm,
     selectedControl: state => state.selectedControl,
     prevModalZIndex: state => state.prevModalZIndex,
-    selected: state => state.selected
+    selected: state => state.selected,
+    getCuttedControlList: state => state.cuttedControlList
 }
 
 export const mutations: MutationTree<any> =
@@ -30,7 +33,18 @@ export const mutations: MutationTree<any> =
     {
         console.log(state.selectedUserForm)
         state.selectedUserForm.property[updatedStyle.styleName] = updatedStyle.styleValue
-    }
+    },
+    cutControlList: (state,controlObject) =>
+    {
+        Vue.set(state.cuttedControlList,controlObject.controlKey,controlObject.control );
+       
+    },
+    updateCuttedControlList: (state) =>
+    {
+        state.cuttedControlList={}
+       
+    },
+
 
 }
 
@@ -41,7 +55,7 @@ export const actions: ActionTree<any, any> = {
     },
     updateSelectedControl: ({ commit }, tool) => {
         commit('updateSelectedControl', tool)
-    }
+    },
 
 }
 

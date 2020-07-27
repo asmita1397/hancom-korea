@@ -3,8 +3,7 @@ function broadcast(componentName, eventName, params) {
         const name = child.$options.name;
         if (name === componentName) {
             child.$emit.apply(child, [eventName].concat(params));
-        }
-        else {
+        } else {
             broadcast.apply(child, [componentName, eventName]);
         }
     });

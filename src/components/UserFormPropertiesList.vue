@@ -5,7 +5,7 @@
         <span class="sideheader1">
           Properties -
           <!--  {{this.selectedUserForm && this.selectedUserForm.property.name}} -->
-          <button style="float:right" v-on:click="noDisplayTable"> 
+          <button style="float:right" v-on:click="noDisplayTable">
             <b>X</b>
           </button>
         </span>
@@ -14,7 +14,7 @@
     <div class="form-group">
       <label for="userForm"></label>
 
-      <select
+       <select
         class="form-control"
         name="selectedUserForm"
         id="selectedUserForm"
@@ -32,14 +32,14 @@
       </select>
 
       <UserFormTable
-        v-if="selectedOption.property.type==='UserForm'"
+        v-if="selectedOption.property?selectedOption.property.type==='UserForm':null"
         :selectedUserForm="selectedUserForm"
       />
-      <!--  <LabelControlTable v-if="selectedOption.type==='Label'" :selectedUserForm="selectedOption" />
+      <LabelControlTable v-if="selectedOption.type==='Label' " :selectedUserForm="selectedOption" />
       <CommandButtonControl
         v-if="selectedOption.type==='CommandButton'"
         :selectedUserForm="selectedOption"
-      />-->
+      />
     </div>
   </div>
 </template>
@@ -59,19 +59,16 @@ export default class UserFormPropertiesList extends Vue {
   selectedUserForm: object;
   selectedOption = {};
   userFormKey: string;
-  noDisplay= false
+  noDisplay = false;
   @Mutation controlIndex!: any;
 
   mounted() {
-    EventBus.$on(
-      "userFormClicked",
-      (control: object, userForm: object, userFormKey: string) => {
-        console.log("-------", control, userForm);
-        this.selectedOption = control;
-        this.selectedUserForm = userForm;
-        this.userFormKey = userFormKey;
-      }
-    );
+    EventBus.$on("userFormClicked", (userForm: object, control: object) => {
+      console.log("-------", control, userForm);
+      this.selectedUserForm = userForm;
+      this.selectedOption = control;
+    });
+    console.log("====", this.selectedOption);
   }
 
   handleSelectedOption(selectedUserForm: any, selectedOption: any) {
@@ -80,9 +77,9 @@ export default class UserFormPropertiesList extends Vue {
     EventBus.$emit("selectedControlOption", selectedUserForm, selectedOption);
   }
 
-   noDisplayTable(){
-      this.noDisplay=true;
-    }
+  noDisplayTable() {
+    this.noDisplay = true;
+  }
 }
 </script>
 
@@ -102,7 +99,7 @@ export default class UserFormPropertiesList extends Vue {
 }
 .form-control {
   float: left;
-  width: 280px;
+  width: 100%;
   cursor: pointer;
   background-color: white;
 }
