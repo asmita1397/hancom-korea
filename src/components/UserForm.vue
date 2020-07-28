@@ -19,7 +19,7 @@
         </div>
         <div
           :style="{
-             margin: userForm.property.margin,
+            margin: userForm.property.margin,
             zIndex: userForm.property.zIndex ,
             color: userForm.property.foreColor,
             left: userForm.property.left,
@@ -63,21 +63,29 @@
             class="innerWindowContainer"
             @click="createTool($event,userFormKey)"
             @mousedown="handleDeactivate"
-            @contextmenu.prevent="handlePasteControl($event,userFormKey)"
-          >
-            <!--   @contextmenu.prevent=""-->
-            <context-menu id="context-menu" ref="ctxMenu1">
-              <li>cut</li>
-              <li @click="handlePasteControl($event,userFormKey)">paste</li>
-              <li>copy</li>
-            </context-menu>
+            @contextmenu="openMenu($event,userFormKey)"
 
+          >
+            <ul
+              id="right-click-menu"
+              :ref="'contextmenu'.concat(userFormKey)"
+              v-show="userForm.property.showContextMenu"
+              :style="{top:top, left:left}"
+              @blur="closeMenu($event,userFormKey)"
+            >
+            <!--   v-if="userForm.property.showContextMenu" -->
+            <!--   -->
+              <li>cut</li>
+              <li @click="handlePasteControl($event,userFormKey)" :class="Object.keys(getCuttedControlList)[0] !== undefined?'':'disabled'"><!-- {{getCuttedControlList?'nill':'lll'}} --> Paste</li>
+            </ul>
+       
             <drag-selector
-              :ref="'dragselector'.concat(userFormKey)"
+             :ref="'dragselector'.concat(userFormKey)"
               v-model="checkedList"
               @change="handleDragSelectorChange(userFormKey)"
               class="drag-selector"
             >
+            <!--   -->
               <UserFormControl :userFormKey="userFormKey" :userForm="userForm" :key="componentKey" />
             </drag-selector>
           </div>
@@ -139,6 +147,8 @@ export default class UserForm extends Vue {
   @Mutation dragSelectedControls!: any;
   @Mutation incrementControl!: any;
   @Mutation pasteControl!: any;
+  @Mutation updateCuttedControlList!: any;
+  @Mutation openContextMenu!: any
 
   componentKey = 0;
   positions: any = {
@@ -158,7 +168,32 @@ export default class UserForm extends Vue {
   };
 
   checkedList = [];
+  viewMenu = false;
+  top = "0px";
+  left = "0px";
 
+  openMenu(e: any,userFormKey: string ) {
+    debugger
+    e.preventDefault();
+    console.log(e);
+    const refname="contextmenu".concat(userFormKey)
+   
+    Vue.nextTick(() => (this as any).$refs[refname][0].focus());
+
+  /*  console.log("---------------------------refname",refname)
+    console.log("--------------------------------",(this as any).$refs[refname]?(this as any).$refs[refname][0]:'') */
+    this.openContextMenu({userFormKey:userFormKey,userFormValue:true})
+    this.top = `${e.offsetY}px`;
+    this.left = `${e.offsetX}px`;
+    this.viewMenu = true;
+    console.log("context menu");
+  }
+  closeMenu(e: any,userFormKey: string)
+  {
+                 console.log("event is called ==========================")
+          this.openContextMenu({userFormKey:userFormKey,userFormValue:false})
+
+  }
   mounted() {
     /*  EventBus.$on(
       "selectedControlOption",
@@ -171,9 +206,6 @@ export default class UserForm extends Vue {
       }
     ); */
   }
-  handleContextMenuOpen(): void {
-    (this as any).$refs.ctxMenu1[0].open();
-  }
 
   handleDragSelectorChange(list: any) {
     /* for (const val in list) {
@@ -184,13 +216,14 @@ export default class UserForm extends Vue {
  */
   }
   handlePasteControl(e: any, userFormKey: string) {
-
+    /* this.closeMenu() */
     if (Object.keys(this.getCuttedControlList)[0] !== undefined) {
       this.pasteControl({
         userFormKey: userFormKey,
         controlKey: Object.keys(this.getCuttedControlList)[0],
         control: Object.values(this.getCuttedControlList)[0]
       });
+      /* this.updateCuttedControlList(); */
     }
   }
   handleDeactivate() {
@@ -414,5 +447,40 @@ img {
   border-style: none;
   color: white;
   background-color: #9fb0cb;
+}
+#right-click-menu {
+  background: #fafafa;
+  border: 1px solid #bdbdbd;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2),
+    0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  display: block;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  width: 100px;
+  z-index: 999999;
+}
+
+#right-click-menu li {
+  border-bottom: 1px solid #e0e0e0;
+  margin: 0;
+  padding: 5px 5px;
+}
+
+#right-click-menu li:last-child {
+  border-bottom: none;
+}
+
+#right-click-menu li:hover {
+  background: #1e88e5;
+  color: #fafafa;
+}
+
+
+
+.disabled {
+    /* pointer-events:none;  */
+    opacity:0.5;        
 }
 </style>

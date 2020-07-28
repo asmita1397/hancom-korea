@@ -1,7 +1,6 @@
 import { GetterTree, MutationTree, ActionTree } from 'vuex'
 import { treeData } from '../models/TreeData'
 import { TreeUserFormData } from "../entities/TreeUserFormData";
-import { getters as gets } from "./globalProperty";
 import { state as globalState } from "./globalProperty";
 import Vue from 'vue'
 
@@ -134,17 +133,32 @@ export const mutations: MutationTree<any> =
     Vue.delete(state.VBAProject1[control.userFormKey].controls, control.controlKey);
   },
   pasteControl: (state, addControl) => {
-    if (globalState.cutControlUserform === addControl.userFormKey) {
+    
+    if (globalState.cutControlUserform === addControl.userFormKey && globalState.contextType == "cut") {
       Vue.set(state.VBAProject1[addControl.userFormKey].controls, addControl.controlKey, addControl.control)
     }
     else {
-      console.log("different", addControl.control)
+      console.log("different", addControl.control )
+
       if (addControl.control.type === 'Label') {
         state.VBAProject1[addControl.userFormKey].elementsCount['label'] += 1
         const newControlKey = `ID_LABEL${state.VBAProject1[addControl.userFormKey].elementsCount.label}`
-        Vue.set(state.VBAProject1[addControl.userFormKey].controls, newControlKey, addControl.control);
+        const updateStyleControl = {
+          ...addControl.control,
+          left: `${parseInt(addControl.control.left) + 10}px `,
+          top: `${parseInt(addControl.control.top) + 10}px `,
+          name:`Label${state.VBAProject1[addControl.userFormKey].elementsCount.label}`
+
+        }
+        const newControl = Object.assign({}, updateStyleControl);
+        Vue.set(state.VBAProject1[addControl.userFormKey].controls, newControlKey, newControl);
       }
     }
+  },
+  openContextMenu: (state,userForm) =>
+  {
+    debugger
+    state.VBAProject1[userForm.userFormKey].property.showContextMenu = userForm.userFormValue
   }
 }
 

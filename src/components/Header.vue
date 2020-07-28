@@ -49,7 +49,11 @@
               <li class="separator"></li>
               <li>ToolBox</li>
               <li>Tab Order</li>
-              <li>Microscoft Excel</li>
+              <li>Microscoft Excel
+                <ul class="submenu">
+                   <li>hhhhh</li>
+                </ul>
+              </li>
             </ul>
           </li>
           <li>
@@ -118,6 +122,7 @@ export default class Header extends Vue {
       property: {
         ...getUserForm.property,
         name: "UserForm" + (this.getUseFormCount + 1),
+        caption:"UserForm" + (this.getUseFormCount + 1),
         type: "UserForm",
         outerWindowZIndex: this.prevModalZIndex.toString()
       }

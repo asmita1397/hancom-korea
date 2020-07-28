@@ -68,6 +68,7 @@ export class UserFormEntity implements UserForm {
       outerWindowZIndex: "2",
       outerWindowtop: "50px",
       outerWindowleft: "50px",
+      showContextMenu: false
     };
     this.controls = {};
   }
@@ -111,6 +112,7 @@ export interface UserForm1
   zoom: string;
   position: string;
   border: string;
+  showContextMenu: boolean;
 }
 
 export interface UserFormStyle extends MouseProperty, Position, ZIndex, Size {

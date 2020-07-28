@@ -62,6 +62,7 @@ export const treeData = {
         outerWindowZIndex: "2",
         outerWindowtop: "50px",
         outerWindowleft: "50px",
+        showContextMenu: false
       },
       controls: {},
      

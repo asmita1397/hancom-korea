@@ -8,7 +8,8 @@ export const state: any = {
     prevModalZIndex: 5,
     selected: false,
     cuttedControlList:{},
-    cutControlUserform:''
+    cutControlUserform:'',
+    contextType:''
 }
 
 
@@ -19,10 +20,12 @@ export const getters: GetterTree<any, any> = {
     selected: state => state.selected,
     getCuttedControlList: state => state.cuttedControlList,
     getCutControlUserform: state => state.cutControlUserform
+
 }
 
 export const mutations: MutationTree<any> =
 {
+    
     updateSelectedUserForm: (state, userForm) => {
         state.selectedUserForm = userForm 
     },
@@ -45,6 +48,11 @@ export const mutations: MutationTree<any> =
     {
         state.cuttedControlList={}
        
+    },
+    updateContextMenuType: (state, type) =>
+    {
+        console.log(type)
+        state.contextType = type
     },
 
 
