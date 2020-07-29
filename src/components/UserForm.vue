@@ -76,7 +76,7 @@
             <!--   v-if="userForm.property.showContextMenu" -->
             <!--   -->
               <li>cut</li>
-              <li @click="handlePasteControl($event,userFormKey)" :class="Object.keys(getCuttedControlList)[0] !== undefined?'':'disabled'"><!-- {{getCuttedControlList?'nill':'lll'}} --> Paste</li>
+              <li @click="handlePasteControl($event,userFormKey)" :class="Object.keys(getCuttedControlList).length === 0?'disabled':''"><!-- {{getCuttedControlList?'nill':'lll'}} --> Paste</li>
             </ul>
        
             <drag-selector
@@ -189,7 +189,6 @@ export default class UserForm extends Vue {
   }
   closeMenu(e: any,userFormKey: string)
   {
-                 console.log("event is called ==========================")
           this.openContextMenu({userFormKey:userFormKey,userFormValue:false})
 
   }
@@ -215,8 +214,8 @@ export default class UserForm extends Vue {
  */
   }
   handlePasteControl(e: any, userFormKey: string) {
-    /* this.closeMenu() */
-    if (Object.keys(this.getCuttedControlList)[0] !== undefined) {
+  
+    if (Object.keys(this.getCuttedControlList).length > 0) {
       this.pasteControl({
         userFormKey: userFormKey,
         controlKey: Object.keys(this.getCuttedControlList)[0],

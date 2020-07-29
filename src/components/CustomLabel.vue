@@ -129,7 +129,6 @@ copyControl()
     
 }
 
-
 deleteControl()
 {
    this.cutSelectedControl({
