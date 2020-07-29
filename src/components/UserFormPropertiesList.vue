@@ -3,7 +3,7 @@
     <div>
       <div class="sideheader">
         <span class="sideheader1">
-          Properties -
+          Properties -  
           <!--  {{this.selectedUserForm && this.selectedUserForm.property.name}} -->
           <button style="float:right" v-on:click="noDisplayTable">
             <b>X</b>
@@ -56,6 +56,8 @@ import CommandButtonControl from "./CommandButtonControl.vue";
 })
 export default class UserFormPropertiesList extends Vue {
   @Getter getControlIndex!: any;
+ 
+
   selectedUserForm: object;
   selectedOption = {};
   userFormKey: string;

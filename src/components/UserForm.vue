@@ -73,7 +73,10 @@
               @blur="closeMenu($event,userFormKey)"
             >
               <li @click="handleSelectAll($event,userForm,userFormKey)">Select All</li>
-              <li  @click="handleDeleteControl($event,userFormKey)">delete</li>
+              <li
+                @click="handleDeleteControl($event,userFormKey)"
+                :class="Object.keys(getCuttedControlList).length === 0?'disabled':''"
+              >delete</li>
               <li
                 @click="handlePasteControl($event,userFormKey)"
                 :class="Object.keys(getCuttedControlList).length === 0?'disabled':''"
@@ -216,27 +219,29 @@ export default class UserForm extends Vue {
  */
   }
   handlePasteControl(e: any, userFormKey: string) {
-
     if (Object.keys(this.getCuttedControlList).length > 0) {
       this.pasteControl({
         userFormKey: userFormKey,
         controlList: this.getCuttedControlList
       });
-      
     }
   }
   handleSelectAll(e: any, userForm: any, userFormKey: string) {
-    this.selectedControlList({controls:userForm.controls,userFormKey:userFormKey })
+    this.selectedControlList({
+      controls: userForm.controls,
+      userFormKey: userFormKey
+    });
     this.selectAllControls({
       selectedControlList: this.getCuttedControlList,
       userFormKey: userFormKey
     });
   }
-  handleDeleteControl(e: any,  userFormKey: string) {
-     this.cutSelectedControl({
+  handleDeleteControl(e: any, userFormKey: string) {
+    this.cutSelectedControl({
       userFormKey: userFormKey,
       controlList: this.getCuttedControlList
     });
+    /* this.updateCuttedControlList() */
   }
   handleDeactivate() {
     this.checkedList = [];

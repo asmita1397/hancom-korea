@@ -7,9 +7,10 @@ export const state: any = {
     selectedControl: "",
     prevModalZIndex: 5,
     selected: false,
-    cuttedControlList:{},
-    cutControlUserform:'',
-    contextType:''
+    cuttedControlList: {},
+    cutControlUserform: '',
+    contextType: '',
+    blinkProperty: false
 }
 
 
@@ -19,47 +20,45 @@ export const getters: GetterTree<any, any> = {
     prevModalZIndex: state => state.prevModalZIndex,
     selected: state => state.selected,
     getCuttedControlList: state => state.cuttedControlList,
-    getCutControlUserform: state => state.cutControlUserform
-
+    getCutControlUserform: state => state.cutControlUserform,
+    getBlinkProperty: state => state.blinkProperty
 }
 
 export const mutations: MutationTree<any> =
 {
-    
+
     updateSelectedUserForm: (state, userForm) => {
-        state.selectedUserForm = userForm 
+        state.selectedUserForm = userForm
     },
     updateSelectedControl: (state, tool) => state.selectedControl = tool,
     updatePrevModalZIndex: state => state.prevModalZIndex = state.prevModalZIndex + 1,
     updateSelect: (state, isSelect) => state.selected = isSelect,
 
-    updateStyle: (state,updatedStyle) =>
-    {
+    updateStyle: (state, updatedStyle) => {
         console.log(state.selectedUserForm)
         state.selectedUserForm.property[updatedStyle.styleName] = updatedStyle.styleValue
     },
-    selectedControlList: (state, userform) =>
-    {
-        state.cutControlUserform = userform.userFormKey 
-        state.cuttedControlList = Object.assign({},userform.controls);
+    selectedControlList: (state, userform) => {
+        state.cutControlUserform = userform.userFormKey
+        state.cuttedControlList = Object.assign({}, userform.controls);
     },
-    cutControlList: (state,controlObject) =>
-    {
-        state.cutControlUserform = controlObject.userFormKey 
-        Vue.set(state.cuttedControlList,controlObject.controlKey,controlObject.control );
-       
+    cutControlList: (state, controlObject) => {
+        state.cutControlUserform = controlObject.userFormKey
+        Vue.set(state.cuttedControlList, controlObject.controlKey, controlObject.control);
+
     },
-    updateCuttedControlList: (state) =>
-    {
-        state.cuttedControlList={}
-       
+    updateCuttedControlList: (state) => {
+        state.cuttedControlList = {}
+
     },
-    updateContextMenuType: (state, type) =>
-    {
+    updateContextMenuType: (state, type) => {
         console.log(type)
         state.contextType = type
     },
-
+    updateBlinkProperty: (state,blinkValue)=>
+    {
+        state.blinkProperty= blinkValue
+    }
 
 }
 

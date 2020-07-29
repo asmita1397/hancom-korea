@@ -38,11 +38,15 @@
       :style="{top:top, left:left}"
       v-on:blur="closeMenu"
     >
+   <!--  <ControlContextMenu/> -->
       <li @click="subMenuClick">cut</li>
       <li>paste</li>
       <li @click="copyControl">copy</li>
       <li @click="deleteControl">delete</li>
+      <li @click="blinkControl">property</li>
     </ul>
+    
+
   </div>
 </template>
 
@@ -51,12 +55,12 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { Mutation, Getter } from "vuex-class";
-import contextMenu from "vue-context-menu";
 import { EventBus } from "./event-bus";
+import ControlContextMenu from "../views/contextMenu/ControlContextMenu.vue";
 
 @Component({
   components: {
-    contextMenu
+    ControlContextMenu
   }
 })
 export default class CustomLabel extends Vue {
@@ -75,6 +79,7 @@ export default class CustomLabel extends Vue {
   @Mutation cutControlList!: Function;
   @Mutation updateCuttedControlList!: Function;
   @Mutation updateContextMenuType!: Function;
+  @Mutation updateBlinkProperty!: Function
 
   viewMenu = false;
   top = "0px";
@@ -82,6 +87,7 @@ export default class CustomLabel extends Vue {
 
   openMenu(e: any) {
     e.preventDefault();
+    this.updateBlinkProperty(false)
     console.log(e);
     this.top = `${e.offsetY}px`;
     this.left = `${e.offsetX}px`;
@@ -90,6 +96,7 @@ export default class CustomLabel extends Vue {
   }
 
   closeMenu() {
+
     this.viewMenu = false;
   }
 
@@ -108,7 +115,11 @@ export default class CustomLabel extends Vue {
     });
     console.log("list", this.getCuttedControlList);
   }
-
+  blinkControl()
+  {
+    this.updateBlinkProperty(true)
+    this.viewMenu = false;
+  }
   copyControl() {
     this.viewMenu = false;
     this.updateContextMenuType("copy");
@@ -170,14 +181,18 @@ export default class CustomLabel extends Vue {
   border-bottom: 1px solid #e0e0e0;
   margin: 0;
   padding: 5px 5px;
+  
 }
 
 #right-click-menu li:last-child {
   border-bottom: none;
+  
 }
 
 #right-click-menu li:hover {
   background: #1e88e5;
   color: #fafafa;
+
 }
+
 </style>

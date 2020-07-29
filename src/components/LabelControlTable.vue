@@ -4,17 +4,25 @@
       <button class="button" default>Alphabetic</button>
       <button class="button">Categorized</button>
     </div>
-    <table class="table">
+    <table :class="getBlinkProperty?'table blink-me':'table'">
       <tr>
         <td>(Name)</td>
         <td>
-          <input type="text" :value="selectedUserForm.name"  @input="handleChangeInput($event,'name')"/>
+          <input
+            type="text"
+            :value="selectedUserForm.name"
+            @input="handleChangeInput($event,'name')"
+          />
         </td>
       </tr>
       <tr>
         <td>Accelerator</td>
         <td>
-          <input type="text" :value="selectedUserForm.accelerator" @input="handleChangeInput($event,'accelerator')" />
+          <input
+            type="text"
+            :value="selectedUserForm.accelerator"
+            @input="handleChangeInput($event,'accelerator')"
+          />
         </td>
       </tr>
       <tr>
@@ -29,7 +37,7 @@
       <tr>
         <td>BackColor</td>
         <td>
-          <select :value="selectedUserForm.backColor"  @change="changeInput($event,'backColor')">
+          <select :value="selectedUserForm.backColor" @change="changeInput($event,'backColor')">
             <option v-for="(item,key) in backColor" :key="key" :value="item">{{key}}</option>
           </select>
         </td>
@@ -59,13 +67,21 @@
       <tr>
         <td>Caption</td>
         <td>
-          <input type="text" :value="selectedUserForm.caption"  @input="handleChangeInput($event,'caption')" />
+          <input
+            type="text"
+            :value="selectedUserForm.caption"
+            @input="handleChangeInput($event,'caption')"
+          />
         </td>
       </tr>
       <tr>
         <td>ControlTipText</td>
         <td>
-          <input type="text" :value="selectedUserForm.title"  @input="handleChangeInput($event,'title')"/>
+          <input
+            type="text"
+            :value="selectedUserForm.title"
+            @input="handleChangeInput($event,'title')"
+          />
         </td>
       </tr>
       <tr>
@@ -91,7 +107,7 @@
       <tr>
         <td>ForeColor</td>
         <td>
-          <select :value="selectedUserForm.foreColor"  @change="changeInput($event,'foreColor')">
+          <select :value="selectedUserForm.foreColor" @change="changeInput($event,'foreColor')">
             <option v-for="(value,key) in foreColor" v-bind:value="value" :key="key">{{key}}</option>
           </select>
         </td>
@@ -110,7 +126,11 @@
       <tr>
         <td>HelpContextId</td>
         <td>
-          <input type="number" :value="selectedUserForm.helpContextId"   @input="handleChangeInput($event,'helpContextId')" />
+          <input
+            type="number"
+            :value="selectedUserForm.helpContextId"
+            @input="handleChangeInput($event,'helpContextId')"
+          />
         </td>
       </tr>
       <tr>
@@ -133,7 +153,7 @@
       <tr>
         <td>MousePointer</td>
         <td>
-          <select :value="selectedUserForm.cursor"  @change="changeInput($event,'cursor')">
+          <select :value="selectedUserForm.cursor" @change="changeInput($event,'cursor')">
             <option v-for="(value,key) in mousePointer" v-bind:value="value" :key="key">{{key}}</option>
           </select>
         </td>
@@ -147,7 +167,10 @@
       <tr>
         <td>PicturePosition</td>
         <td>
-          <select :value="selectedUserForm.picturePosition" @change="handleChangeInput($event,'specialEffect')">
+          <select
+            :value="selectedUserForm.picturePosition"
+            @change="handleChangeInput($event,'specialEffect')"
+          >
             <option v-for="(value,key) in picturePosition" v-bind:value="value" :key="key">{{key}}</option>
           </select>
         </td>
@@ -155,7 +178,10 @@
       <tr>
         <td>SpecialEffect</td>
         <td>
-          <select :value="selectedUserForm.specialEffect"  @change="changeInput($event,'specialEffect')">
+          <select
+            :value="selectedUserForm.specialEffect"
+            @change="changeInput($event,'specialEffect')"
+          >
             <option v-for="(value,key) in specialEffect" v-bind:value="value" :key="key">{{key}}</option>
           </select>
         </td>
@@ -163,7 +189,11 @@
       <tr>
         <td>TabIndex</td>
         <td>
-          <input type="number" :value="selectedUserForm.tabindex" @input="handleChangeInput($event,'tabindex')" />
+          <input
+            type="number"
+            :value="selectedUserForm.tabindex"
+            @input="handleChangeInput($event,'tabindex')"
+          />
         </td>
       </tr>
       <tr>
@@ -178,7 +208,7 @@
       <tr>
         <td>Tag</td>
         <td>
-          <input type="text" :value="selectedUserForm.tag" @input="handleChangeInput($event,'tag')"/>
+          <input type="text" :value="selectedUserForm.tag" @input="handleChangeInput($event,'tag')" />
         </td>
       </tr>
       <tr>
@@ -246,7 +276,7 @@ import picturePosition from "../models/picturePosition.json";
 import specialEffect from "../models/specialEffect.json";
 import textAlign from "../models/textAlign.json";
 /* import { validators } from "../validators/validator"; */
-import { Mutation, Getter } from 'vuex-class';
+import { Mutation, Getter } from "vuex-class";
 @Component({
   filters: {
     sizeFilter(value: any) {
@@ -255,11 +285,9 @@ import { Mutation, Getter } from 'vuex-class';
   }
 })
 export default class UserFormTable extends Vue {
-
-
   @Prop() selectedUserForm: any;
 
-  
+  @Getter getBlinkProperty!: any;
   /* validators: object = validators; */
   backColor: object = backColor;
   borderColor: object = borderColor;
@@ -272,27 +300,23 @@ export default class UserFormTable extends Vue {
   picturePosition: object = picturePosition;
   textAlign: object = textAlign;
 
-
   /* @Getter selectedUserForm!: any */
-  @Mutation updateControl!: any 
-  @Mutation updateControlStyle!: any
+  @Mutation updateControl!: any;
+  @Mutation updateControlStyle!: any;
 
-  
-
-  mounted()
-  {
-    console.log()
+  mounted() {
+    console.log();
   }
 
-  handleChangeInput(e: any,styleName: string)
-  {
-     console.log("inputd", e.target.value)
-      this.updateControl({styleValue:e.target.value,styleName:styleName})
+  handleChangeInput(e: any, styleName: string) {
+    console.log("inputd", e.target.value);
+    this.updateControl({ styleValue: e.target.value, styleName: styleName });
   }
-  changeInput(e: any,styleName: string)
-  {
-    
-    this.updateControlStyle({styleValue:e.target.value,styleName:styleName})
+  changeInput(e: any, styleName: string) {
+    this.updateControlStyle({
+      styleValue: e.target.value,
+      styleName: styleName
+    });
   }
   autoSizeChange(e: any) {
     if (e.target.value) {
@@ -302,12 +326,12 @@ export default class UserFormTable extends Vue {
     }
   }
   handleEnabled(data: boolean) {
-      if (data) {
-        this.selectedUserForm.foreColor = "black";
-      } else {
-        this.selectedUserForm.foreColor = "#DCDCDC";
-      }
+    if (data) {
+      this.selectedUserForm.foreColor = "black";
+    } else {
+      this.selectedUserForm.foreColor = "#DCDCDC";
     }
+  }
   wordWrapChange(event: any) {
     if (event.target.value === "true") {
       this.selectedUserForm.wordWrap = "break-word";
@@ -318,7 +342,6 @@ export default class UserFormTable extends Vue {
     }
   }
 }
-
 </script>
 
 
@@ -384,5 +407,23 @@ select {
   font-size: 12px;
   cursor: pointer;
   /* float: left; */
+}
+.blink-me {
+  animation-name: toggle;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-iteration-count: 1;
+}
+
+@keyframes toggle {
+  from {
+    visibility: hidden;
+  }
+  50% {
+    visibility: hidden;
+  }
+  to {
+    visibility: visible;
+  }
 }
 </style>
