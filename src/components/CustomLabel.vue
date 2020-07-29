@@ -38,6 +38,7 @@
       <li @click="subMenuClick">cut</li>
       <li>paste</li>
       <li @click="copyControl">copy</li>
+      <li @click="deleteControl">delete</li>
     </ul>
   </div>
 </template>
@@ -108,6 +109,7 @@ export default class CustomLabel extends Vue {
     });
     console.log("list", this.getCuttedControlList);
   }
+  
 
 
 
@@ -125,6 +127,15 @@ copyControl()
 
 
     
+}
+
+
+deleteControl()
+{
+   this.cutSelectedControl({
+      userFormKey: this.userFormKey,
+      controlKey: this.controlKey
+    });
 }
 
 customLabelClick() {

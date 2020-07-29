@@ -134,11 +134,12 @@ export const mutations: MutationTree<any> =
   },
   pasteControl: (state, addControl) => {
     
-    if (globalState.cutControlUserform === addControl.userFormKey && globalState.contextType == "cut") {
+   /*  console.log("mmmmmmmmmmm",state.VBAProject1[addControl.userFormKey].controls.hasOwnProperty(addControl.controlKey)) */
+    if (globalState.cutControlUserform === addControl.userFormKey && globalState.contextType == "cut" && !state.VBAProject1[addControl.userFormKey].controls.hasOwnProperty(addControl.controlKey)) {
       Vue.set(state.VBAProject1[addControl.userFormKey].controls, addControl.controlKey, addControl.control)
     }
     else {
-      console.log("different", addControl.control )
+     /*  console.log("different", addControl.control ) */
 
       if (addControl.control.type === 'Label') {
         state.VBAProject1[addControl.userFormKey].elementsCount['label'] += 1
@@ -157,7 +158,6 @@ export const mutations: MutationTree<any> =
   },
   openContextMenu: (state,userForm) =>
   {
-    debugger
     state.VBAProject1[userForm.userFormKey].property.showContextMenu = userForm.userFormValue
   }
 }

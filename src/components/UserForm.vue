@@ -173,7 +173,6 @@ export default class UserForm extends Vue {
   left = "0px";
 
   openMenu(e: any,userFormKey: string ) {
-    debugger
     e.preventDefault();
     console.log(e);
     const refname="contextmenu".concat(userFormKey)
