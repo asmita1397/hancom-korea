@@ -29,12 +29,15 @@
       :value="control.caption"
       :disabled="!control.enabled"
       @keyup.enter="trigger"
-    >
-      {{control.caption}}
-     
-    </label>
+    >{{control.caption}}</label>
 
-    <ul id="right-click-menu" tabindex="-1"  v-if="viewMenu"  :style="{top:top, left:left}" v-on:blur="closeMenu">
+    <ul
+      id="right-click-menu"
+      tabindex="-1"
+      v-if="viewMenu"
+      :style="{top:top, left:left}"
+      v-on:blur="closeMenu"
+    >
       <li @click="subMenuClick">cut</li>
       <li>paste</li>
       <li @click="copyControl">copy</li>
@@ -73,31 +76,27 @@ export default class CustomLabel extends Vue {
   @Mutation updateCuttedControlList!: Function;
   @Mutation updateContextMenuType!: Function;
 
-
   viewMenu = false;
   top = "0px";
   left = "0px";
 
-
   openMenu(e: any) {
     e.preventDefault();
-    console.log(e)
-    this.top=`${e.offsetY}px`;
-    this.left=`${e.offsetX}px`;
+    console.log(e);
+    this.top = `${e.offsetY}px`;
+    this.left = `${e.offsetX}px`;
     this.viewMenu = true;
     console.log("context menu");
   }
 
-  closeMenu()
-  {
-     this.viewMenu = false
+  closeMenu() {
+    this.viewMenu = false;
   }
 
   subMenuClick(e: any) {
-
-    this.viewMenu = false
+    this.viewMenu = false;
     this.updateContextMenuType("cut");
-    /* this.updateCuttedControlList(); */
+    this.updateCuttedControlList();
     this.cutControlList({
       controlKey: this.controlKey,
       control: this.control,
@@ -105,39 +104,35 @@ export default class CustomLabel extends Vue {
     });
     this.cutSelectedControl({
       userFormKey: this.userFormKey,
-      controlKey: this.controlKey
+      controlList: this.getCuttedControlList
     });
     console.log("list", this.getCuttedControlList);
   }
-  
 
-
-
-
-copyControl()
-{
-  this.viewMenu = false
+  copyControl() {
+    this.viewMenu = false;
     this.updateContextMenuType("copy");
     this.updateCuttedControlList();
+    this.cutControlList({
+      controlKey: this.controlKey,
+      control: this.control,
+      userFormKey: this.userFormKey
+    });
+  }
+
+  deleteControl() {
      this.cutControlList({
       controlKey: this.controlKey,
       control: this.control,
       userFormKey: this.userFormKey
     });
-
-
-    
-}
-
-deleteControl()
-{
-   this.cutSelectedControl({
+    this.cutSelectedControl({
       userFormKey: this.userFormKey,
-      controlKey: this.controlKey
+      controlList: this.getCuttedControlList
     });
-}
+  }
 
-customLabelClick() {
+  customLabelClick() {
     this.updatePrevControlIndex(this.userFormKey);
     this.updateControlIndex({
       userFormKey: this.userFormKey,

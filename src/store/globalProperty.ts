@@ -38,9 +38,14 @@ export const mutations: MutationTree<any> =
         console.log(state.selectedUserForm)
         state.selectedUserForm.property[updatedStyle.styleName] = updatedStyle.styleValue
     },
+    selectedControlList: (state, userform) =>
+    {
+        state.cutControlUserform = userform.userFormKey 
+        state.cuttedControlList = Object.assign({},userform.controls);
+    },
     cutControlList: (state,controlObject) =>
     {
-        state.cutControlUserform = controlObject.userFormKey
+        state.cutControlUserform = controlObject.userFormKey 
         Vue.set(state.cuttedControlList,controlObject.controlKey,controlObject.control );
        
     },

@@ -130,35 +130,45 @@ export const mutations: MutationTree<any> =
   },
 
   cutSelectedControl: (state, control) => {
-    Vue.delete(state.VBAProject1[control.userFormKey].controls, control.controlKey);
+    debugger
+    console.log(control.controlList)
+    for (const key in control.controlList) {
+      Vue.delete(state.VBAProject1[control.userFormKey].controls, key);
+    }
   },
   pasteControl: (state, addControl) => {
-    
-   /*  console.log("mmmmmmmmmmm",state.VBAProject1[addControl.userFormKey].controls.hasOwnProperty(addControl.controlKey)) */
-    if (globalState.cutControlUserform === addControl.userFormKey && globalState.contextType == "cut" && !state.VBAProject1[addControl.userFormKey].controls.hasOwnProperty(addControl.controlKey)) {
-      Vue.set(state.VBAProject1[addControl.userFormKey].controls, addControl.controlKey, addControl.control)
-    }
-    else {
-     /*  console.log("different", addControl.control ) */
+    for (const key in addControl.controlList) {
+     
+      if (globalState.cutControlUserform === addControl.userFormKey && globalState.contextType === "cut" && !state.VBAProject1[addControl.userFormKey].controls.hasOwnProperty(key)) {
+         
+        Vue.set(state.VBAProject1[addControl.userFormKey].controls, key, addControl.controlList[key])
+      }
+      else {
+        if (addControl.controlList[key].type === 'Label') {
+          state.VBAProject1[addControl.userFormKey].elementsCount['label'] += 1
+          const newControlKey = `ID_LABEL${state.VBAProject1[addControl.userFormKey].elementsCount.label}`
+          const updateStyleControl = {
+            ...addControl.controlList[key],
+            left: `${parseInt(addControl.controlList[key].left) + 10}px `,
+            top: `${parseInt(addControl.controlList[key].top) + 10}px `,
+            name: `Label${state.VBAProject1[addControl.userFormKey].elementsCount.label}`
 
-      if (addControl.control.type === 'Label') {
-        state.VBAProject1[addControl.userFormKey].elementsCount['label'] += 1
-        const newControlKey = `ID_LABEL${state.VBAProject1[addControl.userFormKey].elementsCount.label}`
-        const updateStyleControl = {
-          ...addControl.control,
-          left: `${parseInt(addControl.control.left) + 10}px `,
-          top: `${parseInt(addControl.control.top) + 10}px `,
-          name:`Label${state.VBAProject1[addControl.userFormKey].elementsCount.label}`
-
+          }
+          const newControl = Object.assign({}, updateStyleControl);
+          Vue.set(state.VBAProject1[addControl.userFormKey].controls, newControlKey, newControl);
         }
-        const newControl = Object.assign({}, updateStyleControl);
-        Vue.set(state.VBAProject1[addControl.userFormKey].controls, newControlKey, newControl);
       }
     }
   },
-  openContextMenu: (state,userForm) =>
-  {
+  openContextMenu: (state, userForm) => {
     state.VBAProject1[userForm.userFormKey].property.showContextMenu = userForm.userFormValue
+  },
+  selectAllControls: (state, userFormDetail) => {
+    console.log("-----------------", userFormDetail.selectedControlList, userFormDetail.userFormKey)
+    for (const key in userFormDetail.selectedControlList) {
+      state.VBAProject1[userFormDetail.userFormKey].controls[key].isActive = true
+    }
+
   }
 }
 

@@ -64,7 +64,6 @@
             @click="createTool($event,userFormKey)"
             @mousedown="handleDeactivate"
             @contextmenu="openMenu($event,userFormKey)"
-
           >
             <ul
               id="right-click-menu"
@@ -73,19 +72,24 @@
               :style="{top:top, left:left}"
               @blur="closeMenu($event,userFormKey)"
             >
-            <!--   v-if="userForm.property.showContextMenu" -->
-            <!--   -->
-              <li>cut</li>
-              <li @click="handlePasteControl($event,userFormKey)" :class="Object.keys(getCuttedControlList).length === 0?'disabled':''"><!-- {{getCuttedControlList?'nill':'lll'}} --> Paste</li>
+              <li @click="handleSelectAll($event,userForm,userFormKey)">Select All</li>
+              <li  @click="handleDeleteControl($event,userFormKey)">delete</li>
+              <li
+                @click="handlePasteControl($event,userFormKey)"
+                :class="Object.keys(getCuttedControlList).length === 0?'disabled':''"
+              >
+                <!-- {{getCuttedControlList?'nill':'lll'}} -->
+                Paste
+              </li>
             </ul>
-       
+
             <drag-selector
-             :ref="'dragselector'.concat(userFormKey)"
+              :ref="'dragselector'.concat(userFormKey)"
               v-model="checkedList"
               @change="handleDragSelectorChange(userFormKey)"
               class="drag-selector"
             >
-            <!--   -->
+              <!--   -->
               <UserFormControl :userFormKey="userFormKey" :userForm="userForm" :key="componentKey" />
             </drag-selector>
           </div>
@@ -129,10 +133,8 @@ export default class UserForm extends Vue {
   @Getter selectedControl!: any;
   @Getter prevModalZIndex!: any;
   @Getter selectedUserForm!: any;
-  @Getter getControlIndex!: any;
   @Getter getCuttedControlList!: any;
 
-  @Mutation userFormIndex!: Function;
   @Mutation addControl!: Function;
   @Mutation updateSelectedControl!: Function;
   @Mutation dragOuterWindow!: Function;
@@ -143,12 +145,14 @@ export default class UserForm extends Vue {
   @Mutation resizeUserForm!: any;
   @Mutation activateControl!: any;
   @Mutation deactivateControl!: any;
-  @Mutation controlIndex!: any;
   @Mutation dragSelectedControls!: any;
   @Mutation incrementControl!: any;
   @Mutation pasteControl!: any;
   @Mutation updateCuttedControlList!: any;
-  @Mutation openContextMenu!: any
+  @Mutation openContextMenu!: any;
+  @Mutation selectedControlList!: any;
+  @Mutation selectAllControls!: any;
+  @Mutation cutSelectedControl!: any;
 
   componentKey = 0;
   positions: any = {
@@ -172,25 +176,23 @@ export default class UserForm extends Vue {
   top = "0px";
   left = "0px";
 
-  openMenu(e: any,userFormKey: string ) {
+  openMenu(e: any, userFormKey: string) {
     e.preventDefault();
     console.log(e);
-    const refname="contextmenu".concat(userFormKey)
-   
+    const refname = "contextmenu".concat(userFormKey);
+
     Vue.nextTick(() => (this as any).$refs[refname][0].focus());
 
-  /*  console.log("---------------------------refname",refname)
+    /*  console.log("---------------------------refname",refname)
     console.log("--------------------------------",(this as any).$refs[refname]?(this as any).$refs[refname][0]:'') */
-    this.openContextMenu({userFormKey:userFormKey,userFormValue:true})
+    this.openContextMenu({ userFormKey: userFormKey, userFormValue: true });
     this.top = `${e.offsetY}px`;
     this.left = `${e.offsetX}px`;
     this.viewMenu = true;
     console.log("context menu");
   }
-  closeMenu(e: any,userFormKey: string)
-  {
-          this.openContextMenu({userFormKey:userFormKey,userFormValue:false})
-
+  closeMenu(e: any, userFormKey: string) {
+    this.openContextMenu({ userFormKey: userFormKey, userFormValue: false });
   }
   mounted() {
     /*  EventBus.$on(
@@ -214,15 +216,27 @@ export default class UserForm extends Vue {
  */
   }
   handlePasteControl(e: any, userFormKey: string) {
-  
+
     if (Object.keys(this.getCuttedControlList).length > 0) {
       this.pasteControl({
         userFormKey: userFormKey,
-        controlKey: Object.keys(this.getCuttedControlList)[0],
-        control: Object.values(this.getCuttedControlList)[0]
+        controlList: this.getCuttedControlList
       });
-      /* this.updateCuttedControlList(); */
+      
     }
+  }
+  handleSelectAll(e: any, userForm: any, userFormKey: string) {
+    this.selectedControlList({controls:userForm.controls,userFormKey:userFormKey })
+    this.selectAllControls({
+      selectedControlList: this.getCuttedControlList,
+      userFormKey: userFormKey
+    });
+  }
+  handleDeleteControl(e: any,  userFormKey: string) {
+     this.cutSelectedControl({
+      userFormKey: userFormKey,
+      controlList: this.getCuttedControlList
+    });
   }
   handleDeactivate() {
     this.checkedList = [];
@@ -475,10 +489,8 @@ img {
   color: #fafafa;
 }
 
-
-
 .disabled {
-    /* pointer-events:none;  */
-    opacity:0.5;        
+  /* pointer-events:none;  */
+  opacity: 0.5;
 }
 </style>
