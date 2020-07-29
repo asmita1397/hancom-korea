@@ -38,15 +38,13 @@
       :style="{top:top, left:left}"
       v-on:blur="closeMenu"
     >
-   <!--  <ControlContextMenu/> -->
-      <li @click="subMenuClick">cut</li>
-      <li>paste</li>
+      <!--  <ControlContextMenu/> -->
+      <li @click="cutControl">cut</li>
+      <li @click="pastedControl" :class="Object.keys(getCuttedControlList).length !== 0?'':'disabled'">paste</li>
       <li @click="copyControl">copy</li>
       <li @click="deleteControl">delete</li>
       <li @click="blinkControl">property</li>
     </ul>
-    
-
   </div>
 </template>
 
@@ -79,7 +77,9 @@ export default class CustomLabel extends Vue {
   @Mutation cutControlList!: Function;
   @Mutation updateCuttedControlList!: Function;
   @Mutation updateContextMenuType!: Function;
-  @Mutation updateBlinkProperty!: Function
+  @Mutation updateBlinkProperty!: Function;
+  @Mutation pasteControl!: Function
+  @Mutation emptySelectAllControls!: Function
 
   viewMenu = false;
   top = "0px";
@@ -87,7 +87,7 @@ export default class CustomLabel extends Vue {
 
   openMenu(e: any) {
     e.preventDefault();
-    this.updateBlinkProperty(false)
+    this.updateBlinkProperty(false);
     console.log(e);
     this.top = `${e.offsetY}px`;
     this.left = `${e.offsetX}px`;
@@ -96,11 +96,11 @@ export default class CustomLabel extends Vue {
   }
 
   closeMenu() {
-
     this.viewMenu = false;
   }
 
-  subMenuClick(e: any) {
+  cutControl(e: any) {
+    this.emptySelectAllControls()
     this.viewMenu = false;
     this.updateContextMenuType("cut");
     this.updateCuttedControlList();
@@ -115,12 +115,19 @@ export default class CustomLabel extends Vue {
     });
     console.log("list", this.getCuttedControlList);
   }
-  blinkControl()
-  {
-    this.updateBlinkProperty(true)
+  pastedControl() {
+    this.viewMenu = false;
+    this.pasteControl({
+        userFormKey: this.userFormKey,
+        controlList: this.getCuttedControlList
+      });
+  }
+  blinkControl() {
+    this.updateBlinkProperty(true);
     this.viewMenu = false;
   }
   copyControl() {
+    this.emptySelectAllControls()
     this.viewMenu = false;
     this.updateContextMenuType("copy");
     this.updateCuttedControlList();
@@ -132,7 +139,7 @@ export default class CustomLabel extends Vue {
   }
 
   deleteControl() {
-     this.cutControlList({
+    this.cutControlList({
       controlKey: this.controlKey,
       control: this.control,
       userFormKey: this.userFormKey
@@ -181,18 +188,18 @@ export default class CustomLabel extends Vue {
   border-bottom: 1px solid #e0e0e0;
   margin: 0;
   padding: 5px 5px;
-  
 }
 
 #right-click-menu li:last-child {
   border-bottom: none;
-  
 }
 
 #right-click-menu li:hover {
   background: #1e88e5;
   color: #fafafa;
-
 }
-
+.disabled {
+  /* pointer-events:none;  */
+  opacity: 0.5;
+}
 </style>

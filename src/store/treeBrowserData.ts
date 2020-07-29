@@ -130,16 +130,17 @@ export const mutations: MutationTree<any> =
   },
 
   cutSelectedControl: (state, control) => {
-    debugger
+    
     console.log(control.controlList)
     for (const key in control.controlList) {
       Vue.delete(state.VBAProject1[control.userFormKey].controls, key);
     }
   },
   pasteControl: (state, addControl) => {
+    
     for (const key in addControl.controlList) {
      
-      if (globalState.cutControlUserform === addControl.userFormKey && globalState.contextType === "cut" && !state.VBAProject1[addControl.userFormKey].controls.hasOwnProperty(key)) {
+      if (globalState.cutControlUserform === addControl.userFormKey && !state.VBAProject1[addControl.userFormKey].controls.hasOwnProperty(key)) {
          
         Vue.set(state.VBAProject1[addControl.userFormKey].controls, key, addControl.controlList[key])
       }
@@ -164,6 +165,7 @@ export const mutations: MutationTree<any> =
     state.VBAProject1[userForm.userFormKey].property.showContextMenu = userForm.userFormValue
   },
   selectAllControls: (state, userFormDetail) => {
+    
     console.log("-----------------", userFormDetail.selectedControlList, userFormDetail.userFormKey)
     for (const key in userFormDetail.selectedControlList) {
       state.VBAProject1[userFormDetail.userFormKey].controls[key].isActive = true

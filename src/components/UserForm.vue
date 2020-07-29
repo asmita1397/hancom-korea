@@ -74,16 +74,13 @@
             >
               <li @click="handleSelectAll($event,userForm,userFormKey)">Select All</li>
               <li
-                @click="handleDeleteControl($event,userFormKey)"
-                :class="Object.keys(getCuttedControlList).length === 0?'disabled':''"
-              >delete</li>
-              <li
                 @click="handlePasteControl($event,userFormKey)"
-                :class="Object.keys(getCuttedControlList).length === 0?'disabled':''"
-              >
-                <!-- {{getCuttedControlList?'nill':'lll'}} -->
-                Paste
-              </li>
+                :class="(Object.keys(getCuttedControlList).length !== 0 || Object.keys(getSelectAllControls).length !== 0)?'':'disabled'"
+              >Paste</li>
+              <li
+                @click="handleDeleteControl($event,userFormKey)"
+                :class="(Object.keys(getSelectAllControls).length !== 0 )?'':'disabled'"
+              >delete</li>
             </ul>
 
             <drag-selector
@@ -156,6 +153,8 @@ export default class UserForm extends Vue {
   @Mutation selectedControlList!: any;
   @Mutation selectAllControls!: any;
   @Mutation cutSelectedControl!: any;
+  @Getter getSelectAllControls!: any;
+  @Mutation emptySelectAllControls!: Function;
 
   componentKey = 0;
   positions: any = {
@@ -219,28 +218,32 @@ export default class UserForm extends Vue {
  */
   }
   handlePasteControl(e: any, userFormKey: string) {
-    if (Object.keys(this.getCuttedControlList).length > 0) {
-      this.pasteControl({
-        userFormKey: userFormKey,
-        controlList: this.getCuttedControlList
-      });
-    }
+    const controlList =
+      Object.keys(this.getSelectAllControls).length > 0
+        ? this.getSelectAllControls
+        : this.getCuttedControlList;
+    this.pasteControl({
+      userFormKey: userFormKey,
+      controlList: controlList
+    });
   }
   handleSelectAll(e: any, userForm: any, userFormKey: string) {
     this.selectedControlList({
       controls: userForm.controls,
       userFormKey: userFormKey
     });
+    console.log("----------------", this.getSelectAllControls);
     this.selectAllControls({
-      selectedControlList: this.getCuttedControlList,
+      selectedControlList: this.getSelectAllControls,
       userFormKey: userFormKey
     });
   }
   handleDeleteControl(e: any, userFormKey: string) {
     this.cutSelectedControl({
       userFormKey: userFormKey,
-      controlList: this.getCuttedControlList
+      controlList: this.getSelectAllControls
     });
+    this.emptySelectAllControls();
     /* this.updateCuttedControlList() */
   }
   handleDeactivate() {

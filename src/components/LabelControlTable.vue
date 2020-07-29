@@ -410,7 +410,7 @@ select {
 }
 .blink-me {
   animation-name: toggle;
-  animation-duration: 1s;
+  animation-duration: 0.5s;
   animation-timing-function: linear;
   animation-iteration-count: 1;
 }

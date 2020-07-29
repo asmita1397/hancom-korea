@@ -10,7 +10,9 @@ export const state: any = {
     cuttedControlList: {},
     cutControlUserform: '',
     contextType: '',
-    blinkProperty: false
+    blinkProperty: false,
+    selectAllControls:{},
+
 }
 
 
@@ -21,7 +23,8 @@ export const getters: GetterTree<any, any> = {
     selected: state => state.selected,
     getCuttedControlList: state => state.cuttedControlList,
     getCutControlUserform: state => state.cutControlUserform,
-    getBlinkProperty: state => state.blinkProperty
+    getBlinkProperty: state => state.blinkProperty,
+    getSelectAllControls: state => state.selectAllControls
 }
 
 export const mutations: MutationTree<any> =
@@ -40,7 +43,11 @@ export const mutations: MutationTree<any> =
     },
     selectedControlList: (state, userform) => {
         state.cutControlUserform = userform.userFormKey
-        state.cuttedControlList = Object.assign({}, userform.controls);
+        
+        state.selectAllControls = Object.assign({}, userform.controls);
+    },
+    emptySelectAllControls: ()=>{
+        state.selectAllControls={}
     },
     cutControlList: (state, controlObject) => {
         state.cutControlUserform = controlObject.userFormKey
