@@ -1,5 +1,5 @@
 <template>
-  <div  @contextmenu.prevent="$refs.ctxMenu.open">
+  <div  @contextmenu.prevent>
     <button
       v-if="control"
       :key="control.name"
@@ -33,11 +33,11 @@
     >{{control.caption}}</button>
 
 
-      <context-menu id="context-menu" ref="ctxMenu">
+    <!--   <context-menu id="context-menu" ref="ctxMenu">
       <li >cut</li>
       <li class="disabled">paste</li>
       <li>copy</li>
-    </context-menu>
+    </context-menu> -->
   </div>
 </template>
 
@@ -45,11 +45,11 @@
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { Getter, Mutation } from "vuex-class";
 import { EventBus } from "./event-bus";
-import contextMenu from "vue-context-menu";
+
 
 @Component({
   components: {
-    contextMenu
+   
   }
 })
 export default class CustomButton extends Vue {
