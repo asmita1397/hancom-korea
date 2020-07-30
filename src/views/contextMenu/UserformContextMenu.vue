@@ -2,7 +2,7 @@
   <div>
     <div class="outercontext-div">
       <div class="wrapper-context">
-        <button class="wrapper1-context">
+        <button class="wrapper1-context" @click="handleSelectAll($event,userForm,userFormKey)">
           <div>
             <i style="font-size:15px" class="fa">&#xf07b;</i>
           </div>
@@ -12,14 +12,14 @@
           </span>
         </button>
 
-        <button class="wrapper1-context">
+        <button class="wrapper1-context" @click="handlePasteControl($event,userFormKey)">
           <i style="font-size:15px" class="fa">&#xf0ea;</i>
-          <span class="iset-context">
+          <span class="iset-context" :class="(Object.keys(getCuttedControlList).length !== 0 || Object.keys(getSelectAllControls).length !== 0)?'':'disabled'">
             <u>P</u>aste
           </span>
         </button>
         
-        <button class="wrapper1-context">
+        <button class="wrapper1-context"  @click="handleDeleteControl($event,userFormKey)">
          <div></div>
          <span class="set-context"><u>D</u>elete</span>
        </button>
@@ -51,8 +51,64 @@
   </div>
 </template>
 
-<script>
-export default {};
+<script lang="ts">
+import { Component, Prop, Vue } from "vue-property-decorator";
+import { Mutation, Getter } from "vuex-class";
+
+@Component({
+  components: {
+   
+  }
+})
+export default class ControlContextMenu extends Vue {
+  @Prop() userForm!: any;
+  @Prop() userFormKey!: any;
+ 
+
+
+  @Getter getCuttedControlList!: any;
+  @Mutation cutSelectedControl!: Function;
+  @Mutation updateCuttedControlList!: Function;
+  @Mutation updateBlinkProperty!: Function;
+  @Mutation pasteControl!: Function
+  @Mutation emptySelectAllControls!: Function
+  @Mutation selectAllControls!: any;
+  @Getter getSelectAllControls!: any;
+  @Mutation selectedControlList!: any;
+ 
+
+  
+
+ handlePasteControl(e: any, userFormKey: string) {
+    const controlList =
+      Object.keys(this.getSelectAllControls).length > 0
+        ? this.getSelectAllControls
+        : this.getCuttedControlList;
+    this.pasteControl({
+      userFormKey: userFormKey,
+      controlList: controlList
+    });
+  }
+  handleSelectAll(e: any, userForm: any, userFormKey: string) {
+    this.selectedControlList({
+      controls: userForm.controls,
+      userFormKey: userFormKey
+    });
+    console.log("----------------", this.getSelectAllControls);
+    this.selectAllControls({
+      selectedControlList: this.getSelectAllControls,
+      userFormKey: userFormKey
+    });
+  }
+  handleDeleteControl(e: any, userFormKey: string) {
+    this.cutSelectedControl({
+      userFormKey: userFormKey,
+      controlList: this.getSelectAllControls
+    });
+    this.emptySelectAllControls();
+    /* this.updateCuttedControlList() */
+  }
+} 
 </script>
 
 <style scoped>
@@ -96,5 +152,9 @@ export default {};
 }
 hr {
   margin: 0px;
+}
+.disabled {
+  /* pointer-events:none;  */
+  opacity: 0.5;
 }
 </style>

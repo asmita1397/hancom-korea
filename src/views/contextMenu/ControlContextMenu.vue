@@ -199,14 +199,10 @@ export default class ControlContextMenu extends Vue {
   @Prop() control!: any;
   @Prop() userFormKey!: any;
   @Prop() controlKey: string;
+  @Prop() viewMenu: boolean;
 
-  @Getter getPrevControlIndex!: any;
   @Getter getCuttedControlList!: any;
-  @Getter getTreeData!: any;
-
-  @Mutation updatePrevControlIndex!: Function;
-  @Mutation updateControlIndex!: Function;
-  @Mutation activateControl!: Function;
+  
   @Mutation cutSelectedControl!: Function;
   @Mutation cutControlList!: Function;
   @Mutation updateCuttedControlList!: Function;
@@ -217,7 +213,8 @@ export default class ControlContextMenu extends Vue {
  
 cutControl(e: any) {
     this.emptySelectAllControls()
-   /*  this.viewMenu = false; */
+   
+     this.$emit('closeMenu')
     this.updateContextMenuType("cut");
     this.updateCuttedControlList();
     this.cutControlList({
@@ -232,19 +229,22 @@ cutControl(e: any) {
     console.log("list", this.getCuttedControlList);
   }
   pastedControl() {
-   /*  this.viewMenu = false; */
+    this.$emit('closeMenu')
+   
     this.pasteControl({
         userFormKey: this.userFormKey,
         controlList: this.getCuttedControlList
       });
   }
   blinkControl() {
+     this.$emit('closeMenu')
     this.updateBlinkProperty(true);
-   /*  this.viewMenu = false; */
+   
   }
   copyControl() {
+     this.$emit('closeMenu')
+     
     this.emptySelectAllControls()
-   /*  this.viewMenu = false; */
     this.updateContextMenuType("copy");
     this.updateCuttedControlList();
     this.cutControlList({
@@ -255,6 +255,7 @@ cutControl(e: any) {
   }
 
   deleteControl() {
+     this.$emit('closeMenu')
     this.updateCuttedControlList();
     this.cutControlList({
       controlKey: this.controlKey,

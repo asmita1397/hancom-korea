@@ -65,23 +65,15 @@
             @mousedown="handleDeactivate"
             @contextmenu="openMenu($event,userFormKey)"
           >
-            <ul
+            <div
               id="right-click-menu"
               :ref="'contextmenu'.concat(userFormKey)"
               v-show="userForm.property.showContextMenu"
               :style="{top:top, left:left}"
               @blur="closeMenu($event,userFormKey)"
             >
-              <li @click="handleSelectAll($event,userForm,userFormKey)">Select All</li>
-              <li
-                @click="handlePasteControl($event,userFormKey)"
-                :class="(Object.keys(getCuttedControlList).length !== 0 || Object.keys(getSelectAllControls).length !== 0)?'':'disabled'"
-              >Paste</li>
-              <li
-                @click="handleDeleteControl($event,userFormKey)"
-                :class="(Object.keys(getSelectAllControls).length !== 0 )?'':'disabled'"
-              >delete</li>
-            </ul>
+            <UserformContextMenu :userFormKey="userFormKey" :userForm="userForm"/>
+            </div>
 
             <drag-selector
               :ref="'dragselector'.concat(userFormKey)"
@@ -101,24 +93,25 @@
 
 
 <script lang="ts">
-import { Component, Vue, Watch } from "vue-property-decorator";
-import { State, Getter, Mutation } from "vuex-class";
+import { Component, Vue,  } from "vue-property-decorator";
+import {  Getter, Mutation } from "vuex-class";
 import UserFormControl from "./UserFormControl.vue";
 import OuterWindowButton from "./OuterWindowButton.vue";
 import DragSelector from "./DragSelector.vue";
 import { EventBus } from "./event-bus";
-import { TreeUserFormData } from "../entities/TreeUserFormData";
+
 import { Label } from "../models/Label";
 import { CommandButton } from "../models/CommandButton";
 import { Label as LabelType } from "../entities/Label";
-import contextMenu from "vue-context-menu";
+
 import { CommandButton as CommandButtonType } from "../entities/CommandButton";
+import UserformContextMenu from "../views/contextMenu/UserformContextMenu.vue";
 @Component({
   components: {
     UserFormControl,
     OuterWindowButton,
     DragSelector,
-    contextMenu
+    UserformContextMenu
   }
 })
 export default class UserForm extends Vue {
@@ -217,35 +210,7 @@ export default class UserForm extends Vue {
    }
  */
   }
-  handlePasteControl(e: any, userFormKey: string) {
-    const controlList =
-      Object.keys(this.getSelectAllControls).length > 0
-        ? this.getSelectAllControls
-        : this.getCuttedControlList;
-    this.pasteControl({
-      userFormKey: userFormKey,
-      controlList: controlList
-    });
-  }
-  handleSelectAll(e: any, userForm: any, userFormKey: string) {
-    this.selectedControlList({
-      controls: userForm.controls,
-      userFormKey: userFormKey
-    });
-    console.log("----------------", this.getSelectAllControls);
-    this.selectAllControls({
-      selectedControlList: this.getSelectAllControls,
-      userFormKey: userFormKey
-    });
-  }
-  handleDeleteControl(e: any, userFormKey: string) {
-    this.cutSelectedControl({
-      userFormKey: userFormKey,
-      controlList: this.getSelectAllControls
-    });
-    this.emptySelectAllControls();
-    /* this.updateCuttedControlList() */
-  }
+  
   handleDeactivate() {
     this.checkedList = [];
   }

@@ -38,14 +38,12 @@
       :style="{top:top, left:left}"
       v-on:blur="closeMenu"
     >
-       <ControlContextMenu   :control="control"
-              :controlKey="controlKey"
-              :userFormKey="userFormKey"/>
-     <!--  <li @click="cutControl">cut</li>
-      <li @click="pastedControl" :class="Object.keys(getCuttedControlList).length !== 0?'':'disabled'">paste</li>
-      <li @click="copyControl">copy</li>
-      <li @click="deleteControl">delete</li>
-      <li @click="blinkControl">property</li> -->
+      <ControlContextMenu
+        :control="control"
+        :controlKey="controlKey"
+        :userFormKey="userFormKey"
+        @closeMenu="closeMenu"
+      />
     </div>
   </div>
 </template>
@@ -80,8 +78,8 @@ export default class CustomLabel extends Vue {
   @Mutation updateCuttedControlList!: Function;
   @Mutation updateContextMenuType!: Function;
   @Mutation updateBlinkProperty!: Function;
-  @Mutation pasteControl!: Function
-  @Mutation emptySelectAllControls!: Function
+  @Mutation pasteControl!: Function;
+  @Mutation emptySelectAllControls!: Function;
 
   viewMenu = false;
   top = "0px";
@@ -100,57 +98,6 @@ export default class CustomLabel extends Vue {
   closeMenu() {
     this.viewMenu = false;
   }
-
- /*  cutControl(e: any) {
-    this.emptySelectAllControls()
-    this.viewMenu = false;
-    this.updateContextMenuType("cut");
-    this.updateCuttedControlList();
-    this.cutControlList({
-      controlKey: this.controlKey,
-      control: this.control,
-      userFormKey: this.userFormKey
-    });
-    this.cutSelectedControl({
-      userFormKey: this.userFormKey,
-      controlList: this.getCuttedControlList
-    });
-    console.log("list", this.getCuttedControlList);
-  }
-  pastedControl() {
-    this.viewMenu = false;
-    this.pasteControl({
-        userFormKey: this.userFormKey,
-        controlList: this.getCuttedControlList
-      });
-  }
-  blinkControl() {
-    this.updateBlinkProperty(true);
-    this.viewMenu = false;
-  }
-  copyControl() {
-    this.emptySelectAllControls()
-    this.viewMenu = false;
-    this.updateContextMenuType("copy");
-    this.updateCuttedControlList();
-    this.cutControlList({
-      controlKey: this.controlKey,
-      control: this.control,
-      userFormKey: this.userFormKey
-    });
-  }
-
-  deleteControl() {
-    this.cutControlList({
-      controlKey: this.controlKey,
-      control: this.control,
-      userFormKey: this.userFormKey
-    });
-    this.cutSelectedControl({
-      userFormKey: this.userFormKey,
-      controlList: this.getCuttedControlList
-    });
-  } */
 
   customLabelClick() {
     this.updatePrevControlIndex(this.userFormKey);
