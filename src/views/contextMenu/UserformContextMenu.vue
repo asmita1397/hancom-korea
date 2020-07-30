@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="outercontext-div">
+    <div class="outercontext-div" > 
       <div class="wrapper-context">
         <button class="wrapper1-context" @click="handleSelectAll($event,userForm,userFormKey)">
           <div>
@@ -118,7 +118,8 @@ export default class ControlContextMenu extends Vue {
   width: 150px;
   height: auto;
   font-size: 13px;
-  /* margin-left: 300px; */
+  position:fixed;
+  
 }
 .wrapper-context {
   display: grid;

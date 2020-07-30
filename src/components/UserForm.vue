@@ -71,9 +71,24 @@
               v-show="userForm.property.showContextMenu"
               :style="{top:top, left:left}"
               @blur="closeMenu($event,userFormKey)"
+             
             >
+<!--  tabindex="0" -->
             <UserformContextMenu :userFormKey="userFormKey" :userForm="userForm"/>
             </div>
+            <!-- <ul
+              id="right-click-menu"
+              :ref="'contextmenu'.concat(userFormKey)"
+              v-show="userForm.property.showContextMenu"
+              :style="{top:top, left:left}"
+              @blur="closeMenu($event,userFormKey)"
+              tabindex="0"
+            >
+              <li>list1</li>
+              <li>list2</li>
+              <li>list1</li>
+              <li>list2</li>
+            </ul> -->
 
             <drag-selector
               :ref="'dragselector'.concat(userFormKey)"
@@ -93,8 +108,8 @@
 
 
 <script lang="ts">
-import { Component, Vue,  } from "vue-property-decorator";
-import {  Getter, Mutation } from "vuex-class";
+import { Component, Vue } from "vue-property-decorator";
+import { Getter, Mutation } from "vuex-class";
 import UserFormControl from "./UserFormControl.vue";
 import OuterWindowButton from "./OuterWindowButton.vue";
 import DragSelector from "./DragSelector.vue";
@@ -173,19 +188,13 @@ export default class UserForm extends Vue {
 
   openMenu(e: any, userFormKey: string) {
     e.preventDefault();
-    console.log(e);
     const refname = "contextmenu".concat(userFormKey);
-
-    Vue.nextTick(() => (this as any).$refs[refname][0].focus());
-
-    /*  console.log("---------------------------refname",refname)
-    console.log("--------------------------------",(this as any).$refs[refname]?(this as any).$refs[refname][0]:'') */
     this.openContextMenu({ userFormKey: userFormKey, userFormValue: true });
     this.top = `${e.offsetY}px`;
     this.left = `${e.offsetX}px`;
-    this.viewMenu = true;
-    console.log("context menu");
+    Vue.nextTick(() => (this as any).$refs[refname][0].focus());
   }
+
   closeMenu(e: any, userFormKey: string) {
     this.openContextMenu({ userFormKey: userFormKey, userFormValue: false });
   }
@@ -210,7 +219,7 @@ export default class UserForm extends Vue {
    }
  */
   }
-  
+
   handleDeactivate() {
     this.checkedList = [];
   }
@@ -442,7 +451,8 @@ img {
   list-style: none;
   margin: 0;
   padding: 0;
-  position: absolute;
+ /*  position: absolute; */
+  position: relative;
   width: 100px;
   z-index: 999999;
 }
@@ -461,7 +471,9 @@ img {
   background: #1e88e5;
   color: #fafafa;
 }
-
+#right-click-menu:focus {
+  outline: none;
+}
 .disabled {
   /* pointer-events:none;  */
   opacity: 0.5;
