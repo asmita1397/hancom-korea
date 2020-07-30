@@ -2,25 +2,25 @@
   <div>
     <div class="outercontext-div">
       <div class="wrapper-context">
-        <button class="wrapper1-context">
+        <button class="wrapper1-context" @click="cutControl">
           <i style="font-size:15px" class="fa">&#xf0c4;</i>
           <span class="iset-context">
             Cu<u>t</u>
           </span>
         </button>
-        <button class="wrapper1-context">
+        <button class="wrapper1-context" @click="copyControl">
           <i style="font-size:15px" class="fa">&#xf0c5;</i>
           <span class="iset-context">
             <u>C</u>opy
           </span>
         </button>
-        <button class="wrapper1-context">
+        <button class="wrapper1-context" @click="pastedControl" >
           <i style="font-size:15px;" class="fa">&#xf0ea;</i>
-          <span class="iset-context">
+          <span class="iset-context" :class="Object.keys(getCuttedControlList).length !== 0?'':'disabled'">
             <u>P</u>aste
           </span>
         </button>
-        <button class="wrapper1-context">
+        <button class="wrapper1-context" @click="deleteControl">
           <div></div>
           <span class="set-context">
             <u>D</u>elete
@@ -29,7 +29,7 @@
         <div>
           <hr />
         </div>
-        <button class="wrapper1-context">
+        <button class="wrapper1-context" @click="blinkControl">
           <i style="font-size:15px" class="fa">&#xf187;</i>
           <span class="iset-context">
             Prope<u>r</u>ties
@@ -200,19 +200,24 @@ export default class ControlContextMenu extends Vue {
   @Prop() userFormKey!: any;
   @Prop() controlKey: string;
 
- 
+  @Getter getPrevControlIndex!: any;
   @Getter getCuttedControlList!: any;
- 
+  @Getter getTreeData!: any;
 
+  @Mutation updatePrevControlIndex!: Function;
+  @Mutation updateControlIndex!: Function;
+  @Mutation activateControl!: Function;
   @Mutation cutSelectedControl!: Function;
   @Mutation cutControlList!: Function;
   @Mutation updateCuttedControlList!: Function;
   @Mutation updateContextMenuType!: Function;
-
+  @Mutation updateBlinkProperty!: Function;
+  @Mutation pasteControl!: Function
+  @Mutation emptySelectAllControls!: Function
  
-
-  subMenuClick(e: any) {
-    /* this.viewMenu = false; */
+cutControl(e: any) {
+    this.emptySelectAllControls()
+   /*  this.viewMenu = false; */
     this.updateContextMenuType("cut");
     this.updateCuttedControlList();
     this.cutControlList({
@@ -226,9 +231,20 @@ export default class ControlContextMenu extends Vue {
     });
     console.log("list", this.getCuttedControlList);
   }
-
+  pastedControl() {
+   /*  this.viewMenu = false; */
+    this.pasteControl({
+        userFormKey: this.userFormKey,
+        controlList: this.getCuttedControlList
+      });
+  }
+  blinkControl() {
+    this.updateBlinkProperty(true);
+   /*  this.viewMenu = false; */
+  }
   copyControl() {
-    /* this.viewMenu = false; */
+    this.emptySelectAllControls()
+   /*  this.viewMenu = false; */
     this.updateContextMenuType("copy");
     this.updateCuttedControlList();
     this.cutControlList({
@@ -239,7 +255,8 @@ export default class ControlContextMenu extends Vue {
   }
 
   deleteControl() {
-     this.cutControlList({
+    this.updateCuttedControlList();
+    this.cutControlList({
       controlKey: this.controlKey,
       control: this.control,
       userFormKey: this.userFormKey
@@ -250,8 +267,7 @@ export default class ControlContextMenu extends Vue {
     });
   }
 
- 
-}
+} 
 </script>
 
 <style scoped>
@@ -413,5 +429,9 @@ ul {
 }
 .third > a {
   padding-left: 10px;
+}
+.disabled {
+  /* pointer-events:none;  */
+  opacity: 0.5;
 }
 </style>

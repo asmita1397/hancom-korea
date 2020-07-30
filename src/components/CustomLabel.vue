@@ -31,20 +31,22 @@
       @keyup.enter="trigger"
     >{{control.caption}}</label>
 
-    <ul
+    <div
       id="right-click-menu"
       tabindex="-1"
       v-if="viewMenu"
       :style="{top:top, left:left}"
       v-on:blur="closeMenu"
     >
-      <!--  <ControlContextMenu/> -->
-      <li @click="cutControl">cut</li>
+       <ControlContextMenu   :control="control"
+              :controlKey="controlKey"
+              :userFormKey="userFormKey"/>
+     <!--  <li @click="cutControl">cut</li>
       <li @click="pastedControl" :class="Object.keys(getCuttedControlList).length !== 0?'':'disabled'">paste</li>
       <li @click="copyControl">copy</li>
       <li @click="deleteControl">delete</li>
-      <li @click="blinkControl">property</li>
-    </ul>
+      <li @click="blinkControl">property</li> -->
+    </div>
   </div>
 </template>
 
@@ -99,7 +101,7 @@ export default class CustomLabel extends Vue {
     this.viewMenu = false;
   }
 
-  cutControl(e: any) {
+ /*  cutControl(e: any) {
     this.emptySelectAllControls()
     this.viewMenu = false;
     this.updateContextMenuType("cut");
@@ -148,7 +150,7 @@ export default class CustomLabel extends Vue {
       userFormKey: this.userFormKey,
       controlList: this.getCuttedControlList
     });
-  }
+  } */
 
   customLabelClick() {
     this.updatePrevControlIndex(this.userFormKey);
